@@ -1,0 +1,37 @@
+version: '3'
+services:
+  backend:
+    container_name: ourflow
+    build:
+      context: ../.
+      dockerfile: Docker/django/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - "../ourflow:/usr/src/ourflow/"
+    depends_on:
+      - db
+  db:
+    container_name: pgsql
+    build:
+      context: ../.
+      dockerfile: Docker/db/pgsql-10/Dockerfile
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: ourflow_db
+  frontend:
+    tty: true
+    container_name: client
+    build:
+      context: ../.
+      dockerfile: Docker/client/Dockerfile
+    command: npm run serve
+    ports:
+      - "8080:8080"
+    volumes:
+      - "../ourflow:/usr/src/ourflow/"
+      - "../ourflow/client:/usr/src/ourflow/client/"
+      - "/usr/src/ourflow/client/node_modules/"
