@@ -11,6 +11,10 @@ module.exports = {
       .set('__STATIC__', 'static')
 
     config.devServer
+      .overlay({
+        warnings: true,
+        errors: true
+      })
       .host(process.env.HOST)
       .port(process.env.PORT)
       .hotOnly(true)

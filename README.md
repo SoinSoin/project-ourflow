@@ -25,6 +25,8 @@ _/Docker
 |   /db/pgsql -10 -> dans ce dossier nous retrouvons le dockerfile du build de l'image de pgsql avec un shell script qui s'execute dans l'image
 |   /django -> dans ce dossier nous avons un fichier.txt qui est un fichier de gestionnaire de paquet ainsi que le dockerfile pour l'image
 ```
+
+/!\ toutes les commandes utilisant docker-compose doivent se vaire dans le repertoire/dossier Docker/
 ## 3°) Avant de build
 
 ### a) rendez-vous dans le dossier app/client/ et chercher le fichier .env.development
@@ -35,7 +37,8 @@ API_BASE_URL = http://0.0.0.0:8000/ -> base url de votre api django
 BASE_URL = / -> pour le base des routes
 HOST = 0.0.0.0 -> le serveur par lequel docker lance vos app
 PORT = 8080
-USE_LINT = false -> pour avoir un code slim 
+USE_LINT = false -> pour avoir les erreurs et les warings afin d'avoir un code slim passer le à true si vous voulez
+VUE_APP_DEBUG=true -> pour le debug dans le terminal
 ```
 
 Une fois les modifications faites aller dans les .gitignore et decommenter la ligne suivante:
