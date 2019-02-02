@@ -11,7 +11,7 @@
 |
 |__ master -> init
 ```
-
+/!\ mettez vous directement sur la branche dev
 ## 2°) Architecture du projet
 
 ```
