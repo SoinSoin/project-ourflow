@@ -1,9 +1,21 @@
 # Projet vue-CLI-3, Postgre, Django Dockerizer
 
-## 1°) Architecture du projet
+## 1°) Les branches git
+
+``` 
+ __  dev -> pour le developement
+|
+|__ test -> faires les test + préprod
+|
+|__ prod -> production 
+|
+|__ master -> init
+```
+
+## 2°) Architecture du projet
 
 ```
-_/app
+_/ourflow
 |   /api -> c'est dans ce dossier que la communication entre l'application et la base données se feront
 |   /client -> c'est dans ce dossier que la page client (votre site) va être développé et compilé pour la production
 |   /global -> dans ce dossier nous avons les parametres global de notre application avec les routes
@@ -13,7 +25,7 @@ _/Docker
 |   /db/pgsql -10 -> dans ce dossier nous retrouvons le dockerfile du build de l'image de pgsql avec un shell script qui s'execute dans l'image
 |   /django -> dans ce dossier nous avons un fichier.txt qui est un fichier de gestionnaire de paquet ainsi que le dockerfile pour l'image
 ```
-## 2°) Avant de build
+## 3°) Avant de build
 
 ### a) rendez-vous dans le dossier app/client/ et chercher le fichier .env.development
 une fois le fichier ouvert vous devriez avoir ça: 
@@ -22,7 +34,17 @@ une fois le fichier ouvert vous devriez avoir ça:
 API_BASE_URL = http://0.0.0.0:8000/ -> base url de votre api django
 BASE_URL = / -> pour le base des routes
 HOST = 0.0.0.0 -> le serveur par lequel docker lance vos app
-PORT = 8080  
+PORT = 8080
+USE_LINT = false -> pour avoir un code slim 
+```
+
+Une fois les modifications faites aller dans les .gitignore et decommenter la ligne suivante:
+``` 
+### node/vue ###
+*.DS_Store
+node_modules/
+dist/
+# .env.development -> à décommenter une fois le projet clone
 ```
 /!\ si vous faites tourner docker dans une VM linux modifier la variable d'environnement API_BASE_URL par l'IP que docker vous donne par défaut
 
@@ -50,7 +72,17 @@ DATABASES = {
     }
 }
 ```
-## 3°) Le build
+
+### c) si vous avez déja lanceé un build utilisants les ports: 8080/8000/5432
+lancez les commandes suivantes:
+```
+- dos2unix db/pgsql-10/docker-entrypoint.sh -> encode le fichier docker-entrypoint.sh
+- docker rmi $(docker images -a) -> supprime toutes les images
+- docker rm $(docker ps -a -q) -> supprime les container
+```
+flemme de faire un "alias" des ports
+
+## 4°) Le build
 Aller dans le répertoire /Docker et ouvrez le shell
 lancez la commande suivante:
 ```
@@ -63,24 +95,28 @@ lancez les commandes suivantes:
 ```
 - dos2unix db/pgsql-10/docker-entrypoint.sh -> encode le fichier docker-entrypoint.sh
 - docker rmi $(docker images -a) -> supprime toutes les images
+- docker rm $(docker ps -a -q) -> supprime les container
+- docker-compose build --no-cache -> relacer le build avec cette commandes pour éviter que l'erreur perciste en cas de résolution
 ```
-puis relancez la commande pour build
 
-## 4°) Lancer les serveurs
+si l'erreur perciste venez vers moi.
+
+## 5°) Lancer les serveurs
 une fois le build des images docker terminé sans erreur faites:
 ``` 
 docker-compose up
 ``` 
 
-en cas d'erreur n'hésiter pas à relancer la commande si l'erreur perciste aller voir sur internet 
-## 5°) Finish
+en cas d'erreur n'hésiter pas à relancer la commande si l'erreur persiste venez vers moi ou aller sur internet. 
+
+## 6°) Finish
 une fois que tout est bien lancé sans erreur aller sur:
 - http://0.0.0.0:8080
 - http://0.0.0.0:8000 -> une erreur va apparaitre c'est normale
 
-## 6°) Learn 
+## 7°) Learn 
 Pour apprendre le fonctionnement de :
 
 - django : https://www.djangoproject.com/start/
-- vue: https://vuejs.org/
+- vue: https://vuejs.org/ && https://fr.vuejs.org/v2/guide/instance.html -> 2eme liens très important
 - docker: https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/

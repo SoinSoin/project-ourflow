@@ -69,14 +69,10 @@ local_settings.py
 db.sqlite3
 
 ### node/vue ###
-app/client/.DS_Store
-app/client/node_modules
-app/client/dist
-app/client/.env.development
-
-# local env files
-# ourflow/client/.env.local
-.env.*.local
+*.DS_Store
+node_modules/
+dist/
+# .env.development -> à décommenter une fois le projet clone
 
 # Log files
 npm-debug.log*
