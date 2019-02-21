@@ -29,15 +29,13 @@ _/Docker
 /!\ toutes les commandes utilisant docker-compose doivent se vaire dans le repertoire/dossier Docker/
 ## 3°) Avant de build
 
-### a) rendez-vous dans le dossier app/client/ et chercher le fichier .env.development
+### a) rendez-vous dans le dossier app/client/ et chercher le fichier .env.staging
 une fois le fichier ouvert vous devriez avoir ça: 
 ```
 # <--- config for dev server--->
-API_BASE_URL = http://0.0.0.0:8000/ -> base url de votre api django
-BASE_URL = / -> pour le base des routes
+VUE_APP_BASE_API = null -> base url de votre api django
 HOST = 0.0.0.0 -> le serveur par lequel docker lance vos app
 PORT = 8080
-USE_LINT = false -> pour avoir les erreurs et les warings afin d'avoir un code slim passer le à true si vous voulez
 VUE_APP_DEBUG=true -> pour le debug dans le terminal
 ```
 
@@ -47,7 +45,8 @@ Une fois les modifications faites aller dans les .gitignore et decommenter la li
 *.DS_Store
 node_modules/
 dist/
-# .env.development -> à décommenter une fois le projet clone
+.env.development
+# .env.staging -> à décommenter une fois le projet clone
 ```
 /!\ si vous faites tourner docker dans une VM linux modifier la variable d'environnement API_BASE_URL par l'IP que docker vous donne par défaut
 

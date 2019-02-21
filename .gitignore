@@ -72,7 +72,8 @@ db.sqlite3
 *.DS_Store
 node_modules/
 dist/
-# .env.development -> à décommenter une fois le projet clone
+.env.development
+# .env.staging -> à décommenter une fois le projet clone
 
 # Log files
 npm-debug.log*
