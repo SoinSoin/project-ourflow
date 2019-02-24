@@ -13,12 +13,11 @@ import Swiper from "swiper/dist/js/swiper.esm.bundle";
 export default {
   name: "Slider",
   props: {
-    targetIndex: Number,
+    indexToSlider: Number,
     slides: Array
   },
   data() {
     return {
-      isClick: false,
       changeSlide: null
     };
   },
@@ -26,15 +25,16 @@ export default {
     this.initSlide();
   },
   watch: {
-    targetIndex: function(thisIndex) {
-      if (thisIndex !== null) this.changeSlide.slideTo(thisIndex, 500);
+    indexToSlider(index) {
+      this.changeSlide.slideTo(index, 500);
     }
   },
+
   methods: {
     initSlide() {
       const self = this;
       const swiper = new Swiper(".swiper-container", {
-        initialSlide: this.targetIndex,
+        initialSlide: this.indexToSlider,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -42,21 +42,25 @@ export default {
         virtual: {
           slides: self.slides,
           renderExternal(data) {
-            if (this.realIndex !== 0) {
+            console.log(this.slides)
+            self.returnIndexSliderToSkeleton(this.realIndex);
+            self.changeSlide = this;
+            if (this.realIndex > 0) {
               self.$router.push({
                 name: "contents",
                 params: { page: self.slides[this.realIndex] }
               });
             } else {
               self.$router.push({
-                name: "home"
+                name: 'home'
               });
             }
-            console.log("pass event slide");
-            self.changeSlide = this;
           }
         }
       });
+    },
+    returnIndexSliderToSkeleton(index, event) {
+      this.$emit("indexFromSlide", index);
     }
   }
 };

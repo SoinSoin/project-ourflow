@@ -1,8 +1,9 @@
 // for development return to see .env.development file
+console.log(process.env)
 module.exports = {
   publicPath: process.env.PUBLIC_PATH, // if use docker without VM in fact if you use a unix core
   outputDir: '../dist/',
-  lintOnSave: JSON.parse(process.env.USE_LINT),
+  lintOnSave: JSON.parse(process.env.VUE_APP_USE_LINT),
   chainWebpack: config => {
     config.optimization
       .splitChunks(false)

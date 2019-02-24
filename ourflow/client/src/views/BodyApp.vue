@@ -3,10 +3,14 @@
     <header class="level is-mobile">
       <div class="level-left">ourflow</div>
       <div class="level-right">
-        <Nav :itemsNav="dataNamePages" @clicked="onClickGetIndex"/>
+        <Nav :itemsNav="dataNamePages" @returnNavToBody="passIndexBodyToSkeleton"/>
       </div>
     </header>
-    <Skeleton :indexPage="indexOfPage" v-if="$route.name!=='notfound'"/>
+    <Skeleton
+      @returnSkeltonToBody="indexFromSlide"
+      :indexToSkeleton="indexFromNav"
+      v-if="$route.name!=='notfound'"
+    />
     <NotFound v-else/>
     <Footer/>
   </div>
@@ -27,11 +31,16 @@ export default {
   data() {
     return {
       dataNamePages: [],
-      indexOfPage: null
+      indexFromNav: null
     };
   },
   beforeMount() {
     this.fetchNamePage();
+  },
+  watch: {
+    indexFromNav(index) {
+      this.indexFromNav = index;
+    }
   },
   methods: {
     fetchNamePage() {
@@ -42,8 +51,11 @@ export default {
       ];
       this.dataNamePages = objData;
     },
-    onClickGetIndex(value) {
-      this.indexOfPage = value;
+    passIndexBodyToSkeleton(navIndex) {
+      this.indexFromNav = navIndex;
+    },
+    indexFromSlide(slideIndex) {
+      this.indexFromNav = slideIndex;
     }
   }
 };

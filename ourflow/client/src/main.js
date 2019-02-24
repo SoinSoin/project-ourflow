@@ -4,6 +4,7 @@ import router from './router'
 import './registerServiceWorker'
 import 'swiper/dist/css/swiper.css'
 import './assets/sass/bulma/params.scss'
+import './assets/sass/style.scss'
 import {
   library
 } from '@fortawesome/fontawesome-svg-core'

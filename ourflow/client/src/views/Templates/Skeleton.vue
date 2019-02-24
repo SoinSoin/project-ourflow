@@ -1,7 +1,7 @@
 <template>
   <div class="container is-fullhd">
     <section id="main-slider">
-      <Slider :targetIndex="getIndexSlider" :slides="sendArraySlider">
+      <Slider :indexToSlider="passIndexSliderToSkeleton" :slides="sendArraySlider" @indexFromSlide="passSlideToSkeleton">
         <Slide v-for="(content, index) in dataMainSlider" :key="index">
           <p>{{content.name}}</p>
         </Slide>
@@ -23,18 +23,24 @@ export default {
   data() {
     return {
       dataMainSlider: [],
-      getIndexSlider: Number,
-      sendArraySlider: []
+      sendArraySlider: [],
+      passIndexSliderToSkeleton: Number,
     };
   },
   props: {
-    indexPage: Number
+    indexToSkeleton: Number
   },
   beforeMount() {
     this.getDataPagesSlider();
   },
-  beforeUpdate() {
-    this.getIndexSlider = this.indexPage;
+
+  watch: {
+    indexToSkeleton(index) {
+      this.passIndexSliderToSkeleton = index;
+    },
+    passIndexSliderToSkeleton(index) {
+      this.returnTobodyIndex(index)
+    }
   },
   methods: {
     getDataPagesSlider() {
@@ -50,10 +56,16 @@ export default {
       this.getIndexSlideInit();
     },
     getIndexSlideInit() {
-      this.getIndexSlider = this.sendArraySlider.indexOf(
+      this.passIndexSliderToSkeleton = this.sendArraySlider.indexOf(
         this.$route.params.page
       );
-      if (this.$route.params.page === undefined) this.getIndexSlider = 0;
+      if (this.$route.params.page === undefined) this.passIndexSliderToSkeleton = 0;
+    },
+    passSlideToSkeleton(index) {
+      this.passIndexSliderToSkeleton = index;
+    },
+    returnTobodyIndex(slideIndex, event) {
+      this.$emit("returnSkeltonToBody", slideIndex);
     }
   }
 };

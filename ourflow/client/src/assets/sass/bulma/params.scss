@@ -1,5 +1,8 @@
-@import  '~bulma/bulma';
+@import '~bulma/bulma';
 //  ce fichier sert seulement à modifier les variables sass bulma : https://bulma.io/documentation/customize/variables/
 
-// juste un exemple
-$device:1350px;
+$device:1350px; // juste un exemple
+$yellow: #E2D637;
+// $grey-light:#262524; -> a changer erreur
+$grey-darker:#262524;
+$red: #FF5B28;

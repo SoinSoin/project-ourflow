@@ -1,7 +1,12 @@
 <template>
-  <nav class=navbar>
+  <nav class="navbar">
     <div class="navbar-brand">
-      <div class="navbar-item" v-for="(item,  index) in itemsNav" :key="index" @click="getIndex(index)">
+      <div
+        class="navbar-item"
+        v-for="(item,  index) in itemsNav"
+        :key="index"
+        @click="passIndexNavToBody(index)"
+      >
         <router-link v-if="item.linkto==='home'" class="item" :to="{name:'home'}">{{item.name}}</router-link>
         <router-link
           v-else
@@ -21,8 +26,8 @@ export default {
   },
   // beforeCreate() {},
   methods: {
-    getIndex(index, event) {
-      this.$emit("clicked", index);
+    passIndexNavToBody(indexNavSlide, event) {
+      this.$emit("returnNavToBody", indexNavSlide);
     }
   }
 };
@@ -32,7 +37,7 @@ export default {
 nav {
   position: fixed;
   background: red;
-  padding:1em;
+  padding: 1em;
   z-index: 30;
   a {
     font-weight: bold;
