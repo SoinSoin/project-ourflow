@@ -1,3 +1,9 @@
 from django.contrib import admin
-# from .models import * as DbTb
-# admin.site.register(DbTb)
+from .models import * 
+
+admin.site.register(Page)
+admin.site.register(Item)
+admin.site.register()
+admin.site.register(Paragraph)
+admin.site.register(PagePara)
+admin.site.register(ParaItem)
