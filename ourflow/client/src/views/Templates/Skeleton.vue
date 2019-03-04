@@ -1,30 +1,37 @@
 <template>
   <div class="container is-fullhd">
     <section id="main-slider">
-      <Slider :indexToSlider="passIndexSliderToSkeleton" :slides="sendArraySlider" @indexFromSlide="passSlideToSkeleton">
+      <Slider
+        :indexToSlider="passIndexSliderToSkeleton"
+        :slides="sendArraySlider"
+        @indexFromSlide="passSlideToSkeleton"
+      >
         <Slide v-for="(content, index) in dataMainSlider" :key="index">
           <p>{{content.name}}</p>
         </Slide>
       </Slider>
+      <Card :valueTitle="'TITLE'" :valueText="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia enim ut massa pharetra, non mattis dolor feugiat.'"/>
     </section>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Card from "@/components/Cards/Card.vue";
 import Slider from "@/components/Sliders/Slider.vue";
 import Slide from "@/components/Sliders/Slide.vue";
 export default {
   name: "Skeleton",
   components: {
     Slider,
-    Slide
+    Slide,
+    Card
   },
   data() {
     return {
       dataMainSlider: [],
       sendArraySlider: [],
-      passIndexSliderToSkeleton: Number,
+      passIndexSliderToSkeleton: Number
     };
   },
   props: {
@@ -39,7 +46,7 @@ export default {
       this.passIndexSliderToSkeleton = index;
     },
     passIndexSliderToSkeleton(index) {
-      this.returnTobodyIndex(index)
+      this.returnTobodyIndex(index);
     }
   },
   methods: {
@@ -59,7 +66,8 @@ export default {
       this.passIndexSliderToSkeleton = this.sendArraySlider.indexOf(
         this.$route.params.page
       );
-      if (this.$route.params.page === undefined) this.passIndexSliderToSkeleton = 0;
+      if (this.$route.params.page === undefined)
+        this.passIndexSliderToSkeleton = 0;
     },
     passSlideToSkeleton(index) {
       this.passIndexSliderToSkeleton = index;
