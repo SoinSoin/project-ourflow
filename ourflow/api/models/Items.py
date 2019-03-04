@@ -10,3 +10,5 @@ class Item(models.Model):
     
     class Meta:
         ordering = ('order_item',)
+
+print(Item)
