@@ -11,6 +11,7 @@
         </Slide>
       </Slider>
       <Card :valueTitle="'TITLE'" :valueText="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia enim ut massa pharetra, non mattis dolor feugiat.'"/>
+      <Btn :valueBtn="'DÉCOUVRIR'"/>
     </section>
     <router-view/>
   </div>
@@ -19,13 +20,15 @@
 <script>
 import Card from "@/components/Cards/Card.vue";
 import Slider from "@/components/Sliders/Slider.vue";
+import Btn from "@/components/Btns/Btn.vue";
 import Slide from "@/components/Sliders/Slide.vue";
 export default {
   name: "Skeleton",
   components: {
     Slider,
     Slide,
-    Card
+    Card,
+    Btn
   },
   data() {
     return {
