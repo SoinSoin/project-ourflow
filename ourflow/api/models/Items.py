@@ -1,4 +1,6 @@
 from django.db import models
+from api.assets import file_cleanup
+from django.db.models.signals import post_delete
 
 class Item(models.Model):
     title_item = models.CharField(max_length=30, db_index=True, null=True, blank=True,)
@@ -11,4 +13,5 @@ class Item(models.Model):
     class Meta:
         ordering = ('order_item',)
 
-print(Item)
+post_delete.connect(file_cleanup, sender=Item, dispatch_uid="Item.media_item.file_cleanup")
+
