@@ -1,7 +1,13 @@
-.is-fullcentered{
-    display:flex;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Jura:700');
+
+// font-family: "Montserrat", sans-serif;
+// font-family: 'Jura', sans-serif;
+
+.is-fullcentered {
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
-// créer ces classes css global 
+// créer ces classes css global
