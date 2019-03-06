@@ -1,6 +1,5 @@
 from django.db import models
-from api.assets import file_cleanup
-from django.db.models.signals import post_delete
+from api.assets import file_cleanup_delete, file_cleanup_upload
 
 class Item(models.Model):
     title_item = models.CharField(max_length=30, db_index=True, null=True, blank=True,)
@@ -13,5 +12,11 @@ class Item(models.Model):
     class Meta:
         ordering = ('order_item',)
 
-post_delete.connect(file_cleanup, sender=Item, dispatch_uid="Item.media_item.file_cleanup")
 
+# @receiver(pre_save, sender=Item)
+# @receiver(post_delete, sender=Item)
+
+models.signals.pre_save.connect(file_cleanup_upload, sender=Item, dispatch_uid="my_unique")
+models.signals.post_delete.connect(file_cleanup_delete, sender=Item, dispatch_uid="my_unique_identifier")
+# def file_root_seach_delete(signal, sender, instance, *args, **kwargs):
+    # print( "_________________________________________")
