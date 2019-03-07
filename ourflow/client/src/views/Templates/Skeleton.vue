@@ -11,6 +11,7 @@
         </Slide>
       </Slider>
       <Btn :valueBtn="'DÉCOUVRIR'"/>
+      <Cercle :dataCercle="forCercle"/>
     </section>
     <router-view/>
   </div>
@@ -19,16 +20,24 @@
 <script>
 import Slider from "@/components/Sliders/Slider.vue";
 import Btn from "@/components/Btns/Btn.vue";
+import Cercle from "@/components/Cercles/Cercle.vue";
 import Slide from "@/components/Sliders/Slide.vue";
+
 export default {
   name: "Skeleton",
   components: {
     Slider,
     Slide,
-    Btn
+    Btn,
+    Cercle
   },
   data() {
     return {
+      forCercle: {
+        toText: String,
+        toTitle: String,
+        toImage : String,
+      },
       dataMainSlider: [],
       sendArraySlider: [],
       passIndexSliderToSkeleton: Number
@@ -39,6 +48,9 @@ export default {
   },
   beforeMount() {
     this.getDataPagesSlider();
+    this.forCercle.toTitle= 'PLOP'
+    this.forCercle.toText= 'cool ça marche'
+    this.forCercle.toImage = 'img/copains.png'
   },
 
   watch: {
