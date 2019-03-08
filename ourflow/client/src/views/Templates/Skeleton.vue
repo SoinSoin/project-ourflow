@@ -10,8 +10,9 @@
           <p>{{content.name}}</p>
         </Slide>
       </Slider>
-      <Btn :valueBtn="'DÉCOUVRIR'"/>
-      <Cercle :dataCercle="forCercle"/>
+      <Cercle :dataCercle="forCercle">
+        <Btn :valueBtn="'DÉCOUVRIR'"/>
+      </Cercle>
     </section>
     <router-view/>
   </div>
@@ -36,7 +37,7 @@ export default {
       forCercle: {
         toText: String,
         toTitle: String,
-        toImage : String,
+        toImage: String
       },
       dataMainSlider: [],
       sendArraySlider: [],
@@ -48,9 +49,9 @@ export default {
   },
   beforeMount() {
     this.getDataPagesSlider();
-    this.forCercle.toTitle= 'PLOP'
-    this.forCercle.toText= 'cool ça marche'
-    this.forCercle.toImage = 'img/copains.png'
+    this.forCercle.toTitle = "PLOP";
+    this.forCercle.toText = "cool ça marche";
+    this.forCercle.toImage = "img/copains.png";
   },
 
   watch: {
@@ -90,4 +91,6 @@ export default {
   }
 };
 </script>
+
+
 
