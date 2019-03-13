@@ -11,6 +11,7 @@
         </Slide>
       </Slider>
       <Btn :valueBtn="'DÉCOUVRIR'"/>
+      <Rsociaux/>
     </section>
     <router-view/>
   </div>
@@ -20,12 +21,14 @@
 import Slider from "@/components/Sliders/Slider.vue";
 import Btn from "@/components/Btns/Btn.vue";
 import Slide from "@/components/Sliders/Slide.vue";
+import Rsociaux from "@/components/RSociaux/Rsociaux.vue";
 export default {
   name: "Skeleton",
   components: {
     Slider,
     Slide,
-    Btn
+    Btn,
+    Rsociaux
   },
   data() {
     return {

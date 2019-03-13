@@ -14,8 +14,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
+  faFacebook,
+  faTwitter,
+  faInstagram
+} from '@fortawesome/free-brands-svg-icons'
+
+import {
   FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome'
+
+// Add the specific imported icons
+library.add(faFacebook)
+library.add(faTwitter)
+library.add(faInstagram)
 
 Vue.component('fa-icon', FontAwesomeIcon)
 library.add(fas)
