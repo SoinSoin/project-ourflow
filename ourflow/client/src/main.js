@@ -14,22 +14,25 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
-  faFacebook,
-  faTwitter,
-  faInstagram
+  fab
 } from '@fortawesome/free-brands-svg-icons'
+
+import {
+  far
+} from '@fortawesome/free-regular-svg-icons'
 
 import {
   FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome'
 
-// Add the specific imported icons
-library.add(faFacebook)
-library.add(faTwitter)
-library.add(faInstagram)
-
+// juste en sessous système de clé valeur  faisant ârtie partie de la librairie vue j'assigne à mon objet FontAwesomeIcon le nom d'un composant fa-icon
 Vue.component('fa-icon', FontAwesomeIcon)
+
+// ici jajoute mes differents style d'icons à ma librairy fontawesome-svg-core qui va se charger d'interpreter chacune des librairie suivante
 library.add(fas)
+library.add(fab)
+library.add(far)
+// va charger toute les librairies (un peu lourd) si je me souviens bien  tu ajouter juste le nom de l'icon à chaque fois  une fois toute les icones choisis il faudra les ajouter à la librairie au cas par ca
 
 Vue.config.productionTip = false
 
