@@ -6,5 +6,8 @@ class Page(models.Model):
     link_to = models.CharField(max_length=30, null=True, blank=True,)
     order_page = models.PositiveIntegerField(null=True, blank=True, db_index=True,)
 
+    def __str__(self):
+        return self.title_page
+    
     class Meta:
         ordering = ('order_page',)

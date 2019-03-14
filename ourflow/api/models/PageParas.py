@@ -1,6 +1,13 @@
 from django.db import models
-from api.models import Page
-from api.models import Paragraph
+from .Pages import Page
+from .Paragraphs import Paragraph
+
 class PagePara(models.Model):
-        page = models.ForeignKey(Page, on_delete=models.CASCADE)
-        paragraph = models.ForeignKey(Paragraph, on_delete=models.CASCADE,)
+        page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name= 'page_para_page' )
+        paragraph = models.ForeignKey(Paragraph, on_delete=models.CASCADE,related_name='page_para_para')
+
+        def __str__(self):
+            return "{} : {} ".format(self.page, self.paragraph)
+        class Meta:
+            ordering = ('page',)
+        

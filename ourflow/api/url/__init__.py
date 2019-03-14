@@ -1,0 +1,1 @@
+from .PagesUrl import all_pages

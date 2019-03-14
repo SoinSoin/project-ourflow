@@ -8,6 +8,9 @@ class Item(models.Model):
     link_item = models.CharField(max_length=200, db_index=True, null=True, blank=True,)
     alt_item =  models.CharField(max_length=500, db_index=True, null=True, blank=True,)
     order_item = models.PositiveIntegerField(null=True, blank=True, db_index=True,)
+
+    def __str__(self):
+        return self.title_item
     
     class Meta:
         ordering = ('order_item',)

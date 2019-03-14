@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'api',
 ]
 
@@ -73,6 +73,8 @@ STATICFILES_DIRS = [
     DIST_ROOT,
     UPLOADS_ROOT,
 ]
+if DEBUG == False:
+    REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',)}
 
 WSGI_APPLICATION = 'global.wsgi.application'
 
