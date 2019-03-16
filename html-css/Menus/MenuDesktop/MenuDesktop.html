@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
+    <link rel="stylesheet" href="../global.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Jura:400,700|Montserrat:100,200,300,400,500,600,700,900" rel="stylesheet">
+</head>
+
+
+<body>
+
+<!-- Mon Composant -->  
+    
+    <style>
+        
+        .top-left-logo{
+            width: 100px;
+            margin: 20px 0 0 80px;
+        }
+
+        .menu-contrainer{
+            display: flex;
+            position: fixed;
+            z-index: 999;
+        }
+        
+        .nav-background{
+            position: fixed; 
+            top: 0;
+            right: -1px;
+        }
+        
+        .menu-item{
+            margin:0 20px 0;
+            padding: 3px 3px;
+            font-family: 'Montserrat';
+            Font-weight: 500;
+            position: relative;
+        }
+        
+        .menu-item a{
+            color: #000;
+        }
+        
+        .menu-item:last-child{
+            margin-right: 80px;
+        }
+        
+        .menu-item.router-link-exact-active a{
+            color:#E2D637;
+        }
+
+        .menu-item a::before{
+            content:'';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            right: -4px;
+            left: auto;
+            bottom: 0px;
+            background-color:#E2D637;
+            border-radius: 2px;
+        }
+        
+        .menu-item a:hover::before{
+            width: calc(100% + 8px);
+            left: -4px;
+            right: auto;
+        }
+        
+        .menu-item a::before{
+            transition-duration: .4s;
+            transition-timing-function: cubic-bezier(.34,.68,.2,.97);
+        }
+        
+        .nav-background img{
+            width: 620px;
+            height: 106px;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+        }
+        
+    
+        
+    </style>
+    
+    <div class="container is-fluid is-marginless">
+        
+        <!--    Début du html à intégrer    -->
+        
+        <header class="level is-mobile">
+            <div class="level-left">
+                <img class="top-left-logo" src="../img/logo.svg"/>
+            </div>
+            <nav class="level-right">
+                <div class="nav-background">
+                    <img src="../img/background_menu.svg" alt="Background du menu"/>
+                </div>
+                <ul class="menu-contrainer">
+                    <li class="menu-item router-link-exact-active"><a href="#">Accueil</a></li>
+                    <li class="menu-item" ><a href="#">Prestations</a></li>
+                    <li class="menu-item" ><a href="#">Portfolio</a></li>
+                    <li class="menu-item" ><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!--    Fin du html à intégrer    -->
+        
+    </div>    
+    
+</body>
+
+
+
+
+</html>
