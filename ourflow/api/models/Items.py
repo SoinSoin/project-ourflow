@@ -18,4 +18,3 @@ class Item(models.Model):
 
 models.signals.pre_save.connect(file_cleanup_upload, sender=Item, dispatch_uid="my_unique")
 models.signals.post_delete.connect(file_cleanup_delete, sender=Item, dispatch_uid="my_unique_identifier")
-
