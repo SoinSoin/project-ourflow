@@ -1,12 +1,10 @@
-from api.views import PageView
+from api.views import PageView,PageFilterNameView
 from django.urls import path, re_path, include
-from django.conf.urls import url
-from rest_framework.routers import DefaultRouter
-from rest_framework.viewsets import ModelViewSet
 
 def all_pages():
     urlpatterns = [
-        url(r'^', PageView.as_view()),
+        re_path(r'^(?P<page>.+)/$', PageFilterNameView.as_view()),
+        re_path(r'^', PageView.as_view()),
     ]
     return urlpatterns
 

@@ -7,7 +7,7 @@ class PageSerializer(serializers.ModelSerializer):
     paragraph = serializers.SerializerMethodField()
     class Meta:
         model = Page
-        fields = ('title_page', 'link_to','paragraph', 'id',)
+        fields = ('title_page', 'link_to','paragraph',)
 
     def get_paragraph(self, obj):
         context=self.context['request']

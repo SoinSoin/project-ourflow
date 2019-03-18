@@ -1,1 +1,1 @@
-from .PagesView import PageView
+from .PagesView import PageView, PageFilterNameView

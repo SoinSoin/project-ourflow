@@ -7,16 +7,16 @@ class TypeSerializer(serializers.ModelSerializer):
         fields = ('name_type',)
 
 class ParagraphSerializer(serializers.ModelSerializer):
-    # type = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
     item = serializers.SerializerMethodField()
     class Meta:
         model = Paragraph
-        fields = ('title_para','item',)
+        fields = ('title_para','item','type',)
 
     def get_type(self, obj):
-        qset = Type.objects.filter(id=obj)
-        json_raw = TypeSerializer(qset).data['name_type']
-        return json_raw
+        qset = Type.objects.filter(id=obj.type_id)
+        json_raw = [TypeSerializer(m).data['name_type'] for m in qset]
+        return json_raw[0]
 
     def get_item(self, obj):
         context = self.context['request']
