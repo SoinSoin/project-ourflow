@@ -1,8 +1,9 @@
-from api.views import PageView,PageFilterNameView
+from api.views import PageView,PageFilterNameView, PageFilterTypeNameView
 from django.urls import path, re_path, include
 
 def all_pages():
     urlpatterns = [
+        re_path(r'^(?P<page>.+)/(?P<type>.+)/$', PageFilterTypeNameView.as_view()),
         re_path(r'^(?P<page>.+)/$', PageFilterNameView.as_view()),
         re_path(r'^', PageView.as_view()),
     ]

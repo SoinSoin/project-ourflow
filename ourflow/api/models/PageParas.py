@@ -7,7 +7,7 @@ class PagePara(models.Model):
         paragraph = models.ForeignKey(Paragraph, on_delete=models.CASCADE,related_name='page_para_para')
 
         def __str__(self):
-            return "{} : {} ".format(self.page, self.paragraph)
+            return "para name: ( {} ) -> page name: ( {} ) ".format(self.paragraph, self.page)
         class Meta:
-            ordering = ('page',)
+            ordering = ('paragraph',)
         

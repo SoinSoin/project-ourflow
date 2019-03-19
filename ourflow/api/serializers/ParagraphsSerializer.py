@@ -4,14 +4,14 @@ from .ParaItemsSerializer import ParaItemSerializer
 class TypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Type
-        fields = ('name_type',)
+        fields = ('name_type','id',)
 
 class ParagraphSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
     item = serializers.SerializerMethodField()
     class Meta:
         model = Paragraph
-        fields = ('title_para','item','type',)
+        fields = ('title_para','item','type','id',)
 
     def get_type(self, obj):
         qset = Type.objects.filter(id=obj.type_id)
@@ -19,7 +19,7 @@ class ParagraphSerializer(serializers.ModelSerializer):
         return json_raw[0]
 
     def get_item(self, obj):
-        context = self.context['request']
+        request = self.context['request']
         qset = ParaItem.objects.filter(paragraph_id=obj.id)
-        json_raw =[ParaItemSerializer(m, context={'request':context}).data["item"] for m in qset]
+        json_raw =[ParaItemSerializer(m, context={'request':request}).data["item"] for m in qset]
         return json_raw

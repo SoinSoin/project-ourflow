@@ -8,10 +8,8 @@ class PageParaSerializer(serializers.ModelSerializer):
         fields = ('paragraph',)
         depth=1
     def get_paragraph(self, obj, *args, **kwargs):
-        context = self.context['request']
-        types = Type.objects.filter(name_type=context.query_params['type'])
-        # print(dir(types))
-        print(types)
+        request = self.context['request']
         qset = Paragraph.objects.filter(id=obj.paragraph_id)
-        json_raw =[ ParagraphSerializer(m,  context={'request':context}).data for m in qset]
+        json_raw = [ParagraphSerializer(m,  context={'request':request}).data for m in qset]
+        del json_raw[0]["id"]
         return json_raw[0]

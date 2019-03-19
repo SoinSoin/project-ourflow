@@ -10,7 +10,12 @@ class PageSerializer(serializers.ModelSerializer):
         fields = ('title_page', 'link_to','paragraph',)
 
     def get_paragraph(self, obj):
-        context=self.context['request']
-        qset = PagePara.objects.filter(page_id=obj.id)
-        json_raw = [PageParaSerializer(m, context={'request': context}).data["paragraph"] for m in qset]
+        request=self.context['request']
+        if hasattr(request,'id_para'):
+            qset=[]
+            for id_para in request.id_para:
+                qset += PagePara.objects.filter(paragraph_id=id_para, page_id=obj.id)
+        else: 
+            qset = PagePara.objects.filter(page_id=obj.id)
+        json_raw = [PageParaSerializer(m, context={'request': request}).data["paragraph"] for m in qset]
         return json_raw
