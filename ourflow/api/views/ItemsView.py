@@ -19,6 +19,9 @@ class FilterNameItem(generics.ListAPIView):
         return qset
 
     def get_filter_item(self, qitem):
-        queyset = Item.objects.filter(title_item=qitem)
-        id_item_filter= [GetIdItem(map_query,context={'request':self.request}).data['id'] for map_query in queyset]
+        try:
+            queyset = Item.objects.filter(title_item=qitem)
+            id_item_filter= [GetIdItem(map_query,context={'request':self.request}).data['id'] for map_query in queyset]
+        except:
+            id_item_filter = [None]
         return id_item_filter
