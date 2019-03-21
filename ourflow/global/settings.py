@@ -14,7 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DIST_DIR = os.path.join(BASE_DIR, 'dist')
+DIST_ROOT = os.path.join(BASE_DIR, 'dist')
+UPLOADS_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -27,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'global.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ DIST_DIR,],
+        'DIRS': [ DIST_ROOT,],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,8 +70,11 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-    DIST_DIR
+    DIST_ROOT,
+    UPLOADS_ROOT,
 ]
+if DEBUG == False:
+    REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',)}
 
 WSGI_APPLICATION = 'global.wsgi.application'
 
@@ -125,3 +130,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+UPLOADS_URL = '/uploads/'
