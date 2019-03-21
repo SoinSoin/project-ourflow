@@ -12,6 +12,6 @@ class ParaItemSerializer(serializers.ModelSerializer):
 
     def get_item(self, obj):
         context = self.context['request']
-        children = Item.objects.filter(id=obj.item_id)
-        json_raw = ItemSerializer(children,  many=True, context={'request':context}).data
+        qset = Item.objects.filter(id=obj.item_id)
+        json_raw = [ItemSerializer(map_qset, context={'request':context}).data for map_qset in qset]
         return json_raw[0]

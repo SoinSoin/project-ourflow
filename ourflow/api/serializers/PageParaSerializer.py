@@ -11,5 +11,4 @@ class PageParaSerializer(serializers.ModelSerializer):
         request = self.context['request']
         qset = Paragraph.objects.filter(id=obj.paragraph_id)
         json_raw = [ParagraphSerializer(m,  context={'request':request}).data for m in qset]
-        del json_raw[0]["id"]
         return json_raw[0]
