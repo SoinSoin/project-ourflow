@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
+    <link rel="stylesheet" href="../global.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Jura:400,700|Montserrat:100,200,300,400,500,600,700,900" rel="stylesheet">
+</head>
+
+
+<body>
+
+<!-- Mon Composant -->  
+    
+    <style>
+        
+        .menu-burger-container{
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-360deg);
+            transition-duration: .2s;
+            z-index: 999;
+            background: #fff;
+        }
+        
+        .menu-burger-frite-boisson{
+            width: 30px;
+            height: 4px;
+            background: #21201F;
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .menu-burger-frite-boisson::before{
+            content:'';
+            position: absolute;
+            width: 30px;
+            height: 4px;
+            left: 0;
+            transform: translateY(-8px);
+            background-color:#21201F;
+            border-radius: 2px;
+            transition-duration: .2s;
+        }
+        
+        .menu-burger-frite-boisson::after{
+            content:'';
+            position: absolute;
+            width: 30px;
+            height: 4px;
+            left: 0;
+            transform: translateY(8px);
+            background-color:#21201F;
+            border-radius: 2px;
+            transition-duration: .2s;
+        }
+        
+        .menu-active .menu-burger-frite-boisson::before{
+            transform: rotate(45deg)
+        }
+        
+        .menu-active .menu-burger-frite-boisson::after{
+            transform: rotate(-45deg)
+        }
+        
+        .menu-active{
+            transform: rotate(360deg);
+            transition-duration: .3s;
+        }
+        
+        .menu-active .menu-burger-frite-boisson{
+            background: #fff;
+            transition-duration: .3s
+            
+        }
+        
+        .nav-mobile{
+            position: fixed;
+            top: 0;
+            left: 100vw;
+            width: 100vw;
+            height: 100vh;
+            background: #E2D637;
+            z-index: 998;
+            transition-duration: .5s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition-timing-function: cubic-bezier(.4,.84,.59,.99);
+        }
+        
+        .nav-mobile-active{
+            left: 0;
+            
+        }
+        
+        .menu-item-mobile{
+            margin: 50px 0;
+            font-size: 1.5em;
+        }
+        
+        .menu-item-mobile a{
+            color: #fff;
+            font-weight: 700;
+            font-family: 'Montserrat';
+            text-transform: uppercase;
+        }
+        
+        .router-link-exact-active a{
+            color:#21201F;
+        }
+        
+        
+    </style>
+    
+    <div class="container is-fluid is-marginless">
+        
+        <!--    Début du html à intégrer    -->
+        
+        <header class="level is-mobile">
+            <div id="menu-burger-click" class="menu-burger-container">
+                <div class="menu-burger-frite-boisson"></div>
+            </div>   
+            <nav id="nav-mobile" class="nav-mobile">
+                <ul>
+                    <li class="menu-item-mobile router-link-exact-active"><a href="#">Accueil</a></li>
+                    <li class="menu-item-mobile" ><a href="#">Prestations</a></li>
+                    <li class="menu-item-mobile" ><a href="#">Portfolio</a></li>
+                    <li class="menu-item-mobile" ><a href="#">Contact</a></li>
+                    <li><img src="#"/><!-- intégrer coimposant réseaux sociaux blanc ici --></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!--    Fin du html à intégrer    -->
+        
+    </div>    
+    
+    <script>
+        
+        document.getElementById("menu-burger-click").addEventListener("click", function( event ) {
+            this.classList.toggle('menu-active');
+            document.getElementById("nav-mobile").classList.toggle('nav-mobile-active');
+        }, false);
+        
+            
+    </script>
+    
+</body>
+
+
+
+
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css"/>
+    <link rel="stylesheet" href="../global.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Jura:400,700|Montserrat:100,200,300,400,500,600,700,900" rel="stylesheet">
+    
+</head>
+
+
+<body>
+
+<!-- Mon Composant -->  
+    
+    <style>
+       
+        @media (min-width: 641px){
+            .background-top {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+                background-image: url('../img/vague_fond.png'), url('../img/background_desktop.png');
+                background-size: 140%,cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                overflow: hidden;
+            }
+        }
+        
+        
+        @media (max-width: 640px){
+            .background-top {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+                background-image: url('../img/vague_fond.png'), url('../img/background_mobile.png');
+                background-size: 140%,cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+        
+    </style>
+    
+    <div class="container is-fluid is-marginless">
+        <div class="background-top">
+        
+        </div>
+    </div>    
+    
+</body>
+
+
+
+
+</html>
