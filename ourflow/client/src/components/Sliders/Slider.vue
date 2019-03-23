@@ -22,6 +22,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.indexToSlider);
     this.initSlide();
   },
   watch: {
@@ -42,17 +43,16 @@ export default {
         virtual: {
           slides: self.slides,
           renderExternal(data) {
-            console.log(this.slides)
             self.returnIndexSliderToSkeleton(this.realIndex);
             self.changeSlide = this;
             if (this.realIndex > 0) {
               self.$router.push({
                 name: "contents",
-                params: { page: self.slides[this.realIndex] }
+                params: { page: self.slides[this.realIndex].toLowerCase() }
               });
             } else {
               self.$router.push({
-                name: 'home'
+                name: "home"
               });
             }
           }
