@@ -2,7 +2,7 @@
   <nav class="navbar bg-nav">
     <div class="navbar-brand size-nav">
       <div
-        class="navbar-item menu-item"
+        class="navbar-item menu-item is-capitalized"
         v-for="(item, index) in itemsNav"
         :key="index"
         @click="passIndexNavToBody(index)"
@@ -23,7 +23,6 @@ export default {
   props: {
     itemsNav: Array
   },
-  // beforeCreate() {},
   methods: {
     passIndexNavToBody(indexNavSlide, event) {
       this.$emit("returnNavToBody", indexNavSlide);
@@ -33,14 +32,14 @@ export default {
 </script>
 
 <style lang="scss">
-nav {
+.bg-nav {
   position: fixed !important;
   z-index: 30 !important;
   right: -1px;
   top: 0;
 }
 
-nav::before {
+.bg-nav::before {
   content: "";
   position: absolute;
   background-image: url("/img/background_menu.svg");
@@ -48,16 +47,14 @@ nav::before {
   background-repeat: no-repeat;
   background-size: cover;
   width: 125%;
-  height: 165%;
+  height: 175%;
   right: 0;
 }
 .menu-item a {
   color: #000;
-  text-transform: capitalize;
-  margin:0 5px 0 5px;
+  margin: 0 5px 0 5px;
 }
-
-.router-link-exact-active{
+.router-link-exact-active {
   color: #e2d637 !important;
 }
 
@@ -83,5 +80,4 @@ nav::before {
   transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.34, 0.68, 0.2, 0.97);
 }
-
 </style>
