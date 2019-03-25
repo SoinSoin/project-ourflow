@@ -10,7 +10,6 @@
             <Nav
               v-if="!isResponsive"
               :itemsNav="dataNamePages"
-              @returnNavToBody="passIndexBodyToSkeleton"
             />
             <BurgerNav v-else @BurgerIsActive="ContainerIsActive"/>
           </transition>
@@ -20,12 +19,9 @@
         <ContainerNav
           v-if="containerIsActive"
           :itemsNav="dataNamePages"
-          @returnNavMobileToBody="passIndexMobileBodyToSkeleton"
         />
       </transition>
       <Skeleton
-        @returnSkeltonToBody="indexFromSlide"
-        :indexToSkeleton="indexFromNav"
         :dataToSkeleton="dataNamePages"
         v-if="$route.name!=='notfound'"
       />
@@ -58,9 +54,8 @@ export default {
   data() {
     return {
       dataNamePages: [],
-      indexFromNav: null,
+      containerIsActive: false,
       isResponsive: Boolean,
-      containerIsActive: false
     };
   },
   beforeMount() {
@@ -69,18 +64,6 @@ export default {
   mounted() {
     this.TargetResponsive(window.innerWidth);
     this.EventResize();
-  },
-  watch: {
-    indexFromNav(index) {
-      console.log(index)
-      this.indexFromNav = index;
-    }
-  },
-  watch: {
-    containerIsActive(bool) {
-      if (bool) document.documentElement.style.overflow = "hidden";
-      else document.documentElement.style = "";
-    }
   },
   methods: {
     EventResize() {
@@ -102,16 +85,6 @@ export default {
       getApi.getAllPage().then(res => (this.dataNamePages = res.data));
     },
 
-    passIndexBodyToSkeleton(navIndex) {
-      this.indexFromNav = navIndex;
-    },
-    passIndexMobileBodyToSkeleton(navIndex) {
-      this.indexFromNav = navIndex;
-    },
-    indexFromSlide(slideIndex) {
-      console.log(slideIndex)
-      this.indexFromNav = slideIndex;
-    }
   }
 };
 </script>
@@ -182,4 +155,3 @@ export default {
   overflow: hidden;
 }
 </style>
-

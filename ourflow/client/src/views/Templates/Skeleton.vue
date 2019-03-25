@@ -2,10 +2,7 @@
   <div class="container is-fullhd">
     <section id="main-slider">
       <Slider
-        v-if="dataToSkeleton.length" 
-        :indexToSlider="passIndexSliderToSkeleton"
-        :slides="sendArraySlider"
-        @indexFromSlide="passSlideToSkeleton"
+        v-if="sendArraySlider.length" 
       >
         <Slide v-for="(content, index) in dataToSkeleton" :key="index">
           <p>{{content.title_page}}</p>
@@ -31,52 +28,33 @@ export default {
   data() {
     return {
       sendArraySlider: [],
-      passIndexSliderToSkeleton: Number
     };
   },
   props: {
-    indexToSkeleton: Number,
     dataToSkeleton: Array
   },
 
 beforeMount(){
   this.getDataPagesSlider()
 },
-
-  watch: {
-    indexToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    passIndexSliderToSkeleton(index) {
-      this.returnTobodyIndex(index);
-    },
-  },
   methods: {
     getDataPagesSlider() {
-      console.log(this.dataToSkeleton)
       this.dataToSkeleton.map(pageLink => {
         this.sendArraySlider.push(pageLink.title_page.toLowerCase());
       });
+      this.$store.commit('updateFacticeSlide',this.sendArraySlider)
       this.getIndexSlideInit();
     },
 
     getIndexSlideInit() {
-      this.passIndexSliderToSkeleton = this.sendArraySlider.indexOf(
+      var targetIndexRoute = this.sendArraySlider.indexOf(
         this.$route.params.page
       );
       // rend l'index de home comme dans l'url home ="" on peut pas savoir.
       if (this.$route.params.page === undefined)
-        this.passIndexSliderToSkeleton = 0;
-      
+        targetIndexRoute = 0;
+      this.$store.commit('updateIindexNavSlide', targetIndexRoute)
     },
-
-    passSlideToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-
-    returnTobodyIndex(slideIndex, event) {
-      this.$emit("returnSkeltonToBody", slideIndex);
-    }
   }
 };
 </script>

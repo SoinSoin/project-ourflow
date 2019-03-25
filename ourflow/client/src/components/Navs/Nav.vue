@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     passIndexNavToBody(indexNavSlide, event) {
-      this.$emit("returnNavToBody", indexNavSlide);
+      this.$store.commit('updateIindexNavSlide', indexNavSlide)
     }
   }
 };

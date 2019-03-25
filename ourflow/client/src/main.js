@@ -17,6 +17,8 @@ import {
   FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome'
 
+import store from './store'
+
 Vue.component('fa-icon', FontAwesomeIcon)
 library.add(fas)
 
@@ -24,5 +26,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
