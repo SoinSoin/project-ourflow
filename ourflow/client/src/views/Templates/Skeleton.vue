@@ -1,11 +1,15 @@
 <template>
-  <div class="container is-fullhd">
+  <div class="container is-fluid is-marginless">
     <section id="main-slider">
-      <Slider
-        v-if="sendArraySlider.length" 
-      >
-        <Slide v-for="(content, index) in dataToSkeleton" :key="index">
-          <p>{{content.title_page}}</p>
+      <Slider v-if="sendArraySlider.length" :slides="sendArraySlider">
+        <Slide
+          v-for="(content, index) in dataToSkeleton"
+          :key="index"
+          :style="{left: `${sizeSlide}px`}"
+        >
+          <div style="height:100%;width:100%;background:blue" class="is-fullcentered">
+            <div style="height:75vw;width:75vw;">{{content.title_page}}</div>
+          </div>
         </Slide>
       </Slider>
       <Btn :valueBtn="'DÉCOUVRIR'"/>
@@ -28,21 +32,36 @@ export default {
   data() {
     return {
       sendArraySlider: [],
+      sizeSlide: Number
     };
   },
   props: {
     dataToSkeleton: Array
   },
 
-beforeMount(){
-  this.getDataPagesSlider()
-},
+  computed: {
+    getStoreSize() {
+      return this.$store.getters.getSize;
+    }
+  },
+  watch: {
+    getStoreSize(size) {
+      return size;
+    }
+  },
+
+  beforeMount() {
+    this.getDataPagesSlider();
+  },
+  mounted() {
+    this.sizeSlide = this.$store.getters.getSize;
+    console.log(this.sizeSlide);
+  },
   methods: {
     getDataPagesSlider() {
       this.dataToSkeleton.map(pageLink => {
         this.sendArraySlider.push(pageLink.title_page.toLowerCase());
       });
-      this.$store.commit('updateFacticeSlide',this.sendArraySlider)
       this.getIndexSlideInit();
     },
 
@@ -51,10 +70,9 @@ beforeMount(){
         this.$route.params.page
       );
       // rend l'index de home comme dans l'url home ="" on peut pas savoir.
-      if (this.$route.params.page === undefined)
-        targetIndexRoute = 0;
-      this.$store.commit('updateIindexNavSlide', targetIndexRoute)
-    },
+      if (this.$route.params.page === undefined) targetIndexRoute = 0;
+      this.$store.commit("updateIindexNavSlide", targetIndexRoute);
+    }
   }
 };
 </script>

@@ -1,30 +1,21 @@
 <template>
   <div id="body-app">
     <div v-if="dataNamePages.length" id="main-body" class="container is-fluid is-marginless">
-      <header class="level is-mobile is-marginless">
+      <header class="level is-mobile is-marginless level-header">
         <div class="level-left">
           <div class="level-item">ourflow</div>
         </div>
         <div class="level-right">
           <transition name="slide">
-            <Nav
-              v-if="!isResponsive"
-              :itemsNav="dataNamePages"
-            />
+            <Nav v-if="!isResponsive" :itemsNav="dataNamePages"/>
             <BurgerNav v-else @BurgerIsActive="ContainerIsActive"/>
           </transition>
         </div>
       </header>
       <transition name="slide">
-        <ContainerNav
-          v-if="containerIsActive"
-          :itemsNav="dataNamePages"
-        />
+        <ContainerNav v-if="containerIsActive" :itemsNav="dataNamePages"/>
       </transition>
-      <Skeleton
-        :dataToSkeleton="dataNamePages"
-        v-if="$route.name!=='notfound'"
-      />
+      <Skeleton :dataToSkeleton="dataNamePages" v-if="$route.name!=='notfound'"/>
       <NotFound v-else/>
       <Footer style="height:1200px"/>
     </div>
@@ -55,8 +46,14 @@ export default {
     return {
       dataNamePages: [],
       containerIsActive: false,
-      isResponsive: Boolean,
+      isResponsive: Boolean
     };
+  },
+  watch: {
+    containerIsActive(bool) {
+      if (bool) document.documentElement.style.overflow = "hidden";
+      else document.documentElement.style = "";
+    }
   },
   beforeMount() {
     this.fetchNamePage();
@@ -83,8 +80,7 @@ export default {
     },
     fetchNamePage() {
       getApi.getAllPage().then(res => (this.dataNamePages = res.data));
-    },
-
+    }
   }
 };
 </script>
@@ -151,7 +147,9 @@ export default {
     transform: translateX(0);
   }
 }
-.overflow-hidden {
-  overflow: hidden;
+.level-header {
+  position: absolute;
+  z-index: 30;
+  top: 0;
 }
 </style>

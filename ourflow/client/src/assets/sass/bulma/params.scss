@@ -1,9 +1,9 @@
 @charset "utf-8";
-@import '~bulma/bulma.sass';
 //  ce fichier sert seulement à modifier les variables sass bulma : https://bulma.io/documentation/customize/variables/
-
 $yellow: #E2D637 ;
 $grey-light:#E1E1E1 ;
-$grey-darker:#262524 ;
+$grey-dark:#262524 ;
 $red: #FF5B28 ;
+
+@import '~bulma/bulma.sass';
 
