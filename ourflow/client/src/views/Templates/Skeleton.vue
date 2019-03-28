@@ -1,18 +1,14 @@
 <template>
-  <div class="container is-fluid is-marginless">
+  <div id="main-skeleton">
     <section id="main-slider">
-      <Slider v-if="sendArraySlider.length" :slides="sendArraySlider">
-        <Slide
-          v-for="(content, index) in dataToSkeleton"
-          :key="index"
-          :style="{left: `${sizeSlide}px`}"
-        >
-          <div style="height:100%;width:100%;background:blue" class="is-fullcentered">
-            <div style="height:75vw;width:75vw;">{{content.title_page}}</div>
-          </div>
-        </Slide>
-      </Slider>
-      <Btn :valueBtn="'DÉCOUVRIR'"/>
+      <div class="container is-fluid is-marginless">
+        <Slider v-if="sendArraySlider.length" :slides="sendArraySlider">
+          <Slide v-for="(content, index) in dataToSkeleton" :key="index">
+            <div>{{content.title_page}}</div>
+          </Slide>
+        </Slider>
+        <Btn :valueBtn="'DÉCOUVRIR'"/>
+      </div>
     </section>
     <router-view/>
   </div>
@@ -32,7 +28,8 @@ export default {
   data() {
     return {
       sendArraySlider: [],
-      sizeSlide: Number
+      sizeSlide: Number,
+      targetMaxSizeScreen: Number
     };
   },
   props: {
@@ -54,8 +51,8 @@ export default {
     this.getDataPagesSlider();
   },
   mounted() {
+    this.targetMaxSizeScreen = window.outerHeight;
     this.sizeSlide = this.$store.getters.getSize;
-    console.log(this.sizeSlide);
   },
   methods: {
     getDataPagesSlider() {
@@ -75,5 +72,4 @@ export default {
     }
   }
 };
-</script>
-
+</script> 

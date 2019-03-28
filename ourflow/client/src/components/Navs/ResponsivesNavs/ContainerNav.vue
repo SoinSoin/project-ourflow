@@ -39,6 +39,7 @@ export default {
 <style lang="scss">
 .nav-mobile {
   position: fixed;
+  overflow: auto;
   z-index: 20;
   width: 100vw;
   height: 100vh;

@@ -2,10 +2,10 @@
   <div id="body-app">
     <div v-if="dataNamePages.length" id="main-body" class="container is-fluid is-marginless">
       <header class="level is-mobile is-marginless level-header">
-        <div class="level-left">
+        <div class="level-left level-header-left">
           <div class="level-item">ourflow</div>
         </div>
-        <div class="level-right">
+        <div class="level-right level-header-right">
           <transition name="slide">
             <Nav v-if="!isResponsive" :itemsNav="dataNamePages"/>
             <BurgerNav v-else @BurgerIsActive="ContainerIsActive"/>
@@ -17,7 +17,7 @@
       </transition>
       <Skeleton :dataToSkeleton="dataNamePages" v-if="$route.name!=='notfound'"/>
       <NotFound v-else/>
-      <Footer style="height:1200px"/>
+      <Footer/>
     </div>
     <div v-else id="main-body" class="container is-fluid is-marginless">
       <p>await ...</p>
@@ -69,7 +69,7 @@ export default {
       };
     },
     TargetResponsive(width) {
-      if (width <= 1023) this.isResponsive = true;
+      if (width < 1024) this.isResponsive = true;
       else {
         this.isResponsive = false;
         this.containerIsActive = false;
@@ -149,7 +149,12 @@ export default {
 }
 .level-header {
   position: absolute;
-  z-index: 30;
   top: 0;
+  .level-header-right {
+    z-index: 30;
+  }
+  .level-header-left {
+    z-index: 10;
+  }
 }
 </style>

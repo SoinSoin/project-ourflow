@@ -34,7 +34,6 @@ export default {
 <style lang="scss">
 .bg-nav {
   position: fixed !important;
-  z-index: 30 !important;
   right: -1px;
   top: 0;
 }

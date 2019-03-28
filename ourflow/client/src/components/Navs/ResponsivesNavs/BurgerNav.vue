@@ -45,7 +45,6 @@ export default {
   align-items: center;
   transform: rotate(-360deg);
   transition-duration: 0.2s;
-  z-index: 30;
   background: #fff;
 }
 
