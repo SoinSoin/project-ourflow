@@ -6,22 +6,22 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     indexNavSlide: Number,
-    sizeSlider: Number,
+    fetchData: Array,
   },
   getters: {
     getIndex(state) {
       return state.indexNavSlide
     },
-    getSize(state){
-      return state.sizeSlider
+    getData(state){
+      return state.fetchData
     }
   },
   mutations: {
     updateIindexNavSlide(state, index) {
       state.indexNavSlide = index
     },
-    updateSizeSlider(state, size) {
-      state.sizeSlider = size
+    updatefetchData(state, data) {
+      state.fetchData = data
     },
   },
   actions: {

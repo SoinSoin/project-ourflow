@@ -5,7 +5,7 @@
         class="navbar-item menu-item is-capitalized"
         v-for="(item, index) in itemsNav"
         :key="index"
-        @click="passIndexNavToBody(index)"
+        @click="passIndex(index)"
       >
         <router-link v-if="item.order_page===1" :to="{name:'home'}">{{item.title_page}}</router-link>
         <router-link
@@ -24,7 +24,7 @@ export default {
     itemsNav: Array
   },
   methods: {
-    passIndexNavToBody(indexNavSlide, event) {
+    passIndex(indexNavSlide, event) {
       this.$store.commit('updateIindexNavSlide', indexNavSlide)
     }
   }

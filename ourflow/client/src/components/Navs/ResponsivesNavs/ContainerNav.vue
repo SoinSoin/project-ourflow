@@ -6,7 +6,7 @@
           class="menu-item-mobile has-text-white is-capitalized"
           v-for="(item, index) in itemsNav"
           :key="index"
-          @click="passIndexNavToBody(index)"
+          @click="passIndex(index)"
         >
           <router-link
             class="title"
@@ -30,8 +30,8 @@ export default {
     itemsNav: Array
   },
   methods: {
-    passIndexNavToBody(indexNavSlide) {
-       this.$store.commit('updateIindexNavSlide', indexNavSlide)
+    passIndex(indexNavSlide) {
+      this.$store.commit("updateIindexNavSlide", indexNavSlide);
     }
   }
 };

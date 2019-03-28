@@ -3,7 +3,7 @@
     <div v-if="dataNamePages.length" id="main-body" class="container is-fluid is-marginless">
       <header class="level is-mobile is-marginless level-header">
         <div class="level-left level-header-left">
-          <div class="level-item">ourflow</div>
+          <BrandNav/>
         </div>
         <div class="level-right level-header-right">
           <transition name="slide">
@@ -29,6 +29,7 @@ import Skeleton from "./Templates/Skeleton.vue";
 import NotFound from "./Templates/NotFound.vue";
 import Nav from "@/components/Navs/Nav.vue";
 import BurgerNav from "@/components/Navs/ResponsivesNavs/BurgerNav.vue";
+import BrandNav from "@/components/Navs/BrandsNavs.vue"
 import ContainerNav from "@/components/Navs/ResponsivesNavs/ContainerNav.vue";
 import Footer from "@/components/Footers/Footer.vue";
 import getApi from "@/services/api.js";
@@ -40,7 +41,8 @@ export default {
     Footer,
     BurgerNav,
     ContainerNav,
-    Nav
+    Nav,
+    BrandNav
   },
   data() {
     return {
@@ -79,7 +81,10 @@ export default {
       this.containerIsActive = ContainerIsActive;
     },
     fetchNamePage() {
-      getApi.getAllPage().then(res => (this.dataNamePages = res.data));
+      getApi.getAllPage().then((res )=>{ 
+        this.dataNamePages = res.data
+        this.$store.commit('updatefetchData', res.data)
+      }) 
     }
   }
 };

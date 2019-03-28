@@ -1,9 +1,9 @@
 <template>
   <section id="main-pages">
     <Home v-if="$route.name==='home'"/>
-    <Prestation v-if="$route.params.page==='prestation'"/>
-    <Contact v-if="$route.params.page==='contact'"/>
-    <Portfolio v-if="$route.params.page==='portfolio'"/>
+    <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase()"/>
+    <Portfolio v-if="$route.params.page===$store.getters.getData[2].title_page.toLowerCase()"/>
+    <Contact v-if="$route.params.page===$store.getters.getData[3].title_page.toLowerCase()"/>
   </section>
 </template>
 <script>
