@@ -1,26 +1,29 @@
 <template>
-  <svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
-    <g>
-      <circle cx="250" cy="250" r="200"></circle>
-      <foreignObject x="10%" y="10%" width="80%" height="80%">
+  <div class="container-circle container">
+    <div class="circle is-fullcentered">
+      <div class="content-circle">
         <div
-          class="container-circle-half"
-          id="background-circle"
-          :style="`background-image: url(${dataCercle.toImage})`"
-        ></div>
+          class="container-circle-half background-circle"
+          :style="{'background-image':`url(${dataCercle.item[0].media_item})`}"
+          :alt="`${dataCercle.item[0].alt_item}`"
+        >
+          <h1 class="title is-1 has-text-white to-bottom-text">{{dataCercle.title_para}}</h1>
+        </div>
         <div class="container-circle-half">
-          <div class="columns is-mobile is-multiline">
-            <div class="column is-12">
-              <p>{{dataCercle.toTitle}}</p>
+          <div class="padding-bottom-circle">
+            <div class="content-text-circle">
+              <div class="content is-medium has-text-centered has-text-grey-dark">
+                <p class="is-size-7-mobile">{{dataCercle.item[0].descritpion_item}}</p>
+              </div>
             </div>
-            <div class="column is-12">
-              <slot></slot>
+            <div class="content-btn-circle">
+              <slot/>
             </div>
           </div>
         </div>
-      </foreignObject>
-    </g>
-  </svg>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,24 +36,91 @@ export default {
 </script>
 
 <style lang="scss">
-svg {
-  max-width: 640px;
-  max-height: 640px;
+.circle {
+  width: 100%;
+  height: 100%;
 }
-circle {
-  fill: white;
-  -webkit-filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.4));
-  filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.4));
-}
-foreignObject {
+.circle:after {
+  content: "";
+  display: block;
+  width: 45%;
+  padding-bottom: 45%;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   border-radius: 50%;
 }
-.container-circle-half {
-  min-width: 100%;
-  min-height: 50%;
+.content-circle {
+  position: absolute;
+  height: 100%;
+  width: 45%;
+  border-radius: 50%;
+  overflow: hidden;
+  .container-circle-half {
+    width: 100%;
+    height: 50%;
+    position: relative;
+  }
 }
-#background-circle {
-  background-repeat: no-repeat;
+.background-circle {
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  // filter: grayscale(80%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.padding-bottom-circle {
+  padding: 1.8em !important;
+  height: 60%;
+  .content-btn-circle {
+    padding: 0.8em;
+    height: 30%;
+  }
+  .content-text-circle {
+    padding: 0.8em;
+    height: 70%;
+    overflow: auto;
+  }
+}
+.to-bottom-text {
+  line-height: 0.6 !important;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .circle:after {
+    width: 65%;
+    padding-bottom: 65%;
+  }
+  .content-circle {
+    width: 65%;
+  }
+  .padding-bottom-circle {
+    padding: 1.2em !important;
+    .content-btn-circle {
+      padding: 0.6em;
+    }
+    .content-text-circle {
+      padding: 0.6em;
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .circle:after {
+    width: 80%;
+    padding-bottom: 80%;
+  }
+  .content-circle {
+    width: 80%;
+  }
+  .padding-bottom-circle {
+    padding: 0.6em !important;
+    .content-btn-circle {
+      padding: 0.3em;
+    }
+    .content-text-circle {
+      padding: 0.3em;
+    }
+  }
 }
 </style>

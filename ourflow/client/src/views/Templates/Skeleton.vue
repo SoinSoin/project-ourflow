@@ -1,21 +1,17 @@
 <template>
-  <div class="container is-fullhd">
-    <section id="main-slider">
-      <Slider
-        :indexToSlider="passIndexSliderToSkeleton"
-        :slides="sendArraySlider"
-        @indexFromSlide="passSlideToSkeleton"
-      >
-        <Slide v-for="(content, index) in dataMainSlider" :key="index">
-          <p>{{content.name}}</p>
+  <div id="main-skeleton">
+    <section id="main-slider" class="hero is-fullheight">
+      <Slider class="hero-body" v-if="sendArraySlider.length" :slides="sendArraySlider">
+        <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
+          <Cercle :dataCercle="content">
+            <Btn :valueBtn="'voir'" :hasType="content.type.toLowerCase()"/>
+          </Cercle>
         </Slide>
       </Slider>
-      <Cercle :dataCercle="forCercle">
-        <Btn :valueBtn="'DÉCOUVRIR'"/>
-      </Cercle>
     </section>
     <router-view/>
   </div>
+  <!-- <Btn :valueBtn="'DÉCOUVRIR'"/> -->
 </template>
 
 <script>
@@ -34,63 +30,63 @@ export default {
   },
   data() {
     return {
-      forCercle: {
-        toText: String,
-        toTitle: String,
-        toImage: String
-      },
-      dataMainSlider: [],
       sendArraySlider: [],
-      passIndexSliderToSkeleton: Number
+      sizeSlide: Number,
+      targetSize: {
+        width: Number,
+        height: Number
+      }
     };
   },
   props: {
-    indexToSkeleton: Number
-  },
-  beforeMount() {
-    this.getDataPagesSlider();
-    this.forCercle.toTitle = "PLOP";
-    this.forCercle.toText = "cool ça marche";
-    this.forCercle.toImage = "img/copains.png";
+    dataToSkeleton: Array
   },
 
-  watch: {
-    indexToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    passIndexSliderToSkeleton(index) {
-      this.returnTobodyIndex(index);
+  computed: {
+    getStoreSize() {
+      return this.$store.getters.getSize;
     }
+  },
+  watch: {
+    getStoreSize(size) {
+      return size;
+    }
+  },
+
+  beforeMount() {
+    this.getDataPagesSlider();
+  },
+  mounted() {
+    console.log(this.$store.getters.getDataSlide);
+    console.log(this.$store.getters.getData);
+    this.targetSize.height = window.outerHeight;
+    this.targetSize.width = window.outerWidth;
   },
   methods: {
     getDataPagesSlider() {
-      var objData = [
-        { name: "Accueil", linkto: "home" },
-        { name: "Prestation", linkto: "prestation" },
-        { name: "Contact", linkto: "contact" }
-      ];
-      this.dataMainSlider = objData;
-      objData.map(pageLink => {
-        this.sendArraySlider.push(pageLink.linkto);
+      this.dataToSkeleton.map(pageLink => {
+        this.sendArraySlider.push(pageLink.title_page.toLowerCase());
       });
       this.getIndexSlideInit();
     },
+
     getIndexSlideInit() {
-      this.passIndexSliderToSkeleton = this.sendArraySlider.indexOf(
+      var targetIndexRoute = this.sendArraySlider.indexOf(
         this.$route.params.page
       );
-      if (this.$route.params.page === undefined)
-        this.passIndexSliderToSkeleton = 0;
-    },
-    passSlideToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    returnTobodyIndex(slideIndex, event) {
-      this.$emit("returnSkeltonToBody", slideIndex);
+      // rend l'index de home comme dans l'url home ="" on peut pas savoir.
+      if (this.$route.params.page === undefined) targetIndexRoute = 0;
+      this.$store.commit("updateIindexNavSlide", targetIndexRoute);
     }
   }
 };
 </script>
-
+<style lang="scss" >
+.hero {
+  .swiper-container {
+    margin: 0 0;
+  }
+}
+</style>
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-slide">
+  <div class="swiper-slide no-left">
     <slot></slot>
   </div>
 </template>
@@ -11,4 +11,8 @@ export default {
   }
 };
 </script>
-
+<style>
+.no-left{
+  left:0 !important
+}
+</style>
