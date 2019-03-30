@@ -71,6 +71,18 @@ export default {
 #main-slider {
   position: sticky;
   top: 0;
+  background-image: url("/img/bg-slide/vague_fond.png"),
+    url("/img/bg-slide/background_desktop.png");
+  background-size: 140%, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 769px) {
+  #main-slider {
+    background-image: url("/img/bg-slide/vague_fond.png"),
+      url("/img/bg-slide/background_tablette.png");
+      background-size: 150%, cover;
+  }
 }
 </style>
 

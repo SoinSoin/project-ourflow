@@ -105,7 +105,8 @@ export default {
     }
   }
 }
-@media screen and (max-width: 767px) {
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
   .circle:after {
     width: 80%;
     padding-bottom: 80%;
@@ -123,7 +124,8 @@ export default {
     }
   }
 }
-@media screen and (max-width: 767px) and (orientation: landscape) {
+
+@media screen and (max-width: 767px) and (orientation: landscape)   {
   .circle:after {
     width: 40%;
     padding-bottom: 40%;
@@ -141,7 +143,9 @@ export default {
     }
   }
 }
-@media screen and (min-aspect-ratio: 19/9) {
+
+
+@media screen and (min-aspect-ratio: 18/9) {
   .circle:after {
     width: 40%;
     padding-bottom: 40%;
