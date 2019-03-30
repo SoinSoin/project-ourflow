@@ -4,7 +4,7 @@
       <div class="container">
         <div
           class="menu-item-mobile has-text-white is-capitalized"
-          v-for="(item, index) in itemsNav"
+          v-for="(item, index) in $store.getters.getData"
           :key="index"
           @click="passIndex(index)"
         >
@@ -26,9 +26,6 @@
 <script>
 export default {
   name: "ContainerNav",
-  props: {
-    itemsNav: Array
-  },
   methods: {
     passIndex(indexNavSlide) {
       this.$store.commit("updateIindexNavSlide", indexNavSlide);

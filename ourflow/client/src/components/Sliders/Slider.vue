@@ -51,11 +51,17 @@ export default {
   computed: {
     getStoreIndex() {
       return this.$store.getters.getIndex;
+    },
+    getStoreSize() {
+      return this.$store.getters.getSize;
     }
   },
   watch: {
     getStoreIndex(index) {
       this.changeSlide.slideTo(index, 500);
+    },
+    getStoreSize(size) {
+      this.size = size;
     }
   },
 
@@ -68,11 +74,6 @@ export default {
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
-        },
-        on: {
-          resize() {
-            self.size = this.size;
-          }
         },
         virtual: {
           slides: self.slides,
@@ -130,7 +131,7 @@ export default {
   position: absolute;
   height: auto;
   z-index: 5;
-  top: 80vh;
+  top: 85%;
   left: 0;
   width: 100%;
   padding: 0 30%;

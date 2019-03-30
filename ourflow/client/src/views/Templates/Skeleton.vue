@@ -11,7 +11,6 @@
     </section>
     <router-view/>
   </div>
-  <!-- <Btn :valueBtn="'DÉCOUVRIR'"/> -->
 </template>
 
 <script>
@@ -31,40 +30,22 @@ export default {
   data() {
     return {
       sendArraySlider: [],
-      sizeSlide: Number,
-      targetSize: {
-        width: Number,
-        height: Number
-      }
+      sizeSlide: Number
     };
   },
-  props: {
-    dataToSkeleton: Array
-  },
-
   computed: {
-    getStoreSize() {
-      return this.$store.getters.getSize;
+    getFetchData() {
+      return this.$store.getters.getData;
     }
   },
   watch: {
-    getStoreSize(size) {
-      return size;
+    getFetchData() {
+      this.getDataPagesSlider();
     }
-  },
-
-  beforeMount() {
-    this.getDataPagesSlider();
-  },
-  mounted() {
-    console.log(this.$store.getters.getDataSlide);
-    console.log(this.$store.getters.getData);
-    this.targetSize.height = window.outerHeight;
-    this.targetSize.width = window.outerWidth;
   },
   methods: {
     getDataPagesSlider() {
-      this.dataToSkeleton.map(pageLink => {
+      this.$store.getters.getData.map(pageLink => {
         this.sendArraySlider.push(pageLink.title_page.toLowerCase());
       });
       this.getIndexSlideInit();
@@ -86,6 +67,10 @@ export default {
   .swiper-container {
     margin: 0 0;
   }
+}
+#main-slider {
+  position: sticky;
+  top: 0;
 }
 </style>
 

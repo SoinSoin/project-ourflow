@@ -123,4 +123,40 @@ export default {
     }
   }
 }
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .circle:after {
+    width: 40%;
+    padding-bottom: 40%;
+  }
+  .content-circle {
+    width: 40%;
+  }
+  .padding-bottom-circle {
+    padding: 1em !important;
+    .content-btn-circle {
+      padding: 0.3em;
+    }
+    .content-text-circle {
+      padding: 0.3em;
+    }
+  }
+}
+@media screen and (min-aspect-ratio: 19/9) {
+  .circle:after {
+    width: 40%;
+    padding-bottom: 40%;
+  }
+  .content-circle {
+    width: 40%;
+  }
+  .padding-bottom-circle {
+    padding: 1em !important;
+    .content-btn-circle {
+      padding: 0.3em;
+    }
+    .content-text-circle {
+      padding: 0.3em;
+    }
+  }
+}
 </style>

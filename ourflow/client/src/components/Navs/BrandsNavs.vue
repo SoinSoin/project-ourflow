@@ -1,7 +1,12 @@
 <template>
   <div id="nav-brand">
     <router-link :to="{name:'home'}">
-      <figure v-for="(data, index) in fetchData" :key="index" @click="passIndex(0)" class="image is-48x96">
+      <figure
+        v-for="(data, index) in fetchData"
+        :key="index"
+        @click="passIndex(0)"
+        class="image is-48x96"
+      >
         <img :src="data.media_item" :alt="data.alt_item">
       </figure>
     </router-link>
@@ -27,14 +32,16 @@ export default {
         });
       });
     },
-    passIndex(index){
-      this.$store.commit('updateIindexNavSlide',index)
+    passIndex(index) {
+      this.$store.commit("updateIindexNavSlide", index);
     }
   }
 };
 </script>
 <style lang="scss">
 #nav-brand {
+  position: fixed;
+  top: 0;
   margin: 1vh;
 }
 .is-48x96 {

@@ -3,7 +3,7 @@
     <div class="navbar-brand size-nav">
       <div
         class="navbar-item menu-item is-capitalized"
-        v-for="(item, index) in itemsNav"
+        v-for="(item, index) in $store.getters.getData"
         :key="index"
         @click="passIndex(index)"
       >
@@ -20,9 +20,6 @@
 <script>
 export default {
   name: "Nav",
-  props: {
-    itemsNav: Array
-  },
   methods: {
     passIndex(indexNavSlide, event) {
       this.$store.commit('updateIindexNavSlide', indexNavSlide)

@@ -1,21 +1,25 @@
 <template>
   <div id="body-app">
-    <div v-if="dataNamePages.length" id="main-body" class="container is-fluid is-marginless">
+    <div
+      v-if="$store.getters.getData.length"
+      id="main-body"
+      class="container is-fluid is-marginless"
+    >
       <header class="level is-mobile is-marginless level-header">
         <div class="level-left level-header-left">
           <BrandNav/>
         </div>
         <div class="level-right level-header-right">
           <transition name="slide">
-            <Nav v-if="!isResponsive" :itemsNav="dataNamePages"/>
-            <BurgerNav v-else @BurgerIsActive="ContainerIsActive"/>
+            <BurgerNav v-if="$store.getters.getSize<1024" @BurgerIsActive="ContainerIsActive"/>
+            <Nav v-else/>
           </transition>
         </div>
       </header>
       <transition name="slide">
-        <ContainerNav v-if="containerIsActive" :itemsNav="dataNamePages"/>
+        <ContainerNav v-if="containerIsActive"/>
       </transition>
-      <Skeleton :dataToSkeleton="dataNamePages" v-if="$route.name!=='notfound'"/>
+      <Skeleton v-if="$route.name!=='notfound'"/>
       <NotFound v-else/>
       <Footer/>
     </div>
@@ -29,7 +33,7 @@ import Skeleton from "./Templates/Skeleton.vue";
 import NotFound from "./Templates/NotFound.vue";
 import Nav from "@/components/Navs/Nav.vue";
 import BurgerNav from "@/components/Navs/ResponsivesNavs/BurgerNav.vue";
-import BrandNav from "@/components/Navs/BrandsNavs.vue"
+import BrandNav from "@/components/Navs/BrandsNavs.vue";
 import ContainerNav from "@/components/Navs/ResponsivesNavs/ContainerNav.vue";
 import Footer from "@/components/Footers/Footer.vue";
 import getApi from "@/services/api.js";
@@ -46,45 +50,48 @@ export default {
   },
   data() {
     return {
-      dataNamePages: [],
       containerIsActive: false,
-      isResponsive: Boolean
+      isResponsive: Boolean,
+      targetSize: Number
     };
+  },
+  computed: {
+    sizeChange() {
+      return this.$store.getters.getSize;
+    }
   },
   watch: {
     containerIsActive(bool) {
       if (bool) document.documentElement.style.overflow = "hidden";
       else document.documentElement.style = "";
+    },
+    sizeChange(size) {
+      this.TargetResponsive(size);
     }
   },
   beforeMount() {
-    this.fetchNamePage();
+    this.fetchingData();
   },
   mounted() {
-    this.TargetResponsive(window.innerWidth);
+    this.$store.commit("updateSizeScreen", window.innerWidth);
     this.EventResize();
   },
   methods: {
     EventResize() {
       window.onresize = () => {
-        this.TargetResponsive(window.innerWidth);
+        this.$store.commit("updateSizeScreen", window.innerWidth);
       };
     },
     TargetResponsive(width) {
-      if (width < 1024) this.isResponsive = true;
-      else {
-        this.isResponsive = false;
-        this.containerIsActive = false;
-      }
+      if (width > 1024) this.containerIsActive = false;
     },
     ContainerIsActive(ContainerIsActive) {
       this.containerIsActive = ContainerIsActive;
     },
-    fetchNamePage() {
-      getApi.getAllPage().then((res )=>{ 
-        this.dataNamePages = res.data
-        this.$store.commit('updatefetchData', res.data)
-      }) 
+    fetchingData() {
+      getApi.getAllPage().then(res => {
+        this.$store.commit("updatefetchData", res.data);
+      });
     }
   }
 };
