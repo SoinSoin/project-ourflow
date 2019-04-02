@@ -8,15 +8,12 @@
           </Cercle>
         </Slide>
       </Slider>
-      <!-- <Btn :valueBtn="'DÉCOUVRIR'"/> -->
     </section>
-      <Card :valueTitle="'TITLE'" :valueText="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia enim ut massa pharetra, non mattis dolor feugiat.'"/>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Card from "@/components/Cards/Card.vue";
 import Slider from "@/components/Sliders/Slider.vue";
 import Btn from "@/components/Btns/Btn.vue";
 import Cercle from "@/components/Cercles/Cercle.vue";
@@ -28,7 +25,6 @@ export default {
     Slider,
     Slide,
     Btn,
-    Card,
     Cercle
   },
   data() {
@@ -80,6 +76,7 @@ export default {
   background-size: 140%, cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 @media screen and (max-width: 769px) {
   #main-slider {

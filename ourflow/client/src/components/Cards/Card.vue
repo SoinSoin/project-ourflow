@@ -1,57 +1,81 @@
 <template>
-  <div class="card">
-    <div class="columns">
-      <div class="column is-one">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-          </figure>
-        </div>
+  <article class="card">
+    <div class="columns is-gapless">
+      <div v-if="$store.getters.getSize >769" class="column is-6">
+        <ImageCard v-if="isToRight % 2" :dataCard="fetchDataCard" class="to-right"/>
+        <TextCard v-else :dataCard="fetchDataCard"/>
       </div>
-      <div class="column">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4">{{valueTitle}}</p>
-            </div>
-          </div>
-          <div class="content">{{valueText}}</div>
-          <!-- <a class="button is-danger is-outlined is-rounded">{{valueBtn}}</a> -->
-        </div>
+      <div v-else class="column is-6">
+        <ImageCard :dataCard="fetchDataCard" class="to-right"/>
+      </div>
+      <div v-if="$store.getters.getSize>769" class="column is-6">
+        <TextCard v-if="isToRight % 2" :dataCard="fetchDataCard"/>
+        <ImageCard v-else :dataCard="fetchDataCard" class="to-left"/>
+      </div>
+      <div v-else class="column is-6">
+        <TextCard :dataCard="fetchDataCard"/>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 ​
 <script>
+import ImageCard from "./ContentsCards/ImageCard.vue";
+import TextCard from "./ContentsCards/TextCard.vue";
 export default {
   props: {
-    valueTitle: String,
-    valueText: String
-    // valueBtn: String
+    fetchDataCard: Object,
+    isToRight: Number
+  },
+  components: {
+    ImageCard,
+    TextCard
   }
 };
 </script>
 
 <style lang="scss">
-.card {
-  width: 40%;
-  margin-left: 30%;
-  box-shadow : 0 10px 50px rgba(0, 0, 0, 0.3) !important;
+article {
+  &.card {
+    overflow: hidden;
+    margin: 0 auto 20% auto;
+    border-radius: 10px;
+    max-width: 80%;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  }
+}
+.to-right:before {
+  content: "";
+  background-image: url("/img/vague_carte_portfolio.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 102%;
+  width: 50%;
+  top: -1%;
+  right: 45%;
+  transform: rotate(180deg);
 }
 
-.card-content {
-  padding: 0% !important;
-  text-align: left;
+.to-left:before {
+  content: "";
+  background-image: url("/img/vague_carte_portfolio.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 102%;
+  width: 50%;
+  top: -1%;
+  left: 45%;
 }
 
-.is-one {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+@media screen and (max-width: 769px) {
+  .to-right:before {
+    height: 65%;
+    width: 100%;
+    top: -5%;
+    right: 0;
+    transform: rotate(270deg);
+  }
 }
-
-.title {
-    color: #ffdb2b !important;
-}
-
 </style>

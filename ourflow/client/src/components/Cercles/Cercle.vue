@@ -1,14 +1,14 @@
 <template>
   <div class="container-circle container">
     <div class="circle is-fullcentered">
-      <div class="content-circle">
-        <div
+      <article class="content-circle">
+        <figure
           class="container-circle-half background-circle"
           :style="{'background-image':`url(${dataCercle.item[0].media_item})`}"
           :alt="`${dataCercle.item[0].alt_item}`"
         >
           <h1 class="title is-1 has-text-white to-bottom-text">{{dataCercle.title_para}}</h1>
-        </div>
+        </figure>
         <div class="container-circle-half">
           <div class="padding-bottom-circle">
             <div class="content-text-circle">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </template>
