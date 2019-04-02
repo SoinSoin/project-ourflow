@@ -1,18 +1,16 @@
 <template>
-  <div class="container is-fullhd">
-    <section id="main-slider">
-      <Slider
-        :indexToSlider="passIndexSliderToSkeleton"
-        :slides="sendArraySlider"
-        @indexFromSlide="passSlideToSkeleton"
-      >
-        <Slide v-for="(content, index) in dataMainSlider" :key="index">
-          <p>{{content.name}}</p>
+  <div id="main-skeleton">
+    <section id="main-slider" class="hero is-fullheight">
+      <Slider class="hero-body" v-if="sendArraySlider.length" :slides="sendArraySlider">
+        <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
+          <Cercle :dataCercle="content">
+            <Btn :valueBtn="'voir'" :hasType="content.type.toLowerCase()"/>
+          </Cercle>
         </Slide>
       </Slider>
-      <Card :valueTitle="'TITLE'" :valueText="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia enim ut massa pharetra, non mattis dolor feugiat.'"/>
-      <Btn :valueBtn="'DÉCOUVRIR'"/>
+      <!-- <Btn :valueBtn="'DÉCOUVRIR'"/> -->
     </section>
+      <Card :valueTitle="'TITLE'" :valueText="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia enim ut massa pharetra, non mattis dolor feugiat.'"/>
     <router-view/>
   </div>
 </template>
@@ -21,64 +19,75 @@
 import Card from "@/components/Cards/Card.vue";
 import Slider from "@/components/Sliders/Slider.vue";
 import Btn from "@/components/Btns/Btn.vue";
+import Cercle from "@/components/Cercles/Cercle.vue";
 import Slide from "@/components/Sliders/Slide.vue";
+
 export default {
   name: "Skeleton",
   components: {
     Slider,
     Slide,
+    Btn,
     Card,
-    Btn
+    Cercle
   },
   data() {
     return {
-      dataMainSlider: [],
       sendArraySlider: [],
-      passIndexSliderToSkeleton: Number
+      sizeSlide: Number
     };
   },
-  props: {
-    indexToSkeleton: Number
+  computed: {
+    getFetchData() {
+      return this.$store.getters.getData;
+    }
   },
-  beforeMount() {
-    this.getDataPagesSlider();
-  },
-
   watch: {
-    indexToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    passIndexSliderToSkeleton(index) {
-      this.returnTobodyIndex(index);
+    getFetchData() {
+      this.getDataPagesSlider();
     }
   },
   methods: {
     getDataPagesSlider() {
-      var objData = [
-        { name: "Accueil", linkto: "home" },
-        { name: "Prestation", linkto: "prestation" },
-        { name: "Contact", linkto: "contact" }
-      ];
-      this.dataMainSlider = objData;
-      objData.map(pageLink => {
-        this.sendArraySlider.push(pageLink.linkto);
+      this.$store.getters.getData.map(pageLink => {
+        this.sendArraySlider.push(pageLink.title_page.toLowerCase());
       });
       this.getIndexSlideInit();
     },
+
     getIndexSlideInit() {
-      this.passIndexSliderToSkeleton = this.sendArraySlider.indexOf(
+      var targetIndexRoute = this.sendArraySlider.indexOf(
         this.$route.params.page
       );
-      if (this.$route.params.page === undefined)
-        this.passIndexSliderToSkeleton = 0;
-    },
-    passSlideToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    returnTobodyIndex(slideIndex, event) {
-      this.$emit("returnSkeltonToBody", slideIndex);
+      // rend l'index de home comme dans l'url home ="" on peut pas savoir.
+      if (this.$route.params.page === undefined) targetIndexRoute = 0;
+      this.$store.commit("updateIindexNavSlide", targetIndexRoute);
     }
   }
 };
 </script>
+<style lang="scss" >
+.hero {
+  .swiper-container {
+    margin: 0 0;
+  }
+}
+#main-slider {
+  position: sticky;
+  top: 0;
+  background-image: url("/img/bg-slide/vague_fond.png"),
+    url("/img/bg-slide/background_desktop.png");
+  background-size: 140%, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 769px) {
+  #main-slider {
+    background-image: url("/img/bg-slide/vague_fond.png"),
+      url("/img/bg-slide/background_tablette.png");
+      background-size: 150%, cover;
+  }
+}
+</style>
+
 
