@@ -22,13 +22,18 @@ export default {
   name: "Nav",
   methods: {
     passIndex(indexNavSlide, event) {
-      this.$store.commit('updateIindexNavSlide', indexNavSlide)
+      this.$store.commit("updateIindexNavSlide", indexNavSlide);
     }
   }
 };
 </script>
 
 <style lang="scss">
+nav {
+  &.navbar {
+    z-index: 0;
+  }
+}
 .bg-nav {
   position: fixed !important;
   right: -1px;

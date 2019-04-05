@@ -12,7 +12,7 @@
         <div class="container-circle-half">
           <div class="padding-bottom-circle">
             <div class="content-text-circle">
-              <div class="content is-medium has-text-centered has-text-grey-dark">
+              <div class="content has-text-centered has-text-grey-dark">
                 <p class="is-size-7-mobile">{{dataCercle.item[0].descritpion_item}}</p>
               </div>
             </div>
@@ -31,7 +31,7 @@ export default {
   name: "Cercle",
   props: {
     dataCercle: {}
-  }
+  },
 };
 </script>
 
@@ -62,10 +62,10 @@ export default {
   }
 }
 .background-circle {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  // filter: grayscale(80%);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -117,15 +117,15 @@ export default {
   .padding-bottom-circle {
     padding: 0.6em !important;
     .content-btn-circle {
-      padding: 0.3em;
+      padding: 0.4em;
     }
     .content-text-circle {
-      padding: 0.3em;
+      padding: 0.4em;
     }
   }
 }
 
-@media screen and (max-width: 767px) and (orientation: landscape)   {
+@media screen and (max-width: 767px) and (orientation: landscape) {
   .circle:after {
     width: 40%;
     padding-bottom: 40%;
@@ -136,14 +136,13 @@ export default {
   .padding-bottom-circle {
     padding: 1em !important;
     .content-btn-circle {
-      padding: 0.3em;
+      padding: 0.4em;
     }
     .content-text-circle {
-      padding: 0.3em;
+      padding: 0.4em;
     }
   }
 }
-
 
 @media screen and (min-aspect-ratio: 18/9) {
   .circle:after {
@@ -156,10 +155,10 @@ export default {
   .padding-bottom-circle {
     padding: 1em !important;
     .content-btn-circle {
-      padding: 0.3em;
+      padding: 0.4em;
     }
     .content-text-circle {
-      padding: 0.3em;
+      padding: 0.4em;
     }
   }
 }

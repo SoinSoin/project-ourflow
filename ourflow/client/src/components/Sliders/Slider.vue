@@ -3,7 +3,7 @@
     <div class="swiper-wrapper">
       <slot></slot>
     </div>
-    <div v-if="size<=769" class="container-swiper-nav-resp">
+    <div v-if="$store.getters.getSize < 769" class="container-swiper-nav-resp">
       <div class="resp-nav-slide">
         <div class="columns is-mobile">
           <div class="icon-slide column is-4 is-fullcentered">
@@ -29,9 +29,6 @@
 import Swiper from "swiper/dist/js/swiper.esm.bundle";
 export default {
   name: "Slider",
-  props: {
-    slides: Array
-  },
   data() {
     return {
       size: Number,
@@ -52,17 +49,11 @@ export default {
     getStoreIndex() {
       return this.$store.getters.getIndex;
     },
-    getStoreSize() {
-      return this.$store.getters.getSize;
-    }
   },
   watch: {
     getStoreIndex(index) {
       this.changeSlide.slideTo(index, 500);
     },
-    getStoreSize(size) {
-      this.size = size;
-    }
   },
 
   methods: {
@@ -76,7 +67,7 @@ export default {
           prevEl: ".swiper-button-prev"
         },
         virtual: {
-          slides: self.slides,
+          slides: self.$store.getters.getPage,
           renderExternal(data) {
             self.$store.commit("updateIindexNavSlide", this.realIndex);
             self.virtualData = data;
@@ -85,7 +76,7 @@ export default {
               self.$router.push({
                 name: "contents",
                 params: {
-                  page: self.slides[this.realIndex].toLowerCase()
+                  page: self.$store.getters.getPage[this.realIndex]
                 }
               });
             } else {
@@ -101,7 +92,7 @@ export default {
       this.changeSlide.navigation.destroy();
       this.changeSlide.navigation.init();
       this.changeSlide.navigation.update();
-    }
+    },
   }
 };
 </script>

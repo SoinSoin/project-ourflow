@@ -1,10 +1,6 @@
 <template>
   <div id="body-app">
-    <div
-      v-if="$store.getters.getData.length"
-      id="main-body"
-      class="container is-fluid is-marginless"
-    >
+    <div v-if="!isLoading" id="main-body" class="container is-fluid is-marginless">
       <header class="level is-mobile is-marginless level-header">
         <div class="level-left level-header-left">
           <BrandNav/>
@@ -52,7 +48,9 @@ export default {
     return {
       containerIsActive: false,
       isResponsive: Boolean,
-      targetSize: Number
+      targetSize: Number,
+      isLoading: true,
+      isLocate: false
     };
   },
   computed: {
@@ -62,13 +60,13 @@ export default {
   },
   watch: {
     containerIsActive(bool) {
-      if (bool) document.documentElement.style.overflow = "hidden";
-      else document.documentElement.style = "";
+      document.documentElement.classList.toggle("is-clipped");
     },
     sizeChange(size) {
       this.TargetResponsive(size);
     }
   },
+
   beforeMount() {
     this.fetchingData();
   },
@@ -90,7 +88,9 @@ export default {
     },
     fetchingData() {
       getApi.getAllPage().then(res => {
+        this.isLoading = false;
         this.$store.commit("updatefetchData", res.data);
+        if (res.status === 200) this.isLocate = true;
       });
     }
   }
@@ -166,7 +166,7 @@ export default {
     z-index: 30;
   }
   .level-header-left {
-    z-index: 10;
+    z-index: 1;
   }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <figure
     class="bg-half-card "
-    :style="{'background-image':`url(${dataCard.img})`}"
-    alt="Placeholder image"
+    :style="{'background-image':`url(${dataCard.item[0].media_item})`}"
+    :alt="dataCard.item[0].alt_item"
   ></figure>
 </template>
 <script>

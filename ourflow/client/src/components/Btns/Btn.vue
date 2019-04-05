@@ -1,14 +1,11 @@
 <template>
-  <a
-    v-if="hasType='slide'"
-    @click="smoothDown()"
-    class="button modify-button is-danger is-outlined is-rounded"
-  >
+  <a v-if="hasType==='slide'" class="button modify-button is-danger is-outlined is-rounded">
     <span class="has-text-weight-semibold is-size-6-mobile">{{valueBtn}}</span>
     <span class="icon is-small">
       <fa-icon :icon="{prefix: 'fas', iconName:'long-arrow-alt-down'}"/>
     </span>
   </a>
+
   <a v-else class="button modify-button is-danger is-outlined is-rounded">
     <span class="has-text-weight-semibold is-size-6-mobile">{{valueBtn}}</span>
   </a>
@@ -19,16 +16,6 @@ export default {
   props: {
     valueBtn: String,
     hasType: String
-  },
-  methods: {
-    smoothDown() {
-      window.scroll({
-        top: document.getElementById("main-pages").offsetTop,
-        left: 0,
-        behavior: "smooth"
-      });
-      // id="main-pages"
-    }
   }
 };
 </script>
@@ -40,8 +27,8 @@ a {
       &.modify-button {
         font-family: "Montserrat", sans-serif;
         transition-duration: 0.3s;
-        padding: 0.4em 1.6em;
-        height: 1.2em;
+        padding: 0 1.6em;
+        height: 1.6em;
       }
     }
   }
@@ -53,15 +40,15 @@ a {
 }
 //ne fonctionne pas
 @media screen and (max-width: 767px) {
-a {
-  &.button {
-    &.is-rounded {
-      &.modify-button {
-        padding: 0.2em 0.8em;
-        height: 1em;
+  a {
+    &.button {
+      &.is-rounded {
+        &.modify-button {
+          padding: 0 0.8em;
+          height: 1.3em;
+        }
       }
     }
   }
-}
 }
 </style>

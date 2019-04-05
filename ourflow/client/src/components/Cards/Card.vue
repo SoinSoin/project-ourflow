@@ -1,19 +1,32 @@
 <template>
-  <article class="card">
+  <!--desktop Card-->
+  <article v-if="$store.getters.getSize >769 && fetchDataCard" class="card">
     <div class="columns is-gapless">
-      <div v-if="$store.getters.getSize >769" class="column is-6">
+      <div class="column is-6">
         <ImageCard v-if="isToRight % 2" :dataCard="fetchDataCard" class="to-right"/>
-        <TextCard v-else :dataCard="fetchDataCard"/>
+        <TextCard v-else :dataCard="fetchDataCard">
+          <slot/>
+        </TextCard>
       </div>
-      <div v-else class="column is-6">
-        <ImageCard :dataCard="fetchDataCard" class="to-right"/>
-      </div>
-      <div v-if="$store.getters.getSize>769" class="column is-6">
-        <TextCard v-if="isToRight % 2" :dataCard="fetchDataCard"/>
+      <div class="column is-6">
+        <TextCard v-if="isToRight % 2" :dataCard="fetchDataCard">
+          <slot/>
+        </TextCard>
         <ImageCard v-else :dataCard="fetchDataCard" class="to-left"/>
       </div>
-      <div v-else class="column is-6">
-        <TextCard :dataCard="fetchDataCard"/>
+    </div>
+  </article>
+
+  <!-- Responsive Card -->
+  <article v-else-if="$store.getters.getSize < 769 && fetchDataCard" class="card">
+    <div class="columns is-gapless">
+      <div class="column is-6">
+        <ImageCard :dataCard="fetchDataCard" class="to-right"/>
+      </div>
+      <div class="column is-6">
+        <TextCard :dataCard="fetchDataCard">
+          <slot/>
+        </TextCard>
       </div>
     </div>
   </article>
@@ -23,13 +36,14 @@
 import ImageCard from "./ContentsCards/ImageCard.vue";
 import TextCard from "./ContentsCards/TextCard.vue";
 export default {
-  props: {
-    fetchDataCard: Object,
-    isToRight: Number
-  },
+  name: "Card",
   components: {
     ImageCard,
     TextCard
+  },
+  props: {
+    fetchDataCard: Object,
+    isToRight: Number
   }
 };
 </script>
@@ -38,7 +52,7 @@ export default {
 article {
   &.card {
     overflow: hidden;
-    margin: 0 auto 20% auto;
+    margin: 0 auto 10% auto;
     border-radius: 10px;
     max-width: 80%;
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);

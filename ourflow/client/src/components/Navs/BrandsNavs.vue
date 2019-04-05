@@ -40,7 +40,7 @@ export default {
 </script>
 <style lang="scss">
 #nav-brand {
-  position: fixed;
+  position: absolute;
   top: 0;
   margin: 1vh;
 }

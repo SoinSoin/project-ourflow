@@ -1,10 +1,12 @@
 <template>
   <div id="main-skeleton">
     <section id="main-slider" class="hero is-fullheight">
-      <Slider class="hero-body" v-if="sendArraySlider.length" :slides="sendArraySlider">
+      <Slider class="hero-body">
         <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
           <Cercle :dataCercle="content">
-            <Btn :valueBtn="'voir'" :hasType="content.type.toLowerCase()"/>
+            <span class="action" @click="smoothDown">
+              <Btn :valueBtn="'voir'" :hasType="'slide'"/>
+            </span>
           </Cercle>
         </Slide>
       </Slider>
@@ -27,37 +29,24 @@ export default {
     Btn,
     Cercle
   },
-  data() {
-    return {
-      sendArraySlider: [],
-      sizeSlide: Number
-    };
-  },
-  computed: {
-    getFetchData() {
-      return this.$store.getters.getData;
-    }
-  },
-  watch: {
-    getFetchData() {
-      this.getDataPagesSlider();
-    }
+  beforeMount() {
+    this.getIndexSlideInit();
   },
   methods: {
-    getDataPagesSlider() {
-      this.$store.getters.getData.map(pageLink => {
-        this.sendArraySlider.push(pageLink.title_page.toLowerCase());
-      });
-      this.getIndexSlideInit();
-    },
-
     getIndexSlideInit() {
-      var targetIndexRoute = this.sendArraySlider.indexOf(
+      var targetIndexRoute = this.$store.getters.getPage.indexOf(
         this.$route.params.page
       );
       // rend l'index de home comme dans l'url home ="" on peut pas savoir.
       if (this.$route.params.page === undefined) targetIndexRoute = 0;
       this.$store.commit("updateIindexNavSlide", targetIndexRoute);
+    },
+    smoothDown() {
+      window.scroll({
+        top: document.getElementById("main-pages").offsetTop,
+        left: 0,
+        behavior: "smooth"
+      });
     }
   }
 };
@@ -76,13 +65,13 @@ export default {
   background-size: 140%, cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: fixed, fixed;
 }
 @media screen and (max-width: 769px) {
   #main-slider {
     background-image: url("/img/bg-slide/vague_fond.png"),
       url("/img/bg-slide/background_tablette.png");
-      background-size: 150%, cover;
+    background-size: 150%, cover;
   }
 }
 </style>

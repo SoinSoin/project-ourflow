@@ -6,9 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     indexNavSlide: Number,
-    sizeScreen:Number,
+    sizeScreen: Number,
     fetchData: Array,
     fetchDataSlide: Array,
+    fetchPage: []
   },
   getters: {
     getIndex(state) {
@@ -20,12 +21,15 @@ export default new Vuex.Store({
     getDataSlide(state) {
       return state.fetchDataSlide
     },
-    getSize(state){
+    getSize(state) {
       return state.sizeScreen
-    }
+    },
+    getPage(state) {
+      return state.fetchPage
+    },
   },
   mutations: {
-    updateSizeScreen(state, size){
+    updateSizeScreen(state, size) {
       state.sizeScreen = size
     },
     updateIindexNavSlide(state, index) {
@@ -34,8 +38,9 @@ export default new Vuex.Store({
     updatefetchData(state, data) {
       var arr = []
       data.map((valpage, j) => {
+        state.fetchPage.push(valpage.title_page.toLowerCase())
         valpage.paragraph.map((valpara, i) => {
-          if (valpara.type = "slide") {
+          if (valpara.type === "slide") {
             arr.push(data[j].paragraph[i])
             delete data[j].paragraph[i]
           }
