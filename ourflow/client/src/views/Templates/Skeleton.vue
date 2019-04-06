@@ -67,7 +67,7 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed, fixed;
 }
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 767px) {
   #main-slider {
     background-image: url("/img/bg-slide/vague_fond.png"),
       url("/img/bg-slide/background_tablette.png");

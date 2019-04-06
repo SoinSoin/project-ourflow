@@ -3,7 +3,7 @@
     <div class="swiper-wrapper">
       <slot></slot>
     </div>
-    <div v-if="$store.getters.getSize < 769" class="container-swiper-nav-resp">
+    <div v-if="$store.getters.getSize < 768" class="container-swiper-nav-resp">
       <div class="resp-nav-slide">
         <div class="columns is-mobile">
           <div class="icon-slide column is-4 is-fullcentered">
@@ -48,12 +48,14 @@ export default {
   computed: {
     getStoreIndex() {
       return this.$store.getters.getIndex;
-    },
+    }
   },
   watch: {
     getStoreIndex(index) {
-      this.changeSlide.slideTo(index, 500);
-    },
+      if (this.$store.getters.getSize > 1024) var timeAnime = 500;
+      else var timeAnime = 0;
+      this.changeSlide.slideTo(index, timeAnime);
+    }
   },
 
   methods: {
@@ -92,7 +94,7 @@ export default {
       this.changeSlide.navigation.destroy();
       this.changeSlide.navigation.init();
       this.changeSlide.navigation.update();
-    },
+    }
   }
 };
 </script>

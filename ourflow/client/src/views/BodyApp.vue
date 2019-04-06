@@ -1,6 +1,7 @@
 <template>
   <div id="body-app">
     <div v-if="!isLoading" id="main-body" class="container is-fluid is-marginless">
+      <!-- header -->
       <header class="level is-mobile is-marginless level-header">
         <div class="level-left level-header-left">
           <BrandNav/>
@@ -12,15 +13,20 @@
           </transition>
         </div>
       </header>
+      <!-- end header -->
+      <!-- nav responsive -->
       <transition name="slide">
         <ContainerNav v-if="containerIsActive"/>
       </transition>
+      <!-- end nav responsive -->
+      <!-- template -->
       <Skeleton v-if="$route.name!=='notfound'"/>
+      <!-- end template -->
       <NotFound v-else/>
       <Footer/>
     </div>
-    <div v-else id="main-body" class="container is-fluid is-marginless">
-      <p>await ...</p>
+    <div v-else id="main-body">
+      <Loader/>
     </div>
   </div>
 </template>
@@ -32,6 +38,7 @@ import BurgerNav from "@/components/Navs/ResponsivesNavs/BurgerNav.vue";
 import BrandNav from "@/components/Navs/BrandsNavs.vue";
 import ContainerNav from "@/components/Navs/ResponsivesNavs/ContainerNav.vue";
 import Footer from "@/components/Footers/Footer.vue";
+import Loader from "@/components/Loaders/Loader.vue";
 import getApi from "@/services/api.js";
 export default {
   name: "BodyApp",
@@ -42,7 +49,8 @@ export default {
     BurgerNav,
     ContainerNav,
     Nav,
-    BrandNav
+    BrandNav,
+    Loader
   },
   data() {
     return {
@@ -56,11 +64,17 @@ export default {
   computed: {
     sizeChange() {
       return this.$store.getters.getSize;
+    },
+    indexChange() {
+      return this.$store.getters.getIndex;
     }
   },
   watch: {
     containerIsActive(bool) {
       document.documentElement.classList.toggle("is-clipped");
+    },
+    indexChange() {
+      this.containerIsActive = false;
     },
     sizeChange(size) {
       this.TargetResponsive(size);

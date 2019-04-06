@@ -15,6 +15,16 @@ export default {
       IsActive: false
     };
   },
+  computed: {
+    indexChange() {
+      return this.$store.getters.getIndex;
+    }
+  },
+  watch: {
+    indexChange() {
+      this.IsActive = false;
+    }
+  },
   methods: {
     ClickOnBurger() {
       this.ClassIsActive();

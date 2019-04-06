@@ -6,12 +6,16 @@
       :isToRight="index"
       :fetchDataCard="val"
     >
-      <span class="action" @click="activeModal({isModalActive:true,dataModal:val})">
-        <Btn :valueBtn="'voir'"/>
-      </span>
+      <div
+        :class="{'container-action-btn':true, 'is-btn-left': index%2==false , 'is-btn-right':index%2 }"
+      >
+        <span class="action" @click="activeModal({isModalActive:true,dataModal:val})">
+          <Btn :valueBtn="'découvrir'"/>
+        </span>
+      </div>
     </Card>
     <transition name="modal">
-      <Modal v-if="isActiveModal">
+      <Modal v-if="isActiveModal" :dataModal="dataToModal">
         <span class="action" @click="closeModal(false)">
           <Btn :valueBtn="'fermer'"/>
         </span>
@@ -35,7 +39,8 @@ export default {
   },
   data() {
     return {
-      isActiveModal: false
+      isActiveModal: false,
+      dataToModal: Object
     };
   },
   watch: {
@@ -45,6 +50,7 @@ export default {
   },
   methods: {
     activeModal(activeData) {
+      this.dataToModal = activeData.dataModal;
       this.isActiveModal = activeData.isModalActive;
     },
     closeModal(close) {
@@ -53,6 +59,7 @@ export default {
   }
 };
 </script>
+
 <style lang="scss">
 #main-portfolio {
 }
@@ -117,6 +124,30 @@ export default {
   }
   50% {
     opacity: 1;
+  }
+}
+.is-btn-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.is-btn-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.container-action-btn {
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  .is-btn-right {
+    justify-content: center;
+  }
+  .is-btn-left {
+    justify-content: center;
   }
 }
 </style>

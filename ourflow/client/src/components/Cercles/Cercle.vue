@@ -32,6 +32,17 @@ export default {
   props: {
     dataCercle: {}
   },
+  beforeMount() {
+    this.lessText();
+  },
+  methods: {
+    lessText(arrText) {
+      if (this.$store.getters.getSize <= 767)
+        this.dataCercle.item[0].descritpion_item = `${
+          this.dataCercle.item[0].descritpion_item.split(".")[0]
+        }.`;
+    }
+  }
 };
 </script>
 
@@ -87,7 +98,7 @@ export default {
   line-height: 0.6 !important;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 767px) and (max-width: 1024px) {
   .circle:after {
     width: 65%;
     padding-bottom: 65%;
