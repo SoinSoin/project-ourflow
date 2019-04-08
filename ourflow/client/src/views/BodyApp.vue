@@ -16,7 +16,7 @@
       <!-- end header -->
       <!-- nav responsive -->
       <transition name="slide">
-        <ContainerNav v-if="containerIsActive"/>
+        <ContainerNav v-if="containerIsActive && $store.getters.getSize<1024"/>
       </transition>
       <!-- end nav responsive -->
       <!-- template -->

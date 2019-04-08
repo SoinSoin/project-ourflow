@@ -10,7 +10,7 @@
           </Cercle>
         </Slide>
       </Slider>
-      <Rsociaux/>
+      <Rsociaux  v-if="$store.getters.getSize>=1024" class="desktop-rs"/>
     </section>
     <router-view/>
   </div>
@@ -30,7 +30,7 @@ export default {
     Slide,
     Btn,
     Cercle,
-    Rsociaux,
+    Rsociaux
   },
   beforeMount() {
     this.getIndexSlideInit();
@@ -55,6 +55,12 @@ export default {
 };
 </script>
 <style lang="scss" >
+.desktop-rs {
+  position: absolute;
+  z-index: 1;
+  top: 94vh;
+  left: 4vw;
+}
 .hero {
   .swiper-container {
     margin: 0 0;

@@ -52,7 +52,7 @@ export default {
 article {
   &.card {
     overflow: hidden;
-    margin: 0 auto 10% auto;
+    margin: 0 auto 10vh auto;
     border-radius: 10px;
     max-width: 80%;
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);

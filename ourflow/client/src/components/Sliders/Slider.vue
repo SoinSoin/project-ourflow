@@ -52,7 +52,7 @@ export default {
   },
   watch: {
     getStoreIndex(index) {
-      if (this.$store.getters.getSize > 1024) var timeAnime = 500;
+      if (this.$store.getters.getSize >= 1024) var timeAnime = 500;
       else var timeAnime = 0;
       this.changeSlide.slideTo(index, timeAnime);
     }

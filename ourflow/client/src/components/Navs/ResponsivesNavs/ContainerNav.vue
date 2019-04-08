@@ -19,13 +19,20 @@
             :to="{name:'contents',params:{page:item.title_page}}"
           >{{item.title_page}}</router-link>
         </div>
+        <div class="menu-item-mobile">
+          <Rsociaux/>
+        </div>
       </div>
     </div>
   </nav>
 </template>
 <script>
+import Rsociaux from "@/components/RSociaux/Rsociaux.vue";
 export default {
   name: "ContainerNav",
+  components: {
+    Rsociaux
+  },
   methods: {
     passIndex(indexNavSlide) {
       this.$store.commit("setIndex", indexNavSlide);
