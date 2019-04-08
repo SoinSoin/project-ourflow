@@ -1,66 +1,183 @@
 <template>
   <div id="body-app">
-    <header class="level is-mobile">
-      <div class="level-left">ourflow</div>
-      <div class="level-right">
-        <Nav :itemsNav="dataNamePages" @returnNavToBody="passIndexBodyToSkeleton"/>
-      </div>
-    </header>
-    <Skeleton
-      @returnSkeltonToBody="indexFromSlide"
-      :indexToSkeleton="indexFromNav"
-      v-if="$route.name!=='notfound'"
-    />
-    <NotFound v-else/>
-    <Footer/>
+    <div v-if="!isLoading" id="main-body" class="container is-fluid is-marginless">
+      <!-- header -->
+      <header class="level is-mobile is-marginless level-header">
+        <div class="level-left level-header-left">
+          <BrandNav/>
+        </div>
+        <div class="level-right level-header-right">
+          <transition name="slide">
+            <BurgerNav v-if="$store.getters.getSize<1024" @BurgerIsActive="ContainerIsActive"/>
+            <Nav v-else/>
+          </transition>
+        </div>
+      </header>
+      <!-- end header -->
+      <!-- nav responsive -->
+      <transition name="slide">
+        <ContainerNav v-if="containerIsActive"/>
+      </transition>
+      <!-- end nav responsive -->
+      <!-- template -->
+      <Skeleton v-if="$route.name!=='notfound'"/>
+      <!-- end template -->
+      <NotFound v-else/>
+      <Footer/>
+    </div>
+    <div v-else id="main-body">
+      <Loader/>
+    </div>
   </div>
 </template>
 <script>
 import Skeleton from "./Templates/Skeleton.vue";
 import NotFound from "./Templates/NotFound.vue";
 import Nav from "@/components/Navs/Nav.vue";
+import BurgerNav from "@/components/Navs/ResponsivesNavs/BurgerNav.vue";
+import BrandNav from "@/components/Navs/BrandsNavs.vue";
+import ContainerNav from "@/components/Navs/ResponsivesNavs/ContainerNav.vue";
 import Footer from "@/components/Footers/Footer.vue";
+import Loader from "@/components/Loaders/Loader.vue";
+import getApi from "@/services/api.js";
 export default {
   name: "BodyApp",
   components: {
     Skeleton,
     NotFound,
     Footer,
-    Nav
+    BurgerNav,
+    ContainerNav,
+    Nav,
+    BrandNav,
+    Loader
   },
   data() {
     return {
-      dataNamePages: [],
-      indexFromNav: null
+      containerIsActive: false,
+      isResponsive: Boolean,
+      targetSize: Number,
+      isLoading: true,
+      isLocate: false
     };
   },
-  beforeMount() {
-    this.fetchNamePage();
-  },
-  watch: {
-    indexFromNav(index) {
-      this.indexFromNav = index;
+  computed: {
+    sizeChange() {
+      return this.$store.getters.getSize;
+    },
+    indexChange() {
+      return this.$store.getters.getIndex;
     }
   },
+  watch: {
+    containerIsActive(bool) {
+      document.documentElement.classList.toggle("is-clipped");
+    },
+    indexChange() {
+      this.containerIsActive = false;
+    },
+    sizeChange(size) {
+      this.TargetResponsive(size);
+    }
+  },
+  mounted() {
+    this.fetchingData();
+    this.$store.commit("setSizeScreen", window.innerWidth);
+    this.EventResize();
+  },
   methods: {
-    fetchNamePage() {
-      var objData = [
-        { name: "Accueil", linkto: "home" },
-        { name: "Prestation", linkto: "prestation" },
-        { name: "Contact", linkto: "contact" }
-      ];
-      this.dataNamePages = objData;
+    EventResize() {
+      window.onresize = () => {
+        this.$store.commit("setSizeScreen", window.innerWidth);
+      };
     },
-    passIndexBodyToSkeleton(navIndex) {
-      this.indexFromNav = navIndex;
+    TargetResponsive(width) {
+      if (width > 1024) this.containerIsActive = false;
     },
-    indexFromSlide(slideIndex) {
-      this.indexFromNav = slideIndex;
+    ContainerIsActive(ContainerIsActive) {
+      this.containerIsActive = ContainerIsActive;
+    },
+    fetchingData() {
+      getApi.getAllPage().then(res => {
+        this.$store.commit("setfetchData", res.data);
+        this.isLoading = false;
+        if (res.status === 200) this.isLocate = true;
+      });
     }
   }
 };
 </script>
 
 <style lang="scss">
-</style>
+.slide-leave-active {
+  -webkit-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes slideOutRight {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    visibility: hidden;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+@keyframes slideOutRight {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    visibility: hidden;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
 
+.slide-enter-active {
+  -webkit-animation-name: slideInRight;
+  animation-name: slideInRight;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+.level-header {
+  position: absolute;
+  top: 0;
+  .level-header-right {
+    z-index: 30;
+  }
+  .level-header-left {
+    z-index: 1;
+  }
+}
+</style>

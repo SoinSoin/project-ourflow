@@ -1,16 +1,15 @@
 <template>
-  <div class="container is-fullhd">
-    <section id="main-slider">
-      <Slider
-        :indexToSlider="passIndexSliderToSkeleton"
-        :slides="sendArraySlider"
-        @indexFromSlide="passSlideToSkeleton"
-      >
-        <Slide v-for="(content, index) in dataMainSlider" :key="index">
-          <p>{{content.name}}</p>
+  <div id="main-skeleton">
+    <section id="main-slider" class="hero is-fullheight">
+      <Slider class="hero-body">
+        <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
+          <Cercle :dataCercle="content">
+            <span class="action" @click="smoothDown">
+              <Btn :valueBtn="'voir'" :hasType="'slide'"/>
+            </span>
+          </Cercle>
         </Slide>
       </Slider>
-      <Btn :valueBtn="'DÉCOUVRIR'"/>
       <Rsociaux/>
     </section>
     <router-view/>
@@ -20,65 +19,64 @@
 <script>
 import Slider from "@/components/Sliders/Slider.vue";
 import Btn from "@/components/Btns/Btn.vue";
+import Cercle from "@/components/Cercles/Cercle.vue";
 import Slide from "@/components/Sliders/Slide.vue";
 import Rsociaux from "@/components/RSociaux/Rsociaux.vue";
+
 export default {
   name: "Skeleton",
   components: {
     Slider,
     Slide,
     Btn,
-    Rsociaux
-  },
-  data() {
-    return {
-      dataMainSlider: [],
-      sendArraySlider: [],
-      passIndexSliderToSkeleton: Number
-    };
-  },
-  props: {
-    indexToSkeleton: Number
+    Cercle,
+    Rsociaux,
   },
   beforeMount() {
-    this.getDataPagesSlider();
-  },
-
-  watch: {
-    indexToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    passIndexSliderToSkeleton(index) {
-      this.returnTobodyIndex(index);
-    }
+    this.getIndexSlideInit();
   },
   methods: {
-    getDataPagesSlider() {
-      var objData = [
-        { name: "Accueil", linkto: "home" },
-        { name: "Prestation", linkto: "prestation" },
-        { name: "Contact", linkto: "contact" }
-      ];
-      this.dataMainSlider = objData;
-      objData.map(pageLink => {
-        this.sendArraySlider.push(pageLink.linkto);
-      });
-      this.getIndexSlideInit();
-    },
     getIndexSlideInit() {
-      this.passIndexSliderToSkeleton = this.sendArraySlider.indexOf(
+      var targetIndexRoute = this.$store.getters.getPage.indexOf(
         this.$route.params.page
       );
-      if (this.$route.params.page === undefined)
-        this.passIndexSliderToSkeleton = 0;
+      // rend l'index de home comme dans l'url home ="" on peut pas savoir.
+      if (this.$route.params.page === undefined) targetIndexRoute = 0;
+      this.$store.commit("setIndex", targetIndexRoute);
     },
-    passSlideToSkeleton(index) {
-      this.passIndexSliderToSkeleton = index;
-    },
-    returnTobodyIndex(slideIndex, event) {
-      this.$emit("returnSkeltonToBody", slideIndex);
+    smoothDown() {
+      window.scroll({
+        top: document.getElementById("main-pages").offsetTop,
+        left: 0,
+        behavior: "smooth"
+      });
     }
   }
 };
 </script>
+<style lang="scss" >
+.hero {
+  .swiper-container {
+    margin: 0 0;
+  }
+}
+#main-slider {
+  position: sticky;
+  top: 0;
+  background-image: url("/img/background/bg_vague.png"),
+    url("/img/background/bg_desktop.png");
+  background-size: 140%, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed, fixed;
+}
+@media screen and (max-width: 767px) {
+  #main-slider {
+    background-image: url("/img/background/bg_vague.png"),
+      url("/img/background/bg_tablette.png");
+    background-size: 150%, cover;
+  }
+}
+</style>
+
 

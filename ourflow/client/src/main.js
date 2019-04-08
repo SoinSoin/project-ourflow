@@ -25,7 +25,8 @@ import {
   FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome'
 
-// juste en sessous système de clé valeur  faisant ârtie partie de la librairie vue j'assigne à mon objet FontAwesomeIcon le nom d'un composant fa-icon
+import store from './store'
+
 Vue.component('fa-icon', FontAwesomeIcon)
 
 // ici jajoute mes differents style d'icons à ma librairy fontawesome-svg-core qui va se charger d'interpreter chacune des librairie suivante
@@ -38,5 +39,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
