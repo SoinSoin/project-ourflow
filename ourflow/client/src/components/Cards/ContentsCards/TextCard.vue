@@ -5,9 +5,9 @@
         <div class="card-content has-text-left has-text-centered-mobile">
           <div class="media">
             <div class="media-content">
-              <h3
-                class="title is-3 has-text-warning has-text-centered-mobile"
-              >{{dataCard.title_para}}</h3>
+              <h2
+                class="title is-2 is-size-3-mobile has-text-warning has-text-centered-mobile"
+              >{{dataCard.title_para}}</h2>
             </div>
           </div>
           <div class="content is-size-7-mobile has-text-grey-dark">{{dataCard.item[0].synopsis}}</div>
@@ -25,9 +25,8 @@ export default {
   props: {
     dataCard: Object
   },
-  mounted() {
+  beforeMount() {
     this.targetText();
-    console.log(this.dataCard.item[0])
   },
   methods: {
     lessText(arrText) {

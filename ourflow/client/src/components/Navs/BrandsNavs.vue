@@ -2,38 +2,20 @@
   <div id="nav-brand">
     <router-link :to="{name:'home'}">
       <figure
-        v-for="(data, index) in fetchData"
-        :key="index"
         @click="passIndex(0)"
         class="image is-48x96"
       >
-        <img :src="data.media_item" :alt="data.alt_item">
+        <img src="/img/logo_ourflow.svg" alt="logo de OurFlow">
       </figure>
     </router-link>
   </div>
 </template>
 <script>
-import getApi from "@/services/api.js";
 export default {
   name: "BrandNav",
-  data() {
-    return {
-      fetchData: []
-    };
-  },
-  beforeMount() {
-    this.fetchingData();
-  },
   methods: {
-    fetchingData() {
-      getApi.getNav().then(res => {
-        res.data.map(val => {
-          this.fetchData = val.item;
-        });
-      });
-    },
     passIndex(index) {
-      this.$store.commit("updateIindexNavSlide", index);
+      this.$store.commit("setIndex", index);
     }
   }
 };

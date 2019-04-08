@@ -29,13 +29,13 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    updateSizeScreen(state, size) {
+    setSizeScreen(state, size) {
       state.sizeScreen = size
     },
-    updateIindexNavSlide(state, index) {
+    setIndex(state, index) {
       state.indexNavSlide = index
     },
-    updatefetchData(state, data) {
+    setfetchData(state, data) {
       var arr = []
       data.map((valpage, j) => {
         state.fetchPage.push(valpage.title_page.toLowerCase())

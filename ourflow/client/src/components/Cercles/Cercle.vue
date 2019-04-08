@@ -7,7 +7,9 @@
           :style="{'background-image':`url(${dataCercle.item[0].media_item})`}"
           :alt="`${dataCercle.item[0].alt_item}`"
         >
-          <h1 class="title is-1 has-text-white to-bottom-text">{{dataCercle.title_para}}</h1>
+          <h1
+            class="title is-1 is-size-2-mobile has-text-white to-bottom-text has-text-weight-bold"
+          >{{dataCercle.title_para}}</h1>
         </figure>
         <div class="container-circle-half">
           <div class="padding-bottom-circle">
@@ -95,7 +97,7 @@ export default {
   }
 }
 .to-bottom-text {
-  line-height: 0.6 !important;
+  line-height: 0.7 !important;
 }
 
 @media screen and (min-width: 767px) and (max-width: 1024px) {

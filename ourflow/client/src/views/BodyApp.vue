@@ -80,18 +80,15 @@ export default {
       this.TargetResponsive(size);
     }
   },
-
-  beforeMount() {
-    this.fetchingData();
-  },
   mounted() {
-    this.$store.commit("updateSizeScreen", window.innerWidth);
+    this.fetchingData();
+    this.$store.commit("setSizeScreen", window.innerWidth);
     this.EventResize();
   },
   methods: {
     EventResize() {
       window.onresize = () => {
-        this.$store.commit("updateSizeScreen", window.innerWidth);
+        this.$store.commit("setSizeScreen", window.innerWidth);
       };
     },
     TargetResponsive(width) {
@@ -102,8 +99,8 @@ export default {
     },
     fetchingData() {
       getApi.getAllPage().then(res => {
+        this.$store.commit("setfetchData", res.data);
         this.isLoading = false;
-        this.$store.commit("updatefetchData", res.data);
         if (res.status === 200) this.isLocate = true;
       });
     }

@@ -28,7 +28,7 @@ export default {
   name: "ContainerNav",
   methods: {
     passIndex(indexNavSlide) {
-      this.$store.commit("updateIindexNavSlide", indexNavSlide);
+      this.$store.commit("setIndex", indexNavSlide);
     }
   }
 };

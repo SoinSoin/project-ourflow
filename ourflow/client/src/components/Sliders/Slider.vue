@@ -71,7 +71,7 @@ export default {
         virtual: {
           slides: self.$store.getters.getPage,
           renderExternal(data) {
-            self.$store.commit("updateIindexNavSlide", this.realIndex);
+            self.$store.commit("setIndex", this.realIndex);
             self.virtualData = data;
             self.changeSlide = this;
             if (this.realIndex > 0) {
@@ -114,10 +114,10 @@ export default {
     background-size: 20px 40px;
   }
   .swiper-button-prev {
-    background-image: url("/img/left-arrow.svg");
+    background-image: url("/img/slider/left-arrow.svg");
   }
   .swiper-button-next {
-    background-image: url("/img/right-arrow.svg");
+    background-image: url("/img/slider/right-arrow.svg");
   }
 }
 .container-swiper-nav-resp {

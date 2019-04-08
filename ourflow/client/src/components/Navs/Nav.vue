@@ -22,7 +22,7 @@ export default {
   name: "Nav",
   methods: {
     passIndex(indexNavSlide, event) {
-      this.$store.commit("updateIindexNavSlide", indexNavSlide);
+      this.$store.commit("setIndex", indexNavSlide);
     }
   }
 };
@@ -43,7 +43,7 @@ nav {
 .bg-nav::before {
   content: "";
   position: absolute;
-  background-image: url("/img/background_menu.svg");
+  background-image: url("/img/background/bg_menu.svg");
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
   background-repeat: no-repeat;
   background-size: cover;

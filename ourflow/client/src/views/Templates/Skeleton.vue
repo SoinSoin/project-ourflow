@@ -39,7 +39,7 @@ export default {
       );
       // rend l'index de home comme dans l'url home ="" on peut pas savoir.
       if (this.$route.params.page === undefined) targetIndexRoute = 0;
-      this.$store.commit("updateIindexNavSlide", targetIndexRoute);
+      this.$store.commit("setIndex", targetIndexRoute);
     },
     smoothDown() {
       window.scroll({
@@ -60,8 +60,8 @@ export default {
 #main-slider {
   position: sticky;
   top: 0;
-  background-image: url("/img/bg-slide/vague_fond.png"),
-    url("/img/bg-slide/background_desktop.png");
+  background-image: url("/img/background/bg_vague.png"),
+    url("/img/background/bg_desktop.png");
   background-size: 140%, cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -69,8 +69,8 @@ export default {
 }
 @media screen and (max-width: 767px) {
   #main-slider {
-    background-image: url("/img/bg-slide/vague_fond.png"),
-      url("/img/bg-slide/background_tablette.png");
+    background-image: url("/img/background/bg_vague.png"),
+      url("/img/background/bg_tablette.png");
     background-size: 150%, cover;
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <section id="main-pages" class="section is-medium has-background-white">
+  <div id="main-pages" class="has-background-white">
     <Home v-if="$route.name==='home'"/>
     <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase()"/>
     <Portfolio
@@ -7,7 +7,7 @@
       :fetchData="$store.getters.getData[$store.getters.getIndex]"
     />
     <Contact v-if="$route.params.page===$store.getters.getData[3].title_page.toLowerCase()"/>
-  </section>
+  </div>
 </template>
 
 <script>

@@ -1,27 +1,34 @@
 <template>
-  <div id="main-portfolio" class="container">
-    <Card
-      v-for="(val, index) in fetchData.paragraph"
-      :key="index"
-      :isToRight="index"
-      :fetchDataCard="val"
-    >
-      <div
-        :class="{'container-action-btn':true, 'is-btn-left': index%2==false , 'is-btn-right':index%2 }"
+  <section id="main-portfolio" class="section">
+    <div class="content">
+      <h1
+        class="higlight-title subtitle is-1 is-size-2-mobile is-capitalized has-text-warning has-text-weight-light"
+      >{{$store.getters.getPage[$store.getters.getIndex]}}</h1>
+    </div>
+    <div class="container">
+      <Card
+        v-for="(val, index) in fetchData.paragraph"
+        :key="index"
+        :isToRight="index"
+        :fetchDataCard="val"
       >
-        <span class="action" @click="activeModal({isModalActive:true,dataModal:val})">
-          <Btn :valueBtn="'découvrir'"/>
-        </span>
-      </div>
-    </Card>
-    <transition name="modal">
-      <Modal v-if="isActiveModal" :dataModal="dataToModal">
-        <span class="action" @click="closeModal(false)">
-          <Btn :valueBtn="'fermer'"/>
-        </span>
-      </Modal>
-    </transition>
-  </div>
+        <div
+          :class="{'container-action-btn':true, 'is-btn-left': index%2==false , 'is-btn-right':index%2 }"
+        >
+          <span class="action" @click="activeModal({isModalActive:true,dataModal:val})">
+            <Btn :valueBtn="'découvrir'"/>
+          </span>
+        </div>
+      </Card>
+      <transition name="modal">
+        <Modal v-if="isActiveModal" :dataModal="dataToModal">
+          <span class="action" @click="closeModal(false)">
+            <Btn :valueBtn="'fermer'" :hasType="'modal'"/>
+          </span>
+        </Modal>
+      </transition>
+    </div>
+  </section>
 </template>
 <script>
 import Card from "@/components/Cards/Card.vue";
@@ -62,6 +69,10 @@ export default {
 
 <style lang="scss">
 #main-portfolio {
+  background-image: url("/img/background/bg_portfolio.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 150%;
 }
 .modal-leave-active {
   -webkit-animation-name: zoomOut;
@@ -143,11 +154,15 @@ export default {
   margin: 0 auto;
 }
 @media screen and (max-width: 767px) {
+  
   .is-btn-right {
     justify-content: center;
   }
   .is-btn-left {
     justify-content: center;
+  }
+  #main-portfolio {
+    background-size: cover;
   }
 }
 </style>

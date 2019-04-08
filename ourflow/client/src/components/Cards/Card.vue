@@ -60,7 +60,7 @@ article {
 }
 .to-right:before {
   content: "";
-  background-image: url("/img/vague_carte_portfolio.svg");
+  background-image: url("/img/stencil/sc_card_portfolio.svg");
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
@@ -73,7 +73,7 @@ article {
 
 .to-left:before {
   content: "";
-  background-image: url("/img/vague_carte_portfolio.svg");
+  background-image: url("/img/stencil/sc_card_portfolio.svg");
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;

@@ -5,12 +5,12 @@
         <div class="hero">
           <div class="hero-body content-modal">
             <div class="content-modal-top">
-              <div class="content">
-                <h2>{{dataModal.title_para}}</h2>
+              <div class="content has-text-left has-text-centered-mobile has-text-grey-dark">
+                <h2 class="title is-2 is-size-3-mobile is-capitalized">{{dataModal.title_para}}</h2>
                 <p>{{dataModal.item[0].descritpion_item}}</p>
               </div>
             </div>
-            <div class="content-modal-bottom">
+            <div class="content-modal-bottom is-fullcentered">
               <slot/>
             </div>
           </div>
@@ -20,9 +20,11 @@
         <div class="hero">
           <div class="hero-body content-modal">
             <div class="content-modal-image">
-              <figure v-for="(item, index ) in dataModal.item" :key="index" class="img-modal">
-                <img :src="item.media_item" :alt="item.alt_item">
-              </figure>
+              <div class="container is-fullhd">
+                <figure v-for="(item, index ) in dataModal.item" :key="index" class="img-modal">
+                  <img :src="item.media_item" :alt="item.alt_item">
+                </figure>
+              </div>
             </div>
           </div>
         </div>
@@ -49,13 +51,15 @@ export default {
   overflow: auto;
 }
 .content-modal {
+  width: 100%;
   height: 100vh;
   .content-modal-top {
+    width: 100%;
     height: 80%;
-    margin: 0 0 10% 0;
     overflow: auto;
   }
   .content-modal-bottom {
+    width: 100%;
     height: 10%;
   }
 }
@@ -66,7 +70,7 @@ export default {
 }
 .stencil-modal:before {
   content: "";
-  background-image: url("/img/separation_vague.svg");
+  background-image: url("/img/stencil/sc_modal.svg");
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
@@ -75,6 +79,7 @@ export default {
   height: 100%;
   left: calc(100% - 5px);
   top: 0;
+  z-index: 1;
 }
 
 .content-modal-image {
@@ -94,7 +99,7 @@ export default {
   .stencil-modal:before {
     content: "";
     background-size: 102%;
-    background-image: url("/img/separation_vague_mobile.svg");
+    background-image: url("/img/stencil/sc_modal_mobile.svg");
     top: calc(100% - 5px);
     left: -1%;
     height: 20vh;
@@ -107,11 +112,23 @@ export default {
     .content-modal-top {
       min-height: 80%;
       height: auto;
-      margin: 0 0 10% 0;
     }
     .content-modal-bottom {
       min-height: 10%;
       height: auto;
+      .action {
+        position: fixed;
+        top: 0;
+        left: 85vw;
+        margin: 2vh 2vw;
+        z-index: 5;
+      }
+    }
+    .img-modal {
+      margin: 1.5em auto;
+      img {
+        width: 90%;
+      }
     }
   }
 }
