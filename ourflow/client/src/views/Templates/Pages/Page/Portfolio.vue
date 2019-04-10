@@ -1,11 +1,6 @@
 <template>
-  <section id="main-portfolio" class="section">
-    <div class="content">
-      <h1
-        class="higlight-title subtitle is-1 is-size-2-mobile is-capitalized has-text-warning has-text-weight-light"
-      >{{$store.getters.getPage[$store.getters.getIndex]}}</h1>
-    </div>
-    <div class="container">
+<div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
+    <Section :hasColor="0">
       <Card
         v-for="(val, index) in fetchData.paragraph"
         :key="index"
@@ -27,19 +22,21 @@
           </span>
         </Modal>
       </transition>
-    </div>
-  </section>
+    </Section>
+  </div>
 </template>
 <script>
 import Card from "@/components/Cards/Card.vue";
 import Btn from "@/components/Btns/Btn.vue";
 import Modal from "@/components/Modals/Modal.vue";
+import Section from "@/components/Sections/Section.vue";
 export default {
   name: "Portfolio",
   components: {
     Card,
     Btn,
-    Modal
+    Modal,
+    Section
   },
   props: {
     fetchData: Object
@@ -154,7 +151,6 @@ export default {
   margin: 0 auto;
 }
 @media screen and (max-width: 767px) {
-  
   .is-btn-right {
     justify-content: center;
   }

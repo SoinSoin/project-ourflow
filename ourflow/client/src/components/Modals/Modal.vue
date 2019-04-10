@@ -20,7 +20,7 @@
         <div class="hero">
           <div class="hero-body content-modal">
             <div class="content-modal-image">
-              <div class="container is-fullhd">
+              <div class="container is-fluid">
                 <figure v-for="(item, index ) in dataModal.item" :key="index" class="img-modal">
                   <img :src="item.media_item" :alt="item.alt_item">
                 </figure>

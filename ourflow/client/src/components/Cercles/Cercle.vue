@@ -1,29 +1,31 @@
 <template>
-  <div class="container-circle container">
-    <div class="circle is-fullcentered">
-      <article class="content-circle">
-        <figure
-          class="container-circle-half background-circle"
-          :style="{'background-image':`url(${dataCercle.item[0].media_item})`}"
-          :alt="`${dataCercle.item[0].alt_item}`"
-        >
-          <h1
-            class="title is-1 is-size-2-mobile has-text-white to-bottom-text has-text-weight-bold"
-          >{{dataCercle.title_para}}</h1>
-        </figure>
-        <div class="container-circle-half">
-          <div class="padding-bottom-circle">
-            <div class="content-text-circle">
-              <div class="content has-text-centered has-text-grey-dark">
-                <p class="is-size-7-mobile">{{dataCercle.item[0].descritpion_item}}</p>
+  <div class="container-circle is-fullcentered">
+    <div class="container">
+      <div class="circle is-fullcentered">
+        <article class="content-circle">
+          <figure
+            class="container-circle-half background-circle"
+            :style="{'background-image':`url(${dataCercle.item[0].media_item})`}"
+            :alt="`${dataCercle.item[0].alt_item}`"
+          >
+            <h1
+              class="title is-1 is-size-2-mobile has-text-white to-bottom-text has-text-weight-bold"
+            >{{dataCercle.title_para}}</h1>
+          </figure>
+          <div class="container-circle-half">
+            <div class="padding-bottom-circle">
+              <div class="content-text-circle">
+                <div class="content has-text-centered has-text-grey-dark">
+                  <p class="is-size-7-mobile">{{dataCercle.item[0].descritpion_item}}</p>
+                </div>
+              </div>
+              <div class="content-btn-circle">
+                <slot/>
               </div>
             </div>
-            <div class="content-btn-circle">
-              <slot/>
-            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
   </div>
 </template>
@@ -49,6 +51,10 @@ export default {
 </script>
 
 <style lang="scss">
+.container-circle {
+  height: 100%;
+  width: 100%;
+}
 .circle {
   width: 100%;
   height: 100%;
@@ -100,6 +106,15 @@ export default {
   line-height: 0.7 !important;
 }
 
+@media screen and (max-width: 1088px) {
+  .container-circle {
+    .container {
+      max-width: 840px;
+      width: 840px;
+      min-width: 0;
+    }
+  }
+}
 @media screen and (min-width: 767px) and (max-width: 1024px) {
   .circle:after {
     width: 65%;

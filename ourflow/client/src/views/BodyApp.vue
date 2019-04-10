@@ -92,7 +92,7 @@ export default {
       };
     },
     TargetResponsive(width) {
-      if (width > 1024) this.containerIsActive = false;
+      if (width >= 1024) this.containerIsActive = false;
     },
     ContainerIsActive(ContainerIsActive) {
       this.containerIsActive = ContainerIsActive;

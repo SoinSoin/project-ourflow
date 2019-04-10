@@ -64,6 +64,7 @@ export default {
       const swiper = new Swiper(".swiper-container", {
         initialSlide: this.$store.getters.getIndex,
         centeredSlides: true,
+        centerInsufficientSlides:true,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"

@@ -76,7 +76,19 @@ p {
         overflow: unset;
     }
 }
-.title, .subtitle{
-    word-break:initial;
+
+.title,
+.subtitle {
+    word-break: initial;
 }
+
+input:focus,
+input.form-control:focus {
+    outline: none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 // créer ces classes css global

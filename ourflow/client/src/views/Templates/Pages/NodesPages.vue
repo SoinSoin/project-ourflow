@@ -52,5 +52,6 @@ export default {
   margin-top: 5vh;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.3);
   border-radius: 25px 25px 0 0;
+  overflow:hidden;
 }
 </style>
