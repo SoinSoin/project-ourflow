@@ -13,7 +13,7 @@ class SendMail(generics.views.APIView):
             phone = validated_data.get('phone')
             content =validated_data.get('content')
             try:
-                send_mail("Mail de:{}".format(name),"Numéro de téléphone:{}.<br/> Message:".format(phone, content) , email, ['vincent.retore@gmail.com'],)
+                send_mail("[CLIENT] mail de:{}".format(name),"Numéro de téléphone:{}.\nMessage:{}".format(phone, content) , email, ['contact@ourflow.fr'],)
                 return Response({"response": "send"})
                 pass
             except:

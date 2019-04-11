@@ -30,40 +30,73 @@
             <form class="columns is-multiline" onsubmit="return false">
               <div class="column is-12">
                 <div class="field">
-                  <div class="control">
-                    <input class="input" type="text" placeholder="Name">
-                  </div>
+                  <p class="control has-icons-left has-icons-right">
+                    <input
+                      class="input input-mail is-normal-higlight"
+                      type="text"
+                      v-model="dataName"
+                      placeholder="Nom ou Entreprise"
+                      required
+                    >
+                    <span class="icon is-small is-left">
+                      <p class="title is-5 has-text-warning">*</p>
+                    </span>
+                  </p>
                 </div>
               </div>
 
               <div class="column is-12">
                 <div class="field">
-                  <div class="control">
-                    <input class="input" type="email" placeholder="Email">
-                  </div>
+                  <p class="control has-icons-left has-icons-right">
+                    <input
+                      :class="{'input':true, 'input-mail':true, 'is-normal-higlight': this.is.mail.color==='normal','is-red-higlight':this.is.mail.color==='red','is-green-higlight':this.is.mail.color==='green'}"
+                      type="email"
+                      v-model="dataMail"
+                      placeholder="Email"
+                      required
+                    >
+                    <span class="icon is-small is-left">
+                      <p class="title is-5 has-text-warning">*</p>
+                    </span>
+                  </p>
                 </div>
               </div>
 
               <div class="column is-12">
                 <div class="field">
-                  <div class="control">
-                    <input class="input" type="tel" placeholder="Telephone">
-                  </div>
+                  <p class="control has-icons-left has-icons-right">
+                    <input
+                      :class="{'input':true, 'input-mail':true, 'is-normal-higlight': this.is.phone.color==='normal','is-red-higlight':this.is.phone.color==='red','is-green-higlight':this.is.phone.color==='green'}"
+                      type="tel"
+                      v-model="dataPhone"
+                      placeholder="Telephone"
+                    >
+                    <span class="icon is-small is-left">
+                      <p class="title is-5 has-text-warning"></p>
+                    </span>
+                  </p>
                 </div>
               </div>
 
               <div class="column is-12">
                 <div class="field">
-                  <div class="control">
-                    <textarea class="textarea has-fixed-size" placeholder="Message"></textarea>
-                  </div>
+                  <p class="control has-icons-left has-icons-right">
+                    <textarea
+                      class="textarea input input-mail has-fixed-size is-normal-higlight"
+                      placeholder="Message"
+                      v-model="dataMessage"
+                      required
+                    ></textarea>
+                    <span class="icon is-small is-left">
+                      <p class="title is-5 has-text-warning">*</p>
+                    </span>
+                  </p>
                 </div>
               </div>
-
               <div class="column is-12">
                 <div class="field btn-envoyer-container">
                   <div class="control">
-                    <button class="button is-link btn-envoyer" id="message-is-send">Envoyer</button>
+                    <button class="button is-link btn-envoyer">Envoyer</button>
                   </div>
                 </div>
               </div>
@@ -81,6 +114,58 @@ export default {
   name: "Contact",
   components: {
     Section
+  },
+  data() {
+    return {
+      dataName: "",
+      dataMail: "",
+      dataPhone: "",
+      dataMessage: "",
+      is: {
+        mail: {
+          validate: false,
+          color: "normal"
+        },
+        phone: {
+          validate: true,
+          color: "normal"
+        }
+      }
+    };
+  },
+  watch: {
+    dataMail(mail) {
+      if ( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
+        this.is.mail.validate = true;
+        this.is.mail.color = "green";
+      } else {
+        this.is.mail.validate = false;
+        this.is.mail.color = "red";
+      }
+    },
+    dataPhone(phone) {
+      switch (phone) {
+        case "":
+          this.is.phone.validate = true;
+          this.is.phone.color = "normal";
+          break;
+        default:
+          if (isNaN(phone)) {
+            this.is.phone.validate = false;
+            this.is.phone.color = "red";
+          } else {
+            if (phone.split("").length === 10) {
+              this.is.phone.validate = true;
+              this.is.phone.color = "green";
+            } else {
+              this.is.phone.validate = false;
+              this.is.phone.color = "red";
+            }
+          }
+          break;
+      }
+      console.log(this.is.phone);
+    }
   }
 };
 </script>
@@ -117,25 +202,45 @@ form {
 
 .container-colonne-droite input,
 .container-colonne-droite textarea {
-  border-radius: 0;
-  box-shadow: none;
-  border-width: 0;
-  border-bottom-width: 0px;
-  border-bottom: solid 2px #e2d637;
-  transition-duration: 0.3s;
-  background-color: transparent;
-  position: relative;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
+  &.input-mail {
+    border-radius: 0;
+    box-shadow: none;
+    border-width: 0;
+    border-bottom-width: 0px;
+    transition-duration: 0.3s;
+    background-color: transparent;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    &.is-normal-higlight {
+      border-bottom: solid 2px #e2d637;
+    }
+    &.is-green-higlight {
+      border-bottom: solid 2px green;
+    }
+    &.is-red-higlight {
+      border-bottom: solid 2px red;
+    }
+  }
 }
 
 .input:active,
 .input:focus,
 .textarea:active,
 .textarea:focus {
-  box-shadow: none;
-  border-bottom: solid 2px #c9c9c9;
-  width: 100%;
+  &.input-mail {
+    box-shadow: none;
+    &.is-normal-higlight {
+      border-bottom: solid 2px #c9c9c9;
+    }
+    &.is-green-higlight {
+      border-bottom: solid 2px green;
+    }
+    &.is-red-higlight {
+      border-bottom: solid 2px red;
+    }
+    width: 100%;
+  }
 }
 
 .container-colonne-droite .btn-envoyer,
@@ -148,7 +253,6 @@ form {
   padding-left: 30px;
   padding-right: 30px;
 }
-
 
 .container-colonne-droite .btn-envoyer:active {
   opacity: 0.6;
