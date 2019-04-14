@@ -1,6 +1,6 @@
 <template>
   <!--desktop Card-->
-  <article v-if="$store.getters.getSize >767 && fetchDataCard" class="card">
+  <article v-if="$store.getters.getSize >767" class="card">
     <div class="columns is-gapless">
       <div class="column is-6">
         <ImageCard v-if="isToRight % 2" :dataCard="fetchDataCard" class="to-right"/>
@@ -18,7 +18,7 @@
   </article>
 
   <!-- Responsive Card -->
-  <article v-else-if="$store.getters.getSize < 767 && fetchDataCard" class="card">
+  <article v-else-if="$store.getters.getSize < 767" class="card">
     <div class="columns is-gapless">
       <div class="column is-6">
         <ImageCard :dataCard="fetchDataCard" class="to-right"/>

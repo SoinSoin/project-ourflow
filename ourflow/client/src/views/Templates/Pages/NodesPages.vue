@@ -1,12 +1,15 @@
 <template>
-  <div id="main-pages" class="has-background-white">
+  <div id="main-pages" class="has-background-white" >
     <Home v-if="$route.name==='home'"/>
     <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase()"/>
     <Portfolio
       v-if="$route.params.page===$store.getters.getData[2].title_page.toLowerCase()"
       :fetchData="$store.getters.getData[$store.getters.getIndex]"
     />
-    <Contact v-if="$route.params.page===$store.getters.getData[3].title_page.toLowerCase()"/>
+    <Contact
+      v-if="$route.params.page===$store.getters.getData[3].title_page.toLowerCase()"
+      :fetchData="$store.getters.getData[$store.getters.getIndex]"
+    />
   </div>
 </template>
 
@@ -23,12 +26,26 @@ export default {
     Prestation,
     Portfolio
   },
+  data() {
+    return {
+      isLoading: true
+    };
+  },
   computed: {
+    getDataFetch() {
+      console.log("delete SLide", this.$store.getters.getData);
+      console.log("any Slide", this.$store.getters.getDataSlide);
+      return this.$store.getters.getData; 
+    },
     getTitleChange() {
       return this.$store.getters.getIndex;
     }
   },
   watch: {
+    getDataFetch() {
+      console.log("pass ?");
+      this.isLoading = false;
+    },
     getTitleChange(index) {
       this.changeMetaTitle();
     }
@@ -52,6 +69,6 @@ export default {
   margin-top: 5vh;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.3);
   border-radius: 25px 25px 0 0;
-  overflow:hidden;
+  overflow: hidden;
 }
 </style>

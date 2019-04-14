@@ -37,17 +37,22 @@ export default new Vuex.Store({
     },
     setfetchData(state, data) {
       var arr = []
+      var arr2 = []
       data.map((valpage, j) => {
         state.fetchPage.push(valpage.title_page.toLowerCase())
         valpage.paragraph.map((valpara, i) => {
           if (valpara.type === "slide") {
             arr.push(data[j].paragraph[i])
             delete data[j].paragraph[i]
+          }else{
+            arr2.push(data[j].paragraph[i])
           }
         })
+        data[j].paragraph = arr2
+        arr2=[]
       })
-      state.fetchDataSlide = arr
       state.fetchData = data
+      state.fetchDataSlide = arr
     },
   },
   actions: {

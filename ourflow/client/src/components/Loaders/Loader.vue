@@ -1,6 +1,6 @@
 <template>
   <div class="container is-fluid is-marginless">
-    <div class="container-loader has-background-warning">
+    <div class="container-loader has-background-warning is-fullcentered">
       <div class="loader-perso">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2236.55 878.01">
           <title>Fichier 2</title>
@@ -13,7 +13,7 @@
             </g>
           </g>
         </svg>
-        <p class="chargement">20%</p>
+        <slot/>
       </div>
     </div>
   </div>

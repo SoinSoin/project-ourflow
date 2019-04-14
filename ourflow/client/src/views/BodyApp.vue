@@ -26,7 +26,9 @@
       <Footer/>
     </div>
     <div v-else id="main-body">
-      <Loader/>
+      <Loader>
+        <p class="chargement">20%</p>
+      </Loader>
     </div>
   </div>
 </template>

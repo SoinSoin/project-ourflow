@@ -3,28 +3,39 @@
     <Section :hasColor="0">
       <div class="columns is-gapless">
         <div class="column is-half">
-          <div class="container-colonne-gauche">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-            <div class="info-contact">
-              <div class="info-contact-1">
-                <img src="img/contact_mail.png">
-                <p>contact@ourflow.fr</p>
+          <div
+            class="container-colonne-gauche"
+            v-for="(objChild, i) in fetchData.paragraph"
+            :key="i"
+          >
+            <div class="columns is-8 is-multiline">
+              <div class="column is-12">
+                <div class="content has-text-left has-text-centered-mobile">
+                  <p class="title is-6">{{objChild.item[0].descritpion_item}}</p>
+                </div>
               </div>
-              <div class="info-contact-1">
-                <img src="img/contact_telephone.png">
-                <p>01 23 45 67 89</p>
+            </div>
+            <div
+              class="columns is-multiline is-8"
+              v-for="index in objChild.item.length-1"
+              :key="index"
+            >
+              <div class="column is-2 is-fullcentered">
+                <figure class="image">
+                  <img :src="objChild.item[index].media_item" :alt="objChild.item[index].alt_item">
+                </figure>
               </div>
-              <div class="info-contact-1">
-                <img src="img/contact_adresse.png">
-                <p>
-                  3 rue de blablabla
-                  <br>09100 Pamiers
-                </p>
+              <div class="column is-10 is-fullcentered">
+                <div class="content full-width-content has-text-left has-text-centered-mobile">
+                  <a
+                    class="title is-6"
+                    :href="objChild.item[index].link_item"
+                  >{{objChild.item[index].descritpion_item}}</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
         <div class="column is-half">
           <div class="container-colonne-droite">
             <form class="columns is-multiline" onsubmit="return false">
@@ -32,9 +43,9 @@
                 <div class="field">
                   <p class="control has-icons-left has-icons-right">
                     <input
-                      class="input input-mail is-normal-higlight"
+                      :class="{'input':true, 'input-mail':true, 'is-normal-higlight': this.is.name.color==='normal','is-red-higlight':this.is.name.color==='red'}"
                       type="text"
-                      v-model="dataName"
+                      v-model="dataForm.name"
                       placeholder="Nom ou Entreprise"
                       required
                     >
@@ -51,7 +62,7 @@
                     <input
                       :class="{'input':true, 'input-mail':true, 'is-normal-higlight': this.is.mail.color==='normal','is-red-higlight':this.is.mail.color==='red','is-green-higlight':this.is.mail.color==='green'}"
                       type="email"
-                      v-model="dataMail"
+                      v-model="dataForm.email"
                       placeholder="Email"
                       required
                     >
@@ -68,7 +79,7 @@
                     <input
                       :class="{'input':true, 'input-mail':true, 'is-normal-higlight': this.is.phone.color==='normal','is-red-higlight':this.is.phone.color==='red','is-green-higlight':this.is.phone.color==='green'}"
                       type="tel"
-                      v-model="dataPhone"
+                      v-model="dataForm.phone"
                       placeholder="Telephone"
                     >
                     <span class="icon is-small is-left">
@@ -82,9 +93,9 @@
                 <div class="field">
                   <p class="control has-icons-left has-icons-right">
                     <textarea
-                      class="textarea input input-mail has-fixed-size is-normal-higlight"
+                      :class="{'input':true, 'has-fixed-size':true, 'textarea':true, 'input-mail':true, 'is-normal-higlight': this.is.message.color==='normal','is-red-higlight':this.is.message.color==='red'}"
                       placeholder="Message"
-                      v-model="dataMessage"
+                      v-model="dataForm.content"
                       required
                     ></textarea>
                     <span class="icon is-small is-left">
@@ -94,9 +105,33 @@
                 </div>
               </div>
               <div class="column is-12">
-                <div class="field btn-envoyer-container">
-                  <div class="control">
-                    <button class="button is-link btn-envoyer">Envoyer</button>
+                <div class="columns is-multiline">
+                  <div class="column is-12">
+                    <div class="field btn-envoyer-container">
+                      <div class="control modify-control is-fullcentered">
+                        <a
+                          :class="{'button':true, 'red-circle':click.error,'green-circle':click.success, 'is-link':click.normal,'transition-btn-envoyer':true, 'btn-envoyer':click.normal, 'is-rounded':true, 'is-link-to-circle':!click.normal,}"
+                        >
+                          <span
+                            @click="beforeSend()"
+                            v-if="click.normal"
+                            class="action-send is-fullcentered"
+                          >
+                            <p>{{msg}}</p>
+                          </span>
+                          <span v-else class="icon is-medium">
+                            <fa-icon v-if="click.error" :icon="{prefix: 'fas', iconName:'times'}"/>
+                            <fa-icon
+                              v-if="click.success"
+                              :icon="{prefix: 'fas', iconName:'check'}"
+                            />
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-12">
+                    <p class="title is-6 has-text-danger has-text-centered">{{error}}</p>
                   </div>
                 </div>
               </div>
@@ -105,23 +140,42 @@
         </div>
       </div>
     </Section>
-    <!-- http://animista.net/play/basic/flip/flip-horizontal-top -->
   </div>
 </template>
 <script>
 import Section from "@/components/Sections/Section.vue";
+import setMail from "@/services/api.js";
 export default {
   name: "Contact",
   components: {
     Section
   },
+  props: {
+    fetchData: Object
+  },
+  beforeMount() {
+    console.log(this.fetchData);
+  },
   data() {
     return {
-      dataName: "",
-      dataMail: "",
-      dataPhone: "",
-      dataMessage: "",
+      error: "",
+      msg: "Envoyer",
+      click: {
+        normal: true,
+        error: false,
+        success: false
+      },
+      dataForm: {
+        name: "",
+        email: "",
+        phone: "",
+        content: ""
+      },
       is: {
+        name: {
+          validate: false,
+          color: "normal"
+        },
         mail: {
           validate: false,
           color: "normal"
@@ -129,47 +183,156 @@ export default {
         phone: {
           validate: true,
           color: "normal"
+        },
+        message: {
+          validate: false,
+          color: "normal"
         }
       }
     };
   },
+  computed: {
+    dataMail() {
+      return this.dataForm.email;
+    },
+    dataPhone() {
+      return this.dataForm.phone;
+    },
+    dataName() {
+      return this.dataForm.name;
+    },
+    dataMessage() {
+      return this.dataForm.content;
+    }
+  },
   watch: {
+    dataMessage() {
+      this.is.message.color = "normal";
+    },
+    dataName() {
+      this.is.name.color = "normal";
+    },
     dataMail(mail) {
-      if ( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
-        this.is.mail.validate = true;
-        this.is.mail.color = "green";
+      // verif if a string is a mail type
+      if (mail !== "") {
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
+          this.is.mail.validate = true;
+          this.is.mail.color = "green";
+        } else {
+          this.is.mail.validate = false;
+          this.is.mail.color = "red";
+        }
       } else {
         this.is.mail.validate = false;
-        this.is.mail.color = "red";
+        this.is.mail.color = "normal";
       }
     },
     dataPhone(phone) {
-      switch (phone) {
-        case "":
-          this.is.phone.validate = true;
-          this.is.phone.color = "normal";
-          break;
-        default:
-          if (isNaN(phone)) {
+      // verif if a phone number
+      if (phone !== "") {
+        if (isNaN(phone)) {
+          this.is.phone.validate = false;
+          this.is.phone.color = "red";
+        } else {
+          if (phone.split("").length === 10) {
+            this.is.phone.validate = true;
+            this.is.phone.color = "green";
+          } else {
             this.is.phone.validate = false;
             this.is.phone.color = "red";
-          } else {
-            if (phone.split("").length === 10) {
-              this.is.phone.validate = true;
-              this.is.phone.color = "green";
-            } else {
-              this.is.phone.validate = false;
-              this.is.phone.color = "red";
-            }
           }
-          break;
+        }
+      } else {
+        this.is.phone.validate = true;
+        this.is.phone.color = "normal";
       }
-      console.log(this.is.phone);
+    }
+  },
+  methods: {
+    beforeSend() {
+      if (this.verifyData()) {
+        this.isSuccess();
+      } else {
+        this.isError();
+      }
+    },
+    verifyData() {
+      var isReadyToSend = false;
+      if (/\S/.test(this.dataForm.name)) {
+        this.is.name.validate = true;
+        this.is.name.color = "normal";
+        this.error = "";
+        if (/\S/.test(this.dataForm.content)) {
+          this.is.message.validate = true;
+          this.is.message.color = "normal";
+          this.error = "";
+          if (this.is.phone.validate && this.is.mail.validate) {
+            isReadyToSend = true;
+          } else {
+            this.is.mail.color = "red";
+            this.error =
+              "Vérifier si votre mail ou votre numéro de telephone est dans un format valide.";
+          }
+        } else {
+          this.is.message.validate = false;
+          this.is.message.color = "red";
+          this.error = "Votre message est vide.";
+        }
+      } else {
+        this.is.name.validate = false;
+        this.is.name.color = "red";
+        this.error =
+          "Votre nom ou celui de votre entreprise n'a pas été renseigné.";
+      }
+      return isReadyToSend;
+    },
+    isSuccess() {
+      var dataForm = new FormData();
+      for (var attrData in this.dataForm) {
+        dataForm.set(attrData, this.dataForm[attrData]);
+      }
+      this.sendMail(dataForm);
+    },
+    isError() {
+      this.click.normal = false;
+      this.click.error = true;
+      this.returnIsNormal();
+    },
+    returnIsNormal() {
+      const toNormal = setInterval(() => {
+        this.click.normal = true;
+        this.click.success = false;
+        this.click.error = false;
+        clearInterval(toNormal);
+      }, 3000);
+    },
+    sendMail(dataForm) {
+      setMail.setSendMail(dataForm).then(res => {
+        if (res.status === 200) {
+          this.click.normal = false;
+          this.click.success = true;
+          this.returnIsNormal();
+          this.emptyForm();
+        } else {
+          this.error =
+            "Une erreur est survenue lors de l'envoie, veuillez réessayer plus tard.";
+          this.isError();
+        }
+      });
+    },
+    emptyForm() {
+      for (var attrDataForm in this.dataForm) {
+        this.dataForm[attrDataForm] = "";
+      }
     }
   }
 };
 </script>
 <style lang="scss">
+.modify-control {
+  width: 100% !important;
+  min-height: 4vh !important;
+}
 .container-colonne-gauche,
 .container-colonne-droite {
   padding: 50px;
@@ -216,14 +379,17 @@ form {
       border-bottom: solid 2px #e2d637;
     }
     &.is-green-higlight {
-      border-bottom: solid 2px green;
+      border-bottom: solid 2px hsl(141, 71%, 48%);
     }
     &.is-red-higlight {
-      border-bottom: solid 2px red;
+      border-bottom: solid 2px #ff5b28;
     }
   }
 }
-
+.full-width-content {
+  min-width: 100%;
+  width: 100%;
+}
 .input:active,
 .input:focus,
 .textarea:active,
@@ -234,10 +400,10 @@ form {
       border-bottom: solid 2px #c9c9c9;
     }
     &.is-green-higlight {
-      border-bottom: solid 2px green;
+      border-bottom: solid 2px hsl(141, 71%, 48%);
     }
     &.is-red-higlight {
-      border-bottom: solid 2px red;
+      border-bottom: solid 2px #ff5b28;
     }
     width: 100%;
   }
@@ -248,26 +414,41 @@ form {
   background-color: #fff;
   border: solid 2px #e2d637;
   color: #e2d637;
-  transition-duration: 0.3s;
-  border-radius: 50px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 0 30px;
+  height: 40px;
+  // border-radius: 50px;
+}
+.transition-btn-envoyer {
+  transition-duration: 0.3s !important;
 }
 
+.action-send {
+  height: 100%;
+  padding: 14% 0;
+}
+
+.is-link-to-circle {
+  height: 40px !important;
+  width: 40px !important;
+  border: none !important;
+}
+
+.red-circle {
+  background: #ff5b28 !important;
+  color: white !important;
+}
+.green-circle {
+  background: hsl(141, 71%, 48%) !important;
+  color: white !important;
+}
 .container-colonne-droite .btn-envoyer:active {
   opacity: 0.6;
 }
 
-.container-colonne-droite {
-  button {
-    &.button {
-      &.btn-envoyer:hover {
-        background-color: #e2d637;
-        color: #fff;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-      }
-    }
-  }
+.container-colonne-droite .btn-envoyer.is-link:hover {
+  background-color: #e2d637;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .btn-envoyer-container {
@@ -282,9 +463,11 @@ form {
   color: #fff;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+
+  .container-colonne-gauche,
   .container-colonne-droite {
-    padding-top: 0;
+    padding: 50px 0;
   }
 }
 </style>
