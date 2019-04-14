@@ -19,5 +19,5 @@ class ParaItemSerializer(serializers.ModelSerializer):
         parse_py = json.loads(parse_json_list)
         for key in parse_py: 
             if parse_py[key]==None:
-                del json_raw[0][key]
+                json_raw[0][key]=""
         return json_raw[0]

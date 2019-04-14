@@ -173,19 +173,15 @@ export default {
       },
       is: {
         name: {
-          validate: false,
           color: "normal"
         },
         mail: {
-          validate: false,
           color: "normal"
         },
         phone: {
-          validate: true,
           color: "normal"
         },
         message: {
-          validate: false,
           color: "normal"
         }
       }
@@ -250,52 +246,23 @@ export default {
   },
   methods: {
     beforeSend() {
-      if (this.verifyData()) {
-        this.isSuccess();
-      } else {
-        this.isError();
-      }
-    },
-    verifyData() {
-      var isReadyToSend = false;
-      if (/\S/.test(this.dataForm.name)) {
-        this.is.name.validate = true;
-        this.is.name.color = "normal";
-        this.error = "";
-        if (/\S/.test(this.dataForm.content)) {
-          this.is.message.validate = true;
-          this.is.message.color = "normal";
-          this.error = "";
-          if (this.is.phone.validate && this.is.mail.validate) {
-            isReadyToSend = true;
-          } else {
-            this.is.mail.color = "red";
-            this.error =
-              "Vérifier si votre mail ou votre numéro de telephone est dans un format valide.";
-          }
-        } else {
-          this.is.message.validate = false;
-          this.is.message.color = "red";
-          this.error = "Votre message est vide.";
-        }
-      } else {
-        this.is.name.validate = false;
-        this.is.name.color = "red";
-        this.error =
-          "Votre nom ou celui de votre entreprise n'a pas été renseigné.";
-      }
-      return isReadyToSend;
-    },
-    isSuccess() {
       var dataForm = new FormData();
       for (var attrData in this.dataForm) {
         dataForm.set(attrData, this.dataForm[attrData]);
       }
       this.sendMail(dataForm);
     },
-    isError() {
+    isSuccess() {
+      this.click.normal = false;
+      this.click.success = true;
+      this.returnIsNormal();
+      this.emptyForm();
+    },
+    isError(dataErr) {
       this.click.normal = false;
       this.click.error = true;
+      this.error = dataErr.msg;
+      this.is[dataErr.from].color = "red";
       this.returnIsNormal();
     },
     returnIsNormal() {
@@ -307,23 +274,20 @@ export default {
       }, 3000);
     },
     sendMail(dataForm) {
-      setMail.setSendMail(dataForm).then(res => {
-        if (res.status === 200) {
-          this.click.normal = false;
-          this.click.success = true;
-          this.returnIsNormal();
-          this.emptyForm();
-        } else {
-          this.error =
-            "Une erreur est survenue lors de l'envoie, veuillez réessayer plus tard.";
-          this.isError();
-        }
-      });
+      setMail
+        .setSendMail(dataForm)
+        .then(res => {
+          this.isSuccess();
+        })
+        .catch(error => {
+          this.isError(error.response.data);
+        });
     },
     emptyForm() {
       for (var attrDataForm in this.dataForm) {
         this.dataForm[attrDataForm] = "";
       }
+      this.error = "";
     }
   }
 };
@@ -464,7 +428,6 @@ form {
 }
 
 @media (max-width: 767px) {
-
   .container-colonne-gauche,
   .container-colonne-droite {
     padding: 50px 0;
