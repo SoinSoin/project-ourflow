@@ -16,7 +16,7 @@ class SendMail(generics.views.APIView):
                 email =validated_data.get('email')
                 phone = validated_data.get('phone')
                 content =validated_data.get('content')
-                # send_mail("[FORM SITE] mail de:{}".format(name),"Numéro de téléphone:{}.\nMessage:{}".format(phone, content) , email, ['contact@ourflow.fr'],)
+                send_mail("[FORM SITE] mail de:{}".format(name),"Numéro de téléphone:{}.\nMessage:{}".format(phone, content) , email, ['contact@ourflow.fr'],)
             else:
                 verify_data_form["msg"]={"msg":"une erreur est survenue"}
                 verify_data_form['status'] = status.HTTP_400_BAD_REQUEST
