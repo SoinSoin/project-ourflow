@@ -1,7 +1,7 @@
 <template>
   <div id="main-pages" class="has-background-white" >
     <Home v-if="$route.name==='home'" :fetchData="$store.getters.getData[$store.getters.getIndex]"/>
-    <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase()"/>
+    <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase() " :fetchData="$store.getters.getData[$store.getters.getIndex]"/>
     <Portfolio
       v-if="$route.params.page===$store.getters.getData[2].title_page.toLowerCase()"
       :fetchData="$store.getters.getData[$store.getters.getIndex]"

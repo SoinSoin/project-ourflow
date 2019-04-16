@@ -1,16 +1,33 @@
 <template>
   <div id="main-prestation">
-    <Section :hasColor="0" :title="$store.getters.getPage[$store.getters.getIndex] ">
-      <article style="width:100%; height:20vh;" class="section has-background-warning"></article>
+    <Section
+      :hasColor="0"
+      :titleSec="$store.getters.getPage[$store.getters.getIndex]"
+      :hasStencil="false"
+    >
+      <List
+        v-for="(valPara, index) in fetchData.paragraph"
+        :key="index"
+        :isToRight="index"
+        :fetchData="valPara"
+      />
     </Section>
   </div>
 </template>
 <script>
 import Section from "@/components/Sections/Section.vue";
+import List from "@/components/Lists/List.vue";
 export default {
   name: "Prestation",
   components: {
+    List,
     Section
+  },
+  props: {
+    fetchData: Object
+  },
+  beforeMount() {
+    console.log(this.fetchData);
   }
 };
 </script>
@@ -19,14 +36,11 @@ export default {
   section {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    .container {
-      margin: 0 !important;
+    padding-bottom: 0 !important;
+    .section-container {
+      margin: 0;
       width: 100%;
       max-width: 100%;
-    }
-    article {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
     }
   }
 }

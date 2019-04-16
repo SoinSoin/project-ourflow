@@ -2,9 +2,10 @@
   <div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
     <Section
       v-for="(para,index) in fetchData.paragraph"
+      :hasStencil="true"
       :key="index"
       :hasColor="index"
-      :title="para.title_para"
+      :titleSec="para.title_para"
     >
       <article :id="`main-${para.title_para}`" v-if="index == 0">
         <div class="columns" v-for="(item, indexItem) in para.item" :key="indexItem">

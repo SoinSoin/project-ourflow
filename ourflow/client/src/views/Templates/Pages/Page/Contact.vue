@@ -1,6 +1,6 @@
 <template>
   <div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
-    <Section :hasColor="0" :title="$store.getters.getPage[$store.getters.getIndex] ">
+    <Section :hasColor="0" :titleSec="$store.getters.getPage[$store.getters.getIndex] " :hasStencil="true">
       <div class="columns is-gapless">
         <div class="column is-half">
           <div class="container-colonne-gauche">
