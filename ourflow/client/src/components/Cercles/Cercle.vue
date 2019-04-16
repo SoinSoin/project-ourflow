@@ -9,7 +9,7 @@
             :alt="`${dataCercle.item[0].alt_item}`"
           >
             <h1
-              class="title is-1 is-size-2-mobile has-text-white to-bottom-text has-text-weight-bold"
+              :class="{'title':true, 'is-1':true ,'is-size-2-mobile':true, 'has-text-white':isYellow!==0,'has-text-warning':isYellow==0, 'to-bottom-text':true, 'has-text-weight-bold':true}"
             >{{dataCercle.title_para}}</h1>
           </figure>
           <div class="container-circle-half">
@@ -34,7 +34,8 @@
 export default {
   name: "Cercle",
   props: {
-    dataCercle: {}
+    dataCercle: {},
+    isYellow:Number,
   },
   beforeMount() {
     this.lessText();

@@ -23,7 +23,7 @@ export default {
 <style lang="scss">
 #nav-brand {
   position: absolute;
-  top: 0;
+  top: -5vh;
   margin: 1vh;
 }
 .is-48x96 {

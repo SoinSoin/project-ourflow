@@ -1,6 +1,6 @@
 <template>
   <div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
-    <Section :hasColor="0">
+    <Section :hasColor="0" :title="$store.getters.getPage[$store.getters.getIndex] ">
       <div class="columns is-gapless">
         <div class="column is-half">
           <div
@@ -152,9 +152,6 @@ export default {
   },
   props: {
     fetchData: Object
-  },
-  beforeMount() {
-    console.log(this.fetchData);
   },
   data() {
     return {
@@ -350,10 +347,7 @@ form {
     }
   }
 }
-.full-width-content {
-  min-width: 100%;
-  width: 100%;
-}
+
 .input:active,
 .input:focus,
 .textarea:active,

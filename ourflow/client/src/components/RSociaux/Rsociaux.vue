@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss">
 .container-icons {
-  min-width: 20vw;
+  min-width: 25%;
 }
 .rs {
   color: #262524;

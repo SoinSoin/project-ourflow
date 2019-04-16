@@ -1,6 +1,6 @@
 <template>
   <div id="body-app">
-    <div v-if="!isLoading" id="main-body" class="container is-fluid is-marginless">
+    <div v-if="!isLoading " id="main-body" class="container is-fluid is-marginless">
       <!-- header -->
       <header class="level is-mobile is-marginless level-header">
         <div class="level-left level-header-left">
@@ -27,7 +27,7 @@
     </div>
     <div v-else id="main-body">
       <Loader>
-        <p class="chargement">20%</p>
+        <p class="chargement"> {{$store.getters.getLoaded}}% </p>
       </Loader>
     </div>
   </div>
@@ -102,8 +102,10 @@ export default {
     fetchingData() {
       getApi.getAllPage().then(res => {
         this.$store.commit("setfetchData", res.data);
-        this.isLoading = false;
-        if (res.status === 200) this.isLocate = true;
+        if (res.status === 200) {
+          this.isLoading = false;
+          this.isLocate = true;
+        }
       });
     }
   }

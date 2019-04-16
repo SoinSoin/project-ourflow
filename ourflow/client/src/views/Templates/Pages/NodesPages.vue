@@ -1,6 +1,6 @@
 <template>
   <div id="main-pages" class="has-background-white" >
-    <Home v-if="$route.name==='home'"/>
+    <Home v-if="$route.name==='home'" :fetchData="$store.getters.getData[$store.getters.getIndex]"/>
     <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase()"/>
     <Portfolio
       v-if="$route.params.page===$store.getters.getData[2].title_page.toLowerCase()"
@@ -33,8 +33,6 @@ export default {
   },
   computed: {
     getDataFetch() {
-      console.log("delete SLide", this.$store.getters.getData);
-      console.log("any Slide", this.$store.getters.getDataSlide);
       return this.$store.getters.getData; 
     },
     getTitleChange() {
@@ -42,10 +40,6 @@ export default {
     }
   },
   watch: {
-    getDataFetch() {
-      console.log("pass ?");
-      this.isLoading = false;
-    },
     getTitleChange(index) {
       this.changeMetaTitle();
     }
@@ -66,6 +60,7 @@ export default {
 <style lang="scss">
 #main-pages {
   position: relative;
+  top:100vh;
   margin-top: 5vh;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.3);
   border-radius: 25px 25px 0 0;

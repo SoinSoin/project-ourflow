@@ -1,6 +1,6 @@
 <template>
 <div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
-    <Section :hasColor="0"></Section>
+    <Section :hasColor="0" :title="$store.getters.getPage[$store.getters.getIndex] "></Section>
 </div>
 </template>
 <script>

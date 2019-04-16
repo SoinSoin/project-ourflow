@@ -3,14 +3,14 @@
     <section id="main-slider" class="hero is-fullheight">
       <Slider class="hero-body">
         <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
-          <Cercle :dataCercle="content">
+          <Cercle :dataCercle="content" :isYellow="index">
             <span class="action" @click="smoothDown">
               <Btn :valueBtn="'voir'" :hasType="'slide'"/>
             </span>
           </Cercle>
         </Slide>
       </Slider>
-      <Rsociaux  v-if="$store.getters.getSize>=1024" class="desktop-rs"/>
+      <Rsociaux v-if="$store.getters.getSize>=1024" class="desktop-rs"/>
     </section>
     <router-view/>
   </div>
@@ -67,8 +67,10 @@ export default {
   }
 }
 #main-slider {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:0;
   background-image: url("/img/background/bg_vague.png"),
     url("/img/background/bg_desktop.png");
   background-size: 140%, cover;

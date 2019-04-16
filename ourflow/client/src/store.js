@@ -9,9 +9,13 @@ export default new Vuex.Store({
     sizeScreen: Number,
     fetchData: Array,
     fetchDataSlide: Array,
+    loaded: 0,
     fetchPage: []
   },
   getters: {
+    getLoaded(state){
+      return state.loaded
+    },
     getIndex(state) {
       return state.indexNavSlide
     },
@@ -29,6 +33,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setLoaded(state, percentage){
+      state.loaded = percentage
+    },
     setSizeScreen(state, size) {
       state.sizeScreen = size
     },
