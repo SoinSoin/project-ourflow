@@ -1,5 +1,5 @@
 <template>
-<div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
+<div id="main-portfolio">
     <Section :hasColor="0" :title="$store.getters.getPage[$store.getters.getIndex] ">
       <Card
         v-for="(val, index) in fetchData.paragraph"

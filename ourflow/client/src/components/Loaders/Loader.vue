@@ -1,19 +1,25 @@
 <template>
-  <div class="container is-fluid is-marginless">
-    <div class="container-loader has-background-warning is-fullcentered">
-      <div class="loader-perso">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2236.55 878.01">
-          <title>Fichier 2</title>
-          <g id="Calque_2" data-name="Calque 2">
-            <g id="Calque_2-2" data-name="Calque 2">
-              <path
-                class="cls-1"
-                d="M175,703,649.53,402.09a330.87,330.87,0,0,1,323.86-12.15l240.15,123.29a378.28,378.28,0,0,0,377.92-18.71L2061.55,175"
-              ></path>
-            </g>
-          </g>
-        </svg>
-        <slot/>
+  <div class="hero is-fullheight has-background-warning">
+    <div class="hero-body">
+      <div class="container">
+        <div class="loader-perso columns is-multiline is-gapless">
+          <div class="column is-12 is-fullcentered" style="margin: 0.25em 0;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2236.55 878.01" height="15px">
+              <title>Fichier 2</title>
+              <g id="Calque_2" data-name="Calque 2">
+                <g id="Calque_2-2" data-name="Calque 2">
+                  <path
+                    class="cls-1"
+                    d="M175,703,649.53,402.09a330.87,330.87,0,0,1,323.86-12.15l240.15,123.29a378.28,378.28,0,0,0,377.92-18.71L2061.55,175"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="column is-12 is-fullcentered " style="margin: 0.25em 0;">
+            <slot/>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -50,18 +56,19 @@ export default {
   }
 }
 
-.container-loader {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
+// .container-loader {
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   overflow: hidden;
+// }
 
 .vague-loader {
   width: 100px;
+  height: auto;
   animation-name: gigotementVague;
   animation-duration: 1s;
   animation-iteration-count: infinite;

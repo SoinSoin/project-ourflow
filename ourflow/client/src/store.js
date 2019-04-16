@@ -9,12 +9,16 @@ export default new Vuex.Store({
     sizeScreen: Number,
     fetchData: Array,
     fetchDataSlide: Array,
+    fetchDataCoordinate: Object,
     loaded: 0,
     fetchPage: []
   },
   getters: {
-    getLoaded(state){
+    getLoaded(state) {
       return state.loaded
+    },
+    getDataCoordinate(state) {
+      return state.fetchDataCoordinate
     },
     getIndex(state) {
       return state.indexNavSlide
@@ -33,7 +37,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    setLoaded(state, percentage){
+    setLoaded(state, percentage) {
       state.loaded = percentage
     },
     setSizeScreen(state, size) {
@@ -48,15 +52,22 @@ export default new Vuex.Store({
       data.map((valpage, j) => {
         state.fetchPage.push(valpage.title_page.toLowerCase())
         valpage.paragraph.map((valpara, i) => {
-          if (valpara.type === "slide") {
-            arr.push(data[j].paragraph[i])
-            delete data[j].paragraph[i]
-          }else{
-            arr2.push(data[j].paragraph[i])
+          switch (valpara.type.toLowerCase()) {
+            case "slide":
+              arr.push(data[j].paragraph[i])
+              delete data[j].paragraph[i]
+              break;
+              case "coordinate":
+                state.fetchDataCoordinate = data[j].paragraph[i]
+                delete data[j].paragraph[i]
+                break;
+            default:
+              arr2.push(data[j].paragraph[i])
+              break;
           }
         })
         data[j].paragraph = arr2
-        arr2=[]
+        arr2 = []
       })
       state.fetchData = data
       state.fetchDataSlide = arr

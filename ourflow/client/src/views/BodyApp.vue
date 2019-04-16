@@ -22,14 +22,20 @@
       <!-- template -->
       <Skeleton v-if="$route.name!=='notfound'"/>
       <!-- end template -->
+      <!-- not found -->
       <NotFound v-else/>
+      <!-- end not found -->
+      <!-- footer -->
       <Footer/>
+      <!-- end footer -->
     </div>
+    <!-- is loading -->
     <div v-else id="main-body">
       <Loader>
-        <p class="chargement"> {{$store.getters.getLoaded}}% </p>
+        <p class="chargement has-text-centered full-width-content">{{$store.getters.getLoaded}}%</p>
       </Loader>
     </div>
+    <!-- end is loading -->
   </div>
 </template>
 <script>

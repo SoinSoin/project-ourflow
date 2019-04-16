@@ -3,30 +3,7 @@
     <div class="container">
       <div class="columns is-multiline">
         <div class="column is-3">
-          <div
-            class="columns is-multiline"
-            v-for="i in $store.getters.getData[3].paragraph[0].item.length-1"
-            :key="i"
-          >
-            <div class="column is-2 is-fullcentered">
-              <figure class="image">
-                <img
-                  :src="$store.getters.getData[3].paragraph[0].item[i].media_item"
-                  :alt="$store.getters.getData[3].paragraph[0].item[i].alt_item"
-                >
-              </figure>
-            </div>
-            <div class="column is-10 is-fullcentered">
-              <div
-                class="content full-width-content has-text-left has-text-centered-mobile has-text-white"
-              >
-                <a
-                  class="has-text-white"
-                  :href="$store.getters.getData[3].paragraph[0].item[i].link_item"
-                >{{$store.getters.getData[3].paragraph[0].item[i].descritpion_item}}</a>
-              </div>
-            </div>
-          </div>
+          <Coordinate/>
         </div>
         <div class="column is-6 is-fullcentered">
           <div class="columns is-multiline">
@@ -39,8 +16,13 @@
                     :key="index"
                     @click="passIndex(index)"
                   >
-                    <router-link v-if="item.order_page===1" :to="{name:'home'}">{{item.title_page}}</router-link>
                     <router-link
+                      class="is-capitalized"
+                      v-if="item.order_page===1"
+                      :to="{name:'home'}"
+                    >{{item.title_page}}</router-link>
+                    <router-link
+                      class="is-capitalized"
                       v-else
                       :to="{name:'contents',params:{page:item.title_page}}"
                     >{{item.title_page}}</router-link>
@@ -66,11 +48,12 @@
 </template>
 <script>
 import Rsociaux from "@/components/RSociaux/Rsociaux.vue";
-
+import Coordinate from "@/components/Coordinates/Coordinate";
 export default {
   name: "Footer",
   components: {
-    Rsociaux
+    Rsociaux,
+    Coordinate
   },
   methods: {
     passIndex(index) {
@@ -80,12 +63,18 @@ export default {
 };
 </script>
 <style lang="scss">
-.footer{
-  position:relative;
-  top:100vh;
+.footer {
+  position: relative;
+  top: 100vh;
+  a {
+    color: #fff;
+  }
+  a:hover {
+    color: rgba(255, 255, 255, 0.6);
+  }
 }
 .footer-rsociaux {
-  width:100%;
+  width: 100%;
   .rs {
     color: #fff;
     transition-duration: 0.3s;

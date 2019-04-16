@@ -33,14 +33,14 @@
           </div>
         </div>
       </article>
-      <article :id="`main-${para.title_para}`" v-if="index == 2">
+      <article id="main-technologies" v-if="index == 2">
         <div class="columns is-multiline is-fullcentered">
           <div
             class="column is-2 is-fullcentered"
             v-for="(item, indexItem) in para.item"
             :key="indexItem"
           >
-            <figure class="image">
+            <figure class="image" :title="item.title_item">
               <img :src="item.media_item" :alt="item.alt_item">
             </figure>
           </div>
@@ -60,7 +60,10 @@ export default {
   },
   props: {
     fetchData: Object
-  }
+  },
+  beforeMount() {
+    console.log(this.fetchData)
+  },
 };
 </script>
 <style lang="scss">

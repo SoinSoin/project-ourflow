@@ -3,37 +3,15 @@
     <Section :hasColor="0" :title="$store.getters.getPage[$store.getters.getIndex] ">
       <div class="columns is-gapless">
         <div class="column is-half">
-          <div
-            class="container-colonne-gauche"
-            v-for="(objChild, i) in fetchData.paragraph"
-            :key="i"
-          >
+          <div class="container-colonne-gauche">
             <div class="columns is-8 is-multiline">
-              <div class="column is-12">
+              <div class="column is-12" v-for="(objChild, i) in fetchData.paragraph" :key="i">
                 <div class="content has-text-left has-text-centered-mobile">
                   <p class="title is-6">{{objChild.item[0].descritpion_item}}</p>
                 </div>
               </div>
             </div>
-            <div
-              class="columns is-multiline is-8"
-              v-for="index in objChild.item.length-1"
-              :key="index"
-            >
-              <div class="column is-2 is-fullcentered">
-                <figure class="image">
-                  <img :src="objChild.item[index].media_item" :alt="objChild.item[index].alt_item">
-                </figure>
-              </div>
-              <div class="column is-10 is-fullcentered">
-                <div class="content full-width-content has-text-left has-text-centered-mobile">
-                  <a
-                    class="title is-6"
-                    :href="objChild.item[index].link_item"
-                  >{{objChild.item[index].descritpion_item}}</a>
-                </div>
-              </div>
-            </div>
+            <Coordinate/>
           </div>
         </div>
         <div class="column is-half">
@@ -144,11 +122,13 @@
 </template>
 <script>
 import Section from "@/components/Sections/Section.vue";
+import Coordinate from "@/components/Coordinates/Coordinate";
 import setMail from "@/services/api.js";
 export default {
   name: "Contact",
   components: {
-    Section
+    Section,
+    Coordinate
   },
   props: {
     fetchData: Object
