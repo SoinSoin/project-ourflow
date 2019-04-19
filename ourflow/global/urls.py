@@ -18,13 +18,14 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path, include
+from django.conf.urls import url
 from api.views import SendMail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('mail/send/', SendMail.as_view()),
-    path('', TemplateView.as_view(template_name='index.html')),
+	url(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

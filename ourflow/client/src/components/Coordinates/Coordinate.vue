@@ -12,7 +12,7 @@
       </div>
       <div class="column is-10 is-fullcentered">
         <div class="content full-width-content has-text-left has-text-centered-mobile">
-          <a class="title is-6" :href="itemCoo.link_item">{{itemCoo.descritpion_item}}</a>
+          <a :href="itemCoo.link_item">{{itemCoo.descritpion_item}}</a>
         </div>
       </div>
     </div>

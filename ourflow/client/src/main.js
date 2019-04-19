@@ -12,7 +12,8 @@ import {
 import {
   faTimes, 
   faCheck,
-  faLongArrowAltDown
+  faLongArrowAltDown,
+  faLongArrowAltRight
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -35,6 +36,7 @@ Vue.component('fa-icon', FontAwesomeIcon)
 
 // ici jajoute mes differents style d'icons à ma librairy fontawesome-svg-core qui va se charger d'interpreter chacune des librairie suivante
 library.add(faCheck)
+library.add(faLongArrowAltRight)
 library.add(faTimes)
 library.add(faInstagram)
 library.add(faFacebookF)

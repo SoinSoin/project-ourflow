@@ -1,13 +1,17 @@
 <template>
-  <div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
-    <Section :hasColor="0" :titleSec="$store.getters.getPage[$store.getters.getIndex] " :hasStencil="true">
+  <div id="main-contact">
+    <Section
+      :hasColor="0"
+      :titleSec="$store.getters.getPage[$store.getters.getIndex] "
+      :lengthArr="1"
+    >
       <div class="columns is-gapless">
         <div class="column is-half">
           <div class="container-colonne-gauche">
             <div class="columns is-8 is-multiline">
               <div class="column is-12" v-for="(objChild, i) in fetchData.paragraph" :key="i">
                 <div class="content has-text-left has-text-centered-mobile">
-                  <p class="title is-6">{{objChild.item[0].descritpion_item}}</p>
+                  <p>{{objChild.item[0].descritpion_item}}</p>
                 </div>
               </div>
             </div>
@@ -270,6 +274,15 @@ export default {
 };
 </script>
 <style lang="scss">
+#main-contact {
+  .container-colonne-gauche {
+    .container-coordinates {
+      a {
+        color: #262524;
+      }
+    }
+  }
+}
 .modify-control {
   width: 100% !important;
   min-height: 4vh !important;
@@ -286,7 +299,7 @@ export default {
   display: flex;
   align-items: center;
   font-family: "Montserrat", sans-serif;
-  font-weight: 700;
+  // font-weight: 700;
   margin: 20px 0;
 }
 
@@ -408,5 +421,3 @@ form {
   }
 }
 </style>
-
-

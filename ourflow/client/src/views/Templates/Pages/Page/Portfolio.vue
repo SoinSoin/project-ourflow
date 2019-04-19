@@ -1,6 +1,6 @@
 <template>
 <div id="main-portfolio">
-    <Section :hasColor="0" :titleSec="$store.getters.getPage[$store.getters.getIndex]" :hasStencil="true">
+    <Section :hasColor="0" :titleSec="$store.getters.getPage[$store.getters.getIndex]"  :lengthArr="1">
       <Card
         v-for="(val, index) in fetchData.paragraph"
         :key="index"

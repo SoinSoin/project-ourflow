@@ -2,8 +2,8 @@
   <div :id="`main-${$store.getters.getPage[$store.getters.getIndex]}`">
     <Section
       v-for="(para,index) in fetchData.paragraph"
-      :hasStencil="true"
       :key="index"
+      :lengthArr="fetchData.paragraph.length"
       :hasColor="index"
       :titleSec="para.title_para"
     >
@@ -63,8 +63,8 @@ export default {
     fetchData: Object
   },
   beforeMount() {
-    console.log(this.fetchData)
-  },
+    console.log(this.fetchData);
+  }
 };
 </script>
 <style lang="scss">

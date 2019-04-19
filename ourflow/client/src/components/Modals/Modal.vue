@@ -2,29 +2,25 @@
   <article id="main-modal">
     <div class="columns is-gapless">
       <div class="column is-one-thirds has-background-warning stencil-modal">
-        <div class="hero">
-          <div class="hero-body content-modal">
-            <div class="content-modal-top">
-              <div class="content has-text-left has-text-centered-mobile has-text-grey-dark">
-                <h2 class="title is-2 is-size-3-mobile is-capitalized">{{dataModal.title_para}}</h2>
-                <p>{{dataModal.item[0].descritpion_item}}</p>
-              </div>
+        <div class="section content-modal">
+          <div class="content-modal-top">
+            <div class="content has-text-left has-text-centered-mobile has-text-grey-dark">
+              <h2 class="title is-2 is-size-3-mobile is-capitalized">{{dataModal.title_para}}</h2>
+              <p>{{dataModal.item[0].descritpion_item}}</p>
             </div>
-            <div class="content-modal-bottom is-fullcentered">
-              <slot/>
-            </div>
+          </div>
+          <div class="content-modal-bottom is-fullcentered">
+            <slot/>
           </div>
         </div>
       </div>
       <div class="column is-two-thirds has-background-white content-modal">
-        <div class="hero">
-          <div class="hero-body content-modal">
-            <div class="content-modal-image">
-              <div class="container is-fluid">
-                <figure v-for="(item, index ) in dataModal.item" :key="index" class="img-modal">
-                  <img :src="item.media_item" :alt="item.alt_item">
-                </figure>
-              </div>
+        <div class="section content-modal">
+          <div class="content-modal-image">
+            <div class="container is-fluid">
+              <figure v-for="(item, index ) in dataModal.item" :key="index" class="img-modal">
+                <img :src="item.media_item" :alt="item.alt_item">
+              </figure>
             </div>
           </div>
         </div>
