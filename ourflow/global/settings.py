@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST_ROOT = os.path.join(BASE_DIR, 'dist')
-UPLOADS_ROOT = os.path.join(BASE_DIR, 'uploads')
+UPLOAD_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'corsheaders',
     'rest_framework',
     'api',
@@ -55,10 +58,13 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'global.urls'
 
@@ -72,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.media',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -80,18 +87,21 @@ TEMPLATES = [
 
 STATICFILES_DIRS = [
     DIST_ROOT,
-    UPLOADS_ROOT,
 ]
+    # UPLOAD_ROOT,
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'public/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 if DEBUG == False:
-    REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',)}
+    REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',), 
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',)}
+
+else:
+    CORS_ORIGIN_ALLOW_ALL = True
+
 
 WSGI_APPLICATION = 'global.wsgi.application'
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-# CORS_ORIGIN_WHITELIST = (
-#     'http//:localhost:8000',
-# )
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -144,4 +154,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-UPLOADS_URL = '/uploads/'
+# MEDIA_URL = 'media/'
+
+# def change_permissions_recursive(path, mode):
+#     os.chmod(path, 755)
+#     for filename in os.listdir(path):
+#         path = default_storage.save('/uploads/2019/images', ContentFile(filename))
+#         default_storage.open(path).read()
+#         print('ok')
+
+# change_permissions_recursive(os.path.join(BASE_DIR, 'uploads/2019/images'),644)

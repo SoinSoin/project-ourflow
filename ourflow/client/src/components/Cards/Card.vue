@@ -1,7 +1,9 @@
 <template>
   <!--desktop Card-->
-  <article v-if="$store.getters.getSize >767" class="card">
-    <div class="columns is-gapless">
+  <article class="card">
+    <div
+      :class="{'columns':true,  'is-gapless':true, 'is-direction-column':true, 'is-direction-column-resp':!(isToRight%2)}"
+    >
       <div class="column is-6">
         <ImageCard v-if="isToRight % 2" :dataCard="fetchDataCard" class="to-right"/>
         <TextCard v-else :dataCard="fetchDataCard">
@@ -18,7 +20,7 @@
   </article>
 
   <!-- Responsive Card -->
-  <article v-else-if="$store.getters.getSize < 767" class="card">
+  <!-- <article v-else-if="$store.getters.getSize < 767" class="card">
     <div class="columns is-gapless">
       <div class="column is-6">
         <ImageCard :dataCard="fetchDataCard" class="to-right"/>
@@ -29,7 +31,7 @@
         </TextCard>
       </div>
     </div>
-  </article>
+  </article>-->
 </template>
 ​
 <script>
@@ -56,6 +58,11 @@ article {
     border-radius: 10px;
     max-width: 80%;
     box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    .is-direction-column {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 .to-right:before {
@@ -83,12 +90,23 @@ article {
   left: 45%;
 }
 @media screen and (max-width: 767px) {
-  .to-right:before {
-    height: 65%;
-    width: 100%;
-    top: -5%;
-    right: 0;
-    transform: rotate(270deg);
+  article {
+    &.card {
+      .is-direction-column {
+        flex-direction: column;
+      }
+      .is-direction-column-resp {
+        flex-direction: column-reverse !important;
+      }
+    }
+  }
+  .to-right:before.to-left:before{
+      height: 65%;
+      width: 100%;
+      top: -5%;
+      right: 0;
+      transform: rotate(270deg);
+
   }
 }
 </style>

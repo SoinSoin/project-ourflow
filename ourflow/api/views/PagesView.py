@@ -2,7 +2,6 @@ from rest_framework import generics
 from api.serializers import PageSerializer, GetIdType, GetIdParagraph
 from api.models import Page,Type, Paragraph
 from rest_framework.response import Response
-from django.http import Http404
 
 class AllPage(generics.ListAPIView):
     serializer_class= PageSerializer

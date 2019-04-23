@@ -1,6 +1,6 @@
 <template>
   <div id="main-skeleton">
-    <section id="main-slider" class="hero is-fullheight">
+    <section id="main-slider" class="hero is-fullheight" :style="bgImages">
       <Slider class="hero-body">
         <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
           <Cercle :dataCercle="content" :isYellow="index">
@@ -32,10 +32,26 @@ export default {
     Cercle,
     Rsociaux
   },
+  data() {
+    return {
+      publicPath: process.env.VUE_APP_BASE_IMG,
+      bgImages: {
+        backgroundImage: String
+      }
+    };
+  },
   beforeMount() {
     this.getIndexSlideInit();
+    this.getBgImage(this.$store.getters.getSIze);
   },
   methods: {
+    getBgImage(size) {
+      this.bgImages.backgroundImage = `url("${
+        this.publicPath
+      }background/bg_vague.png"),url("${
+        this.publicPath
+      }background/bg_tablette.png") `;
+    },
     getIndexSlideInit() {
       var targetIndexRoute = this.$store.getters.getPage.indexOf(
         this.$route.params.page
@@ -70,9 +86,7 @@ export default {
   position: fixed;
   height: 100%;
   width: 100%;
-  top:0;
-  background-image: url("/img/background/bg_vague.png"),
-    url("/img/background/bg_desktop.png");
+  top: 0;
   background-size: 140%, cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -80,8 +94,6 @@ export default {
 }
 @media screen and (max-width: 767px) {
   #main-slider {
-    background-image: url("/img/background/bg_vague.png"),
-      url("/img/background/bg_tablette.png");
     background-size: 150%, cover;
   }
 }

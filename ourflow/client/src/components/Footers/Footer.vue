@@ -65,7 +65,7 @@ export default {
 <style lang="scss">
 .footer {
   position: relative;
-  top: 100vh;
+  top: calc(100vh - 3px);
   a {
     color: #fff;
   }
