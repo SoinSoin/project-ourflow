@@ -10,7 +10,9 @@
               >{{dataCard.title_para}}</h2>
             </div>
           </div>
-          <div class="content is-size-7-mobile has-text-grey-dark">{{dataCard.item[0].synopsis}}</div>
+          <div class="content is-size-7-mobile has-text-grey-dark">
+            <p>{{dataCard.item[0].synopsis}}</p>
+          </div>
         </div>
       </div>
       <div class="bottom-content-card">

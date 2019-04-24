@@ -20,7 +20,7 @@
   </section>
 </template>
 <script>
-import AfterSection from "./AfterSection.vue";
+import AfterSection from "@/components/Stencils/AfterSection.vue";
 export default {
   name: "Section",
   components: {
@@ -40,7 +40,7 @@ export default {
   },
 
   beforeMount() {
-    this.displayStencil = (this.hasStencil === false) ? false : true
+    this.displayStencil = this.hasStencil === false ? false : true;
     this.greying();
   },
   methods: {
@@ -51,5 +51,4 @@ export default {
 };
 </script>
 <style lang="scss">
-
 </style>

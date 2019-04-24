@@ -132,13 +132,14 @@ input.form-control:focus {
     bottom: -2px;
     width: 100%;
 
-    .stencil-background-yellow {
-        fill: #e2d637 !important;
-    }
+}
 
-    .stencil-background-white {
-        fill: #ffffff !important;
-    }
+.stencil-background-yellow {
+    fill: #e2d637 !important;
+}
+
+.stencil-background-white {
+    fill: #ffffff !important;
 }
 
 // créer ces classes css global

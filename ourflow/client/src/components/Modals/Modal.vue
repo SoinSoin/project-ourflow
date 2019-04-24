@@ -1,6 +1,6 @@
 <template>
   <article id="main-modal">
-    <div class="columns is-gapless">
+    <div class="columns is-gapless contain-section">
       <div class="column is-one-thirds has-background-warning stencil-modal">
         <div class="section content-modal">
           <div class="content-modal-top">
@@ -13,6 +13,7 @@
             <slot/>
           </div>
         </div>
+        <StencilPortfolio class="stencil-background-yellow"/>
       </div>
       <div class="column is-two-thirds has-background-white content-modal">
         <div class="section content-modal">
@@ -29,14 +30,28 @@
   </article>
 </template>
 <script>
+import StencilPortfolio from "@/components/Stencils/StencilPortfolio.vue";
 export default {
   name: "Modal",
+  components: {
+    StencilPortfolio
+  },
   props: {
     dataModal: Object
   }
 };
 </script>
 <style lang="scss">
+.stencil-modal {
+  .main-stencil-portfolio {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    left: 95%;
+    top: 0;
+    z-index: 1;
+  }
+}
 #main-modal {
   position: fixed;
   top: 0;
@@ -64,19 +79,6 @@ export default {
   width: 100%;
   height: 100%;
 }
-.stencil-modal:before {
-  content: "";
-  background-image: url("/img/stencil/sc_modal.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  overflow: hidden;
-  width: 16vw;
-  height: 100%;
-  left: calc(100% - 5px);
-  top: 0;
-  z-index: 1;
-}
 
 .content-modal-image {
   height: 100%;
@@ -92,14 +94,13 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
-  .stencil-modal:before {
-    content: "";
-    background-size: 102%;
-    background-image: url("/img/stencil/sc_modal_mobile.svg");
-    top: calc(100% - 5px);
-    left: -1%;
-    height: 20vh;
-    width: 101%;
+  .stencil-modal {
+    .main-stencil-portfolio {
+      height: auto;
+      width: 100%;
+      left: 0;
+      top: calc(100% - 3px);
+    }
   }
   .content-modal {
     // overflow: auto;

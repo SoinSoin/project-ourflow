@@ -1,6 +1,13 @@
 <template>
-<div id="main-portfolio">
-    <Section :hasColor="0" :titleSec="$store.getters.getPage[$store.getters.getIndex]"  :lengthArr="1">
+  <div
+    id="main-portfolio"
+    :style="{'background-image':`url(${publicPath}background/bg_portfolio.png)`}"
+  >
+    <Section
+      :hasColor="0"
+      :titleSec="$store.getters.getPage[$store.getters.getIndex]"
+      :lengthArr="1"
+    >
       <Card
         v-for="(val, index) in fetchData.paragraph"
         :key="index"
@@ -43,6 +50,7 @@ export default {
   },
   data() {
     return {
+      publicPath: process.env.VUE_APP_BASE_IMG,
       isActiveModal: false,
       dataToModal: Object
     };
@@ -66,7 +74,6 @@ export default {
 
 <style lang="scss">
 #main-portfolio {
-  background-image: url("/img/background/bg_portfolio.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 150%;

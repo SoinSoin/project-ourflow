@@ -50,7 +50,7 @@ export default {
         this.publicPath
       }background/bg_vague.png"),url("${
         this.publicPath
-      }background/bg_tablette.png") `;
+      }background/bg_desktop.png") `;
     },
     getIndexSlideInit() {
       var targetIndexRoute = this.$store.getters.getPage.indexOf(

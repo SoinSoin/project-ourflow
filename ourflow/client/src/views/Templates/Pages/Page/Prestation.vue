@@ -26,9 +26,6 @@ export default {
   },
   props: {
     fetchData: Object
-  },
-  beforeMount() {
-    console.log(this.fetchData);
   }
 };
 </script>
@@ -67,15 +64,6 @@ export default {
     }
   }
 }
-
-// #main-prestation
-//   section:first-child
-//   .hero-body:first-child
-//   .container:first-child
-//   article:first-child
-//   .hero-body:first-child {
-//   padding-top: 0;
-// }
 </style>
 
 

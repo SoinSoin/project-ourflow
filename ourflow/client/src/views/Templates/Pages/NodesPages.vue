@@ -1,15 +1,13 @@
 <template>
-  <div id="main-pages" class="has-background-white" >
+  <div id="main-pages" class="has-background-white">
     <Home v-if="$route.name==='home'" :fetchData="$store.getters.getData[$store.getters.getIndex]"/>
-    <Prestation v-if="$route.params.page===$store.getters.getData[1].title_page.toLowerCase() " :fetchData="$store.getters.getData[$store.getters.getIndex]"/>
-    <Portfolio
-      v-if="$route.params.page===$store.getters.getData[2].title_page.toLowerCase()"
-      :fetchData="$store.getters.getData[$store.getters.getIndex]"
-    />
-    <Contact
-      v-if="$route.params.page===$store.getters.getData[3].title_page.toLowerCase()"
-      :fetchData="$store.getters.getData[$store.getters.getIndex]"
-    />
+    <div v-for="(component, index) in componentData" :key="index">
+      <component
+        v-if="$route.params.page===component.page "
+        :is="component.component"
+        :fetchData="$store.getters.getData[$store.getters.getIndex]"
+      ></component>
+    </div>
   </div>
 </template>
 
@@ -28,12 +26,17 @@ export default {
   },
   data() {
     return {
-      isLoading: true
+      componentNames: [
+        { name: "Prestation", order: 2 },
+        { name: "Portfolio", order: 3 },
+        { name: "Contact", order: 4 }
+      ],
+      componentData: []
     };
   },
   computed: {
     getDataFetch() {
-      return this.$store.getters.getData; 
+      return this.$store.getters.getData;
     },
     getTitleChange() {
       return this.$store.getters.getIndex;
@@ -46,9 +49,23 @@ export default {
   },
   beforeMount() {
     this.changeMetaTitle();
+    this.addComponentData();
   },
 
   methods: {
+    addComponentData() {
+      var obj = Object;
+      this.$store.getters.getData.map((val, index) => {
+        this.componentNames.map(valbis => {
+          if (val.order_page === valbis.order) {
+            obj.page = val.title_page.toLowerCase();
+            obj.component = valbis.name;
+            this.componentData.push(obj);
+            obj = {};
+          }
+        });
+      });
+    },
     changeMetaTitle() {
       document.title = `OurFlow: ${
         this.$store.getters.getPage[this.$store.getters.getIndex]
@@ -60,7 +77,7 @@ export default {
 <style lang="scss">
 #main-pages {
   position: relative;
-  top:100vh;
+  top: 100vh;
   margin-top: 5vh;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.3);
   border-radius: 25px 25px 0 0;

@@ -1,11 +1,13 @@
 <template>
   <!--desktop Card-->
-  <article class="card">
+  <article class="card contain-section">
     <div
       :class="{'columns':true,  'is-gapless':true, 'is-direction-column':true, 'is-direction-column-resp':!(isToRight%2)}"
     >
       <div class="column is-6">
-        <ImageCard v-if="isToRight % 2" :dataCard="fetchDataCard" class="to-right"/>
+        <ImageCard v-if="isToRight % 2" :dataCard="fetchDataCard" class="to-right">
+          <StencilPortfolio class="stencil-background-white"/>
+        </ImageCard>
         <TextCard v-else :dataCard="fetchDataCard">
           <slot/>
         </TextCard>
@@ -14,33 +16,23 @@
         <TextCard v-if="isToRight % 2" :dataCard="fetchDataCard">
           <slot/>
         </TextCard>
-        <ImageCard v-else :dataCard="fetchDataCard" class="to-left"/>
+        <ImageCard v-else :dataCard="fetchDataCard" class="to-left">
+          <StencilPortfolio class="stencil-background-white"/>
+        </ImageCard>
       </div>
     </div>
   </article>
-
-  <!-- Responsive Card -->
-  <!-- <article v-else-if="$store.getters.getSize < 767" class="card">
-    <div class="columns is-gapless">
-      <div class="column is-6">
-        <ImageCard :dataCard="fetchDataCard" class="to-right"/>
-      </div>
-      <div class="column is-6">
-        <TextCard :dataCard="fetchDataCard">
-          <slot/>
-        </TextCard>
-      </div>
-    </div>
-  </article>-->
 </template>
 ​
 <script>
+import StencilPortfolio from "@/components/Stencils/StencilPortfolio.vue";
 import ImageCard from "./ContentsCards/ImageCard.vue";
 import TextCard from "./ContentsCards/TextCard.vue";
 export default {
   name: "Card",
   components: {
     ImageCard,
+    StencilPortfolio,
     TextCard
   },
   props: {
@@ -65,29 +57,26 @@ article {
     }
   }
 }
-.to-right:before {
-  content: "";
-  background-image: url("/img/stencil/sc_card_portfolio.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  height: 102%;
-  width: 50%;
-  top: -1%;
-  right: 45%;
-  transform: rotate(180deg);
+.to-right {
+  position: relative;
+  .main-stencil-portfolio {
+    position: absolute;
+    width: auto;
+    height: 102%;
+    top: -1%;
+    left: 85%;
+    transform: rotate(180deg);
+  }
 }
-
-.to-left:before {
-  content: "";
-  background-image: url("/img/stencil/sc_card_portfolio.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: absolute;
-  height: 102%;
-  width: 50%;
-  top: -1%;
-  left: 45%;
+.to-left {
+  position: relative;
+  .main-stencil-portfolio {
+    position: absolute;
+    width: auto;
+    height: 102%;
+    top: -1%;
+    left: -10%;
+  }
 }
 @media screen and (max-width: 767px) {
   article {
@@ -100,13 +89,25 @@ article {
       }
     }
   }
-  .to-right:before.to-left:before{
-      height: 65%;
-      width: 100%;
-      top: -5%;
-      right: 0;
-      transform: rotate(270deg);
-
+  .to-right {
+    .main-stencil-portfolio {
+      position: absolute;
+      width: 102%;
+      height: auto;
+      top: 80%;
+      left: -1%;
+      transform: rotate(180deg);
+    }
+  }
+  .to-left {
+    .main-stencil-portfolio {
+      position: absolute;
+      width: 102%;
+      height: auto;
+      top: 80%;
+      left: -1%;
+      transform: rotate(180deg);
+    }
   }
 }
 </style>

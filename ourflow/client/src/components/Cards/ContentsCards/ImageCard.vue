@@ -1,9 +1,11 @@
 <template>
   <figure
-    class="bg-half-card "
+    class="bg-half-card"
     :style="{'background-image':`url(${dataCard.item[0].media_item})`}"
     :alt="dataCard.item[0].alt_item"
-  ></figure>
+  >
+    <slot/>
+  </figure>
 </template>
 <script>
 export default {

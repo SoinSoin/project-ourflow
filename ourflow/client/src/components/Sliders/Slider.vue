@@ -3,24 +3,38 @@
     <div class="swiper-wrapper">
       <slot></slot>
     </div>
+
     <div v-if="$store.getters.getSize < 768" class="container-swiper-nav-resp">
       <div class="resp-nav-slide">
         <div class="columns is-mobile">
           <div class="icon-slide column is-4 is-fullcentered">
-            <div class="swiper-button-prev resp-button"></div>
+            <div
+              class="swiper-button-prev resp-button"
+              :style="{'background-image':`url(${publicPath}slider/left-arrow.svg)`}"
+            ></div>
           </div>
           <div class="column is-4 has-text-centered is-fullcentered is-paddingless">
             <p class="title is-size-6-mobile has-text-grey-dark">Swipe</p>
           </div>
           <div class="icon-slide column is-4 is-fullcentered">
-            <div class="swiper-button-next resp-button"></div>
+            <div
+              class="swiper-button-next resp-button"
+              :style="{'background-image':`url(${publicPath}slider/right-arrow.svg)`}"
+            ></div>
           </div>
         </div>
       </div>
     </div>
+
     <div v-else class="icon-slide">
-      <div class="swiper-button-next has-text-grey-dark"></div>
-      <div class="swiper-button-prev has-text-grey-dark"></div>
+      <div
+        class="swiper-button-next has-text-grey-dark"
+        :style="{'background-image':`url(${publicPath}slider/right-arrow.svg)`}"
+      ></div>
+      <div
+        class="swiper-button-prev has-text-grey-dark"
+        :style="{'background-image':`url(${publicPath}slider/left-arrow.svg)`}"
+      ></div>
     </div>
   </div>
 </template>
@@ -31,7 +45,7 @@ export default {
   name: "Slider",
   data() {
     return {
-      size: Number,
+      publicPath: process.env.VUE_APP_BASE_IMG,
       changeSlide: null,
       virtualData: {
         slides: []
@@ -40,7 +54,6 @@ export default {
   },
   mounted() {
     this.initSlide();
-    this.size = this.changeSlide.size;
   },
   updated() {
     this.updateNavSlide();
@@ -64,7 +77,7 @@ export default {
       const swiper = new Swiper(".swiper-container", {
         initialSlide: this.$store.getters.getIndex,
         centeredSlides: true,
-        centerInsufficientSlides:true,
+        centerInsufficientSlides: true,
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
@@ -113,12 +126,6 @@ export default {
     width: 20px;
     margin-top: -20px;
     background-size: 20px 40px;
-  }
-  .swiper-button-prev {
-    background-image: url("/img/slider/left-arrow.svg");
-  }
-  .swiper-button-next {
-    background-image: url("/img/slider/right-arrow.svg");
   }
 }
 .container-swiper-nav-resp {

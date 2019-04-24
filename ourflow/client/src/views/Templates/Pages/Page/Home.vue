@@ -61,9 +61,6 @@ export default {
   },
   props: {
     fetchData: Object
-  },
-  beforeMount() {
-    console.log(this.fetchData);
   }
 };
 </script>

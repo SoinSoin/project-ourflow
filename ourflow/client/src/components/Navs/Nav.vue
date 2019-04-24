@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar bg-nav">
+  <nav class="navbar nav-navbar">
     <div class="navbar-brand size-nav">
       <div
         class="navbar-item menu-item is-capitalized"
@@ -14,12 +14,18 @@
         >{{item.title_page}}</router-link>
       </div>
     </div>
+    <span class="bg-nav" :style="{'background-image':`url(${publicPath}background/bg_menu.svg )`}"></span>
   </nav>
 </template>
 
 <script>
 export default {
   name: "Nav",
+  data() {
+    return {
+      publicPath: process.env.VUE_APP_BASE_IMG
+    };
+  },
   methods: {
     passIndex(indexNavSlide, event) {
       this.$store.commit("setIndex", indexNavSlide);
@@ -34,22 +40,22 @@ nav {
     z-index: 0;
   }
 }
-.bg-nav {
+.nav-navbar {
   position: fixed !important;
   right: -1px;
   top: 0;
 }
 
-.bg-nav::before {
-  content: "";
+.bg-nav {
   position: absolute;
-  background-image: url("/img/background/bg_menu.svg");
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
   background-repeat: no-repeat;
   background-size: cover;
   width: 125%;
   height: 175%;
   right: 0;
+  top: 0;
+  z-index: -1;
 }
 .menu-item a {
   color: #000;
@@ -72,8 +78,8 @@ nav {
 }
 
 .menu-item a:hover::before {
-  width: calc(100% + 8px);
-  left: -4px;
+  width: calc(100% - 0.75rem);
+  left: 0.375em;
   right: auto;
 }
 
