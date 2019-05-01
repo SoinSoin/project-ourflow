@@ -6,7 +6,7 @@
           <figure
             class="container-circle-half background-circle"
             :style="{'background-image':`url(${dataCercle.item[0].media_item})`}"
-            :alt="`${dataCercle.item[0].alt_item}`"
+            :alt="dataCercle.item[0].alt_item"
           >
             <h1
               :class="{'title':true, 'is-1':true ,'is-size-2-mobile':true, 'has-text-white':isYellow!==0,'has-text-warning':isYellow==0, 'to-bottom-text':true, 'has-text-weight-bold':true}"

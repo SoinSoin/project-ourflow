@@ -6,8 +6,11 @@
       <div class="container section-container">
         <div class="content">
           <h1
-            :class="{'higlight-title':true, 'subtitle':true, 'is-1':true, 'is-size-2-mobile':true, 'is-capitalized':true, 'has-text-weight-light':true,'has-text-warning':!(hasColor%2),'has-text-white':hasColor%2}"
-          >{{titleSec}}</h1>
+            :class="{'subtitle':true, 'is-1':true, 'is-size-2-mobile':true, 'is-capitalized':true, 'has-text-weight-light':true,'has-text-warning':!(hasColor%2),'has-text-white':hasColor%2}"
+          >{{titleSec}}
+          <span class=" higlight-title" :style="{'background-image':`url(${publicPath}stencil/sc_highlight_wave.svg`}"></span>
+          </h1>
+          
         </div>
         <slot/>
       </div>
@@ -34,6 +37,7 @@ export default {
   },
   data() {
     return {
+      publicPath: process.env.VUE_APP_BASE_IMG,
       isGrey: false,
       displayStencil: Boolean
     };

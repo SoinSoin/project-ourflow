@@ -6,17 +6,16 @@
           class="menu-item-mobile has-text-white is-capitalized"
           v-for="(item, index) in $store.getters.getData"
           :key="index"
-          @click="passIndex(index)"
         >
           <router-link
             class="title"
             v-if="item.order_page===1"
-            :to="{name:'home'}"
+            :to="{name:'home',params:{index:index}}"
           >{{item.title_page}}</router-link>
           <router-link
             class="title"
             v-else
-            :to="{name:'contents',params:{page:item.title_page}}"
+            :to="{name:'contents',params:{page:item.title_page,index:index}}"
           >{{item.title_page}}</router-link>
         </div>
         <div class="menu-item-mobile">
@@ -32,11 +31,6 @@ export default {
   name: "ContainerNav",
   components: {
     Rsociaux
-  },
-  methods: {
-    passIndex(indexNavSlide) {
-      this.$store.commit("setIndex", indexNavSlide);
-    }
   }
 };
 </script>

@@ -111,8 +111,41 @@ export default {
         if (res.status === 200) {
           this.isLoading = false;
           this.isLocate = true;
+          this.setUrl();
         }
       });
+    },
+    setUrl() {
+      var objUrl = Object;
+      var listUrl = [];
+      console.log(
+        this.$store.getters.getData,
+        typeof this.$store.getters.getData
+      );
+      this.$store.getters.getData.forEach((val, index) => {
+        objUrl = {};
+        if (val.order_page === 1) {
+          objUrl = {
+            page: val.title_page,
+            path: "/",
+            url: {
+              name: "home",
+              params: { index: index }
+            }
+          };
+        } else {
+          objUrl = {
+            page: val.title_page,
+            path: `/${val.title_page.toLowerCase()}`,
+            url: {
+              name: "contents",
+              params: { page: val.title_page, index: index }
+            }
+          };
+        }
+        listUrl.push(objUrl);
+      });
+      this.$store.commit("setUrl",listUrl)
     }
   }
 };

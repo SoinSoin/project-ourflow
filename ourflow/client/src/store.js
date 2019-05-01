@@ -11,11 +11,15 @@ export default new Vuex.Store({
     fetchDataSlide: Array,
     fetchDataCoordinate: Object,
     loaded: 0,
+    url: Array,
     fetchPage: []
   },
   getters: {
     getLoaded(state) {
       return state.loaded
+    },
+    getUrl(state) {
+      return state.url
     },
     getDataCoordinate(state) {
       return state.fetchDataCoordinate
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setUrl(state, listUrl) {
+      state.url = listUrl
+    },
     setLoaded(state, percentage) {
       state.loaded = percentage
     },
@@ -57,10 +64,10 @@ export default new Vuex.Store({
               arr.push(data[j].paragraph[i])
               delete data[j].paragraph[i]
               break;
-              case "coordinate":
-                state.fetchDataCoordinate = data[j].paragraph[i]
-                delete data[j].paragraph[i]
-                break;
+            case "coordinate":
+              state.fetchDataCoordinate = data[j].paragraph[i]
+              delete data[j].paragraph[i]
+              break;
             default:
               arr2.push(data[j].paragraph[i])
               break;

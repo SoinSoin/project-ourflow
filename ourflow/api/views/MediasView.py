@@ -6,8 +6,9 @@ import mimetypes
 
 class  GetMedia(generics.views.APIView):
     def get(self, request, *args, **kwargs):
-        FILE_DIR = request.path.replace('/media', '')
+        FILE_DIR = request.path.replace('/static/media', '/public')
         FILE_ROOT= "{}{}".format(getattr(settings, "BASE_DIR", None), FILE_DIR)
+        # print(FILE_DIR, FILE_ROOT)
         response=Http404("not found")
         try:
             fsock = open(FILE_ROOT, "rb")

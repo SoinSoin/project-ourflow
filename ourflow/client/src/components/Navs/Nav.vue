@@ -3,15 +3,10 @@
     <div class="navbar-brand size-nav">
       <div
         class="navbar-item menu-item is-capitalized"
-        v-for="(item, index) in $store.getters.getData"
+        v-for="(item, index) in $store.getters.getUrl"
         :key="index"
-        @click="passIndex(index)"
       >
-        <router-link v-if="item.order_page===1" :to="{name:'home'}">{{item.title_page}}</router-link>
-        <router-link
-          v-else
-          :to="{name:'contents',params:{page:item.title_page}}"
-        >{{item.title_page}}</router-link>
+        <router-link :to="item.url">{{item.page}}</router-link>
       </div>
     </div>
     <span class="bg-nav" :style="{'background-image':`url(${publicPath}background/bg_menu.svg )`}"></span>
@@ -23,13 +18,12 @@ export default {
   name: "Nav",
   data() {
     return {
-      publicPath: process.env.VUE_APP_BASE_IMG
+      publicPath: process.env.VUE_APP_BASE_IMG,
+      index: Number
     };
   },
-  methods: {
-    passIndex(indexNavSlide, event) {
-      this.$store.commit("setIndex", indexNavSlide);
-    }
+  beforeMount() {
+    console.log(this.$store.getters.getUrl);
   }
 };
 </script>

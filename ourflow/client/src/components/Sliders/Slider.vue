@@ -88,18 +88,7 @@ export default {
             self.$store.commit("setIndex", this.realIndex);
             self.virtualData = data;
             self.changeSlide = this;
-            if (this.realIndex > 0) {
-              self.$router.push({
-                name: "contents",
-                params: {
-                  page: self.$store.getters.getPage[this.realIndex]
-                }
-              });
-            } else {
-              self.$router.push({
-                name: "home"
-              });
-            }
+            self.$router.push(self.$store.getters.getUrl[this.realIndex].url);
           }
         }
       });

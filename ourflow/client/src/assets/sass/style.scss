@@ -19,19 +19,17 @@
     border: none !important;
 }
 
-.higlight-title:after {
-    content: "";
+.higlight-title {
     display: block;
     width: 100%;
     height: 7rem;
-    background-image: url("/img/stencil/sc_highlight_wave.svg");
     background-repeat: no-repeat;
     background-size: 6rem;
     background-position: center;
 }
 
 @media screen and (max-width: 767px) {
-    .higlight-title:after {
+    .higlight-title {
         height: 6rem;
         background-size: 5rem;
     }

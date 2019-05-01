@@ -2,7 +2,7 @@
   <div id="nav-brand">
     <router-link :to="{name:'home'}">
       <figure @click="passIndex(0)" class="image is-48x96">
-        <img :src="`${publicPath}logo_ourflow.svg`" alt="logo de OurFlow">
+        <img :src="`${publicPath}logo_ourflow.svg`" alt="logo OurFlow">
       </figure>
     </router-link>
   </div>

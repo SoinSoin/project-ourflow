@@ -41,7 +41,6 @@ export default {
     };
   },
   beforeMount() {
-    this.getIndexSlideInit();
     this.getBgImage(this.$store.getters.getSIze);
   },
   methods: {
@@ -51,14 +50,6 @@ export default {
       }background/bg_vague.png"),url("${
         this.publicPath
       }background/bg_desktop.png") `;
-    },
-    getIndexSlideInit() {
-      var targetIndexRoute = this.$store.getters.getPage.indexOf(
-        this.$route.params.page
-      );
-      // rend l'index de home comme dans l'url home ="" on peut pas savoir.
-      if (this.$route.params.page === undefined) targetIndexRoute = 0;
-      this.$store.commit("setIndex", targetIndexRoute);
     },
     smoothDown() {
       window.scroll({

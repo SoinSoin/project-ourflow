@@ -1,13 +1,9 @@
 <template>
   <div id="main-pages" class="has-background-white">
-    <Home v-if="$route.name==='home'" :fetchData="$store.getters.getData[$store.getters.getIndex]"/>
-    <div v-for="(component, index) in componentData" :key="index">
-      <component
-        v-if="$route.params.page===component.page "
-        :is="component.component"
-        :fetchData="$store.getters.getData[$store.getters.getIndex]"
-      ></component>
-    </div>
+    <component
+      :is="componentData[$store.getters.getIndex]"
+      :fetchData="$store.getters.getData[$store.getters.getIndex]"
+    ></component>
   </div>
 </template>
 
@@ -26,7 +22,9 @@ export default {
   },
   data() {
     return {
+      awaiting: true,
       componentNames: [
+        { name: "Home", order: 1 },
         { name: "Prestation", order: 2 },
         { name: "Portfolio", order: 3 },
         { name: "Contact", order: 4 }
@@ -34,42 +32,45 @@ export default {
       componentData: []
     };
   },
-  computed: {
-    getDataFetch() {
-      return this.$store.getters.getData;
-    },
-    getTitleChange() {
-      return this.$store.getters.getIndex;
-    }
-  },
   watch: {
-    getTitleChange(index) {
-      this.changeMetaTitle();
+    $route(to, from) {
+      this.setIndexUrl(to);
+      this.setMetaTitle();
     }
   },
   beforeMount() {
-    this.changeMetaTitle();
+    this.setIndexUrl(this.$route);
+    this.setMetaTitle();
     this.addComponentData();
   },
-
   methods: {
+    setMetaTitle() {
+      document.title = `OurFlow | ${
+        this.$store.getters.getPage[this.$store.getters.getIndex]
+      }`;
+    },
+    setIndexTitle(obj) {
+      const index = obj.params.index;
+      this.$store.commit("setIndex", index);
+    },
+    setIndexUrl(selfRoute) {
+      if (!isNaN(selfRoute.params.index)) this.setIndexTitle(selfRoute);
+      else {
+        this.$store.getters.getUrl.map((val, index) => {
+          if (val.path === selfRoute.path) {
+            this.$store.commit("setIndex", val.url.params.index);
+          }
+        });
+      }
+    },
     addComponentData() {
-      var obj = Object;
       this.$store.getters.getData.map((val, index) => {
         this.componentNames.map(valbis => {
           if (val.order_page === valbis.order) {
-            obj.page = val.title_page.toLowerCase();
-            obj.component = valbis.name;
-            this.componentData.push(obj);
-            obj = {};
+            this.componentData.push(valbis.name);
           }
         });
       });
-    },
-    changeMetaTitle() {
-      document.title = `OurFlow: ${
-        this.$store.getters.getPage[this.$store.getters.getIndex]
-      }`;
     }
   }
 };

@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BodyApp from './views/BodyApp.vue'
-import NodePage from './views/Templates/Pages/NodesPages.vue'
+const BodyApp = () => import('./views/BodyApp.vue')
+const NodePage = () => import('./views/Templates/Pages/NodesPages.vue')
+
 Vue.use(Router)
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
   routes: [{
@@ -12,6 +13,7 @@ export default new Router({
     children: [{
         path: '',
         name: 'home',
+        props: true,
         component: NodePage,
       },
       {
@@ -21,8 +23,10 @@ export default new Router({
       {
         path: ':page',
         name: 'contents',
+        props: true,
         component: NodePage,
       }
     ]
   }]
 })
+export default router
