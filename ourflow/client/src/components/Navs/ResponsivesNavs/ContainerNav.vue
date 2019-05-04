@@ -4,19 +4,10 @@
       <div class="container">
         <div
           class="menu-item-mobile has-text-white is-capitalized"
-          v-for="(item, index) in $store.getters.getData"
+          v-for="(item, index) in $store.getters.getUrl"
           :key="index"
         >
-          <router-link
-            class="title"
-            v-if="item.order_page===1"
-            :to="{name:'home',params:{index:index}}"
-          >{{item.title_page}}</router-link>
-          <router-link
-            class="title"
-            v-else
-            :to="{name:'contents',params:{page:item.title_page,index:index}}"
-          >{{item.title_page}}</router-link>
+          <router-link class="title" :to="item.url">{{item.page}}</router-link>
         </div>
         <div class="menu-item-mobile">
           <Rsociaux/>

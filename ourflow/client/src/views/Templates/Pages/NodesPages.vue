@@ -54,6 +54,7 @@ export default {
       this.$store.commit("setIndex", index);
     },
     setIndexUrl(selfRoute) {
+      // methods for recovered the index with  route generated in BodyApp.vue
       if (!isNaN(selfRoute.params.index)) this.setIndexTitle(selfRoute);
       else {
         this.$store.getters.getUrl.map((val, index) => {

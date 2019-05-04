@@ -8,12 +8,11 @@ class  GetMedia(generics.views.APIView):
     def get(self, request, *args, **kwargs):
         FILE_DIR = request.path.replace('/static/media', '/public')
         FILE_ROOT= "{}{}".format(getattr(settings, "BASE_DIR", None), FILE_DIR)
-        # print(FILE_DIR, FILE_ROOT)
-        response=Http404("not found")
+        response=Http404( "not-found")
         try:
             fsock = open(FILE_ROOT, "rb")
             file_mime = mimetypes.guess_type(FILE_ROOT)
             response = HttpResponse(fsock, content_type=file_mime[0])
             return response
         except:
-            return Http404("not found")
+            return response

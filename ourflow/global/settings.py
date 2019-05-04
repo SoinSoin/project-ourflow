@@ -17,7 +17,7 @@ from django.core.files.storage import default_storage
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST_ROOT = os.path.join(BASE_DIR, 'dist')
-UPLOAD_ROOT = os.path.join(BASE_DIR, 'uploads')
+UPLOAD_ROOT = os.path.join(BASE_DIR, 'public/uploads')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -26,7 +26,7 @@ UPLOAD_ROOT = os.path.join(BASE_DIR, 'uploads')
 SECRET_KEY = '%7q9i()vne&e9bgv!o2ktc$+u-6&e7*7)vkgi90*)0^d%)0cb#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -64,7 +64,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'global.urls'
 
@@ -85,20 +84,23 @@ TEMPLATES = [
     },
 ]
 
+
 STATICFILES_DIRS = [
     DIST_ROOT,
 ]
-    # UPLOAD_ROOT,
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'public/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/uploads')
+STATIC_ROOT = os.path.join(BASE_DIR, 'public')
 
 if DEBUG == False:
     REST_FRAMEWORK = {'DEFAULT_RENDERER_CLASSES':('rest_framework.renderers.JSONRenderer',), 
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.TokenAuthentication',)}
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 else:
     CORS_ORIGIN_ALLOW_ALL = True
+    STATICFILES_DIRS += [UPLOAD_ROOT,]
 
 
 WSGI_APPLICATION = 'global.wsgi.application'
@@ -153,14 +155,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+MEDIA_URL = '/static/media/'
 STATIC_URL = '/static/'
-# MEDIA_URL = 'media/'
-
-# def change_permissions_recursive(path, mode):
-#     os.chmod(path, 755)
-#     for filename in os.listdir(path):
-#         path = default_storage.save('/uploads/2019/images', ContentFile(filename))
-#         default_storage.open(path).read()
-#         print('ok')
-
-# change_permissions_recursive(os.path.join(BASE_DIR, 'uploads/2019/images'),644)

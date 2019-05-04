@@ -12,20 +12,10 @@
                 <ul class="has-text-white">
                   <li
                     class="has-text-white"
-                    v-for="(item, index) in $store.getters.getData"
+                    v-for="(item, index) in $store.getters.getUrl"
                     :key="index"
-                    @click="passIndex(index)"
                   >
-                    <router-link
-                      class="is-capitalized"
-                      v-if="item.order_page===1"
-                      :to="{name:'home'}"
-                    >{{item.title_page}}</router-link>
-                    <router-link
-                      class="is-capitalized"
-                      v-else
-                      :to="{name:'contents',params:{page:item.title_page}}"
-                    >{{item.title_page}}</router-link>
+                    <router-link class="is-capitalized" :to="item.url">{{item.page}}</router-link>
                   </li>
                 </ul>
               </div>

@@ -21,9 +21,6 @@ export default {
       publicPath: process.env.VUE_APP_BASE_IMG,
       index: Number
     };
-  },
-  beforeMount() {
-    console.log(this.$store.getters.getUrl);
   }
 };
 </script>
