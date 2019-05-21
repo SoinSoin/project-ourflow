@@ -17,7 +17,7 @@ const router = new Router({
         component: NodePage,
       },
       {
-        path: '/error',
+        path: 'not-found',
         name: 'notfound',
       },
       {

@@ -54,8 +54,6 @@ export default {
 </script>
 <style lang="scss">
 .footer {
-  position: relative;
-  top: calc(100vh - 3px);
   a {
     color: #fff;
   }
@@ -84,6 +82,12 @@ export default {
     &.router-link-exact-active {
       color: #e2d637 !important;
     }
+  }
+}
+@media screen and (min-width: 1024px) {
+  .footer {
+    position: relative;
+    top: calc(100vh - 3px);
   }
 }
 @media (max-width: 767px) {

@@ -1,6 +1,6 @@
 <template>
   <div id="main-skeleton">
-    <section id="main-slider" class="hero is-fullheight" :style="bgImages">
+    <section id="main-slider" class="hero is-fullheight">
       <Slider class="hero-body">
         <Slide v-for="(content, index) in $store.getters.getDataSlide" :key="index">
           <Cercle :dataCercle="content" :isYellow="index">
@@ -32,27 +32,9 @@ export default {
     Cercle,
     Rsociaux
   },
-  data() {
-    return {
-      publicPath: process.env.VUE_APP_BASE_IMG,
-      bgImages: {
-        backgroundImage: String
-      }
-    };
-  },
-  beforeMount() {
-    this.getBgImage(this.$store.getters.getSIze);
-  },
   methods: {
-    getBgImage(size) {
-      this.bgImages.backgroundImage = `url("${
-        this.publicPath
-      }background/bg_vague.png"),url("${
-        this.publicPath
-      }background/bg_desktop.png") `;
-    },
     smoothDown() {
-      window.scroll({
+      window.scrollTo({
         top: document.getElementById("main-pages").offsetTop,
         left: 0,
         behavior: "smooth"
@@ -73,18 +55,33 @@ export default {
     margin: 0 0;
   }
 }
+
 #main-slider {
-  position: fixed;
+  position: relative;
   height: 100%;
   width: 100%;
-  top: 0;
+  background-image: url("/img/background/bg_vague.png"),
+    url("/img/background/bg_desktop.png");
   background-size: 140%, cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed, fixed;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+}
+@media screen and (min-width: 1024px) {
+  #main-slider {
+    position: fixed !important;
+    top: 0;
+  }
+}
+@media screen and (max-width: 1024px) {
+  #main-slider {
+    background-image: url("/img/background/bg_vague.p ng"),
+      url("/img/background/bg_tablette.png");
+  }
 }
 @media screen and (max-width: 767px) {
   #main-slider {
+    background-image: url("/img/background/bg_vague.png"),
+      url("/img/background/bg_mobile.png");
     background-size: 150%, cover;
   }
 }

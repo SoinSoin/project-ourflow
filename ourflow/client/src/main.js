@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/fontawesome-svg-core'
 
 import {
-  faTimes, 
+  faTimes,
   faCheck,
   faLongArrowAltDown,
   faLongArrowAltRight
@@ -45,7 +45,11 @@ library.add(faLongArrowAltDown)
 // va charger toute les librairies (un peu lourd) si je me souviens bien  tu ajouter juste le nom de l'icon à chaque fois  une fois toute les icones choisis il faudra les ajouter à la librairie au cas par ca
 
 Vue.config.productionTip = false
-
+if (process.env.MIX_APP_ENV === 'production') {
+  Vue.config.devtools = false;
+  Vue.config.debug = false;
+  Vue.config.silent = true;
+}
 new Vue({
   router,
   store,

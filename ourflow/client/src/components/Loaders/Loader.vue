@@ -1,5 +1,5 @@
 <template>
-  <div class="hero is-fullheight has-background-warning">
+  <div id="loading" class="hero is-fullheight has-background-warning">
     <div class="hero-body">
       <div class="container">
         <div class="loader-perso columns is-multiline is-gapless">
@@ -16,7 +16,7 @@
               </g>
             </svg>
           </div>
-          <div class="column is-12 is-fullcentered " style="margin: 0.25em 0;">
+          <div class="column is-12 is-fullcentered" style="margin: 0.25em 0;">
             <slot/>
           </div>
         </div>
@@ -26,10 +26,16 @@
 </template>
 <script>
 export default {
-  name: "Loader"
+  name: "Loader",
+  beforeMount() {
+          document.title = `OurFlow | loading...` 
+  },
 };
 </script>
 <style lang="scss">
+#loading {
+  max-width: 100vw;
+}
 .cls-1 {
   fill: none;
   stroke: #fff;
@@ -55,16 +61,6 @@ export default {
     stroke-dashoffset: -2500;
   }
 }
-
-// .container-loader {
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   text-align: center;
-//   overflow: hidden;
-// }
 
 .vague-loader {
   width: 100px;

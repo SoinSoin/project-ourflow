@@ -1,7 +1,7 @@
-Django==2.1.5
+Django==2.2.1
 psycopg2
 psycopg2-binary
-django-webpack-loader
+gunicorn
 djangorestframework
 django-cors-headers
 whitenoise

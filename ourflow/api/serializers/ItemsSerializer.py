@@ -10,13 +10,17 @@ class ItemSerializer(serializers.ModelSerializer):
      
     def get_media_item(self, obj):
         request = self.context['request']
+        base_url =  "{0}://{1}".format(request.scheme, request.get_host())
         if obj.media_item:
-            if getattr(settings, "BASE_DIR", None):
-                path_media = obj.media_item.url.replace("/media{}/public/uploads".format(getattr(settings, "BASE_DIR", None)), '')
+            if getattr(settings, "DEBUG", None):
+                path_media = getattr(settings, "MEDIA_ROOT", None)
                 pass
             else:
-                path_media = obj.media_item.url.replace("{}/public".format(getattr(settings, "BASE_DIR", None)), '')
+                path_media = getattr(settings, "STATIC_ROOT", None)
                 pass
-            return "{0}://{1}{2}".format(request.scheme, request.get_host(),path_media)
-
-        
+            with_media = "{0}{1}".format(base_url, obj.media_item.url.replace(path_media,""))
+            return with_media.replace("/media","")
+            pass
+        else:
+            return "null"
+            pass

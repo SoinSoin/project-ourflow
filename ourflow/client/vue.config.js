@@ -1,6 +1,6 @@
 // for development return to see .env.development file
 module.exports = {
-  publicPath: process.env.PUBLIC_PATH, 
+  publicPath: process.env.VUE_APP_BASE_URL, 
   outputDir: '../dist/',
   lintOnSave: JSON.parse(process.env.VUE_APP_USE_LINT),
   chainWebpack: config => {

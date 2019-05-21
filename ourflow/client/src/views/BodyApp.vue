@@ -106,7 +106,6 @@ export default {
       if (width >= 1024) this.containerIsActive = false;
     },
     ContainerIsActive(ContainerIsActive) {
-
       this.containerIsActive = ContainerIsActive;
     },
     fetchingData() {
@@ -150,9 +149,12 @@ export default {
     }
   }
 };
-</script>
+</script> 
 
 <style lang="scss">
+#main-body {
+  max-width: 100vw;
+}
 .slide-leave-active {
   -webkit-animation-name: slideOutRight;
   animation-name: slideOutRight;
@@ -221,7 +223,7 @@ export default {
     z-index: 30;
   }
   .level-header-left {
-    z-index: 1;
+    z-index: 2;
   }
 }
 </style>

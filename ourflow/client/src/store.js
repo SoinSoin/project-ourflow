@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store=  new Vuex.Store({
   state: {
     indexNavSlide: Number,
     sizeScreen: Number,
@@ -59,7 +59,12 @@ export default new Vuex.Store({
       data.map((valpage, j) => {
         state.fetchPage.push(valpage.title_page.toLowerCase())
         valpage.paragraph.map((valpara, i) => {
-          switch (valpara.type.toLowerCase()) {
+          try {
+            var toLittleLetter = valpara.type.toLowerCase()
+          } catch (error) {
+            var toLittleLetter = valpara.type
+          }
+          switch (toLittleLetter) {
             case "slide":
               arr.push(data[j].paragraph[i])
               delete data[j].paragraph[i]
@@ -84,3 +89,5 @@ export default new Vuex.Store({
 
   }
 })
+
+export default store

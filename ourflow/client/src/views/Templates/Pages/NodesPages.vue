@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      awaiting: true,
+      loadPage: true,
       componentNames: [
         { name: "Home", order: 1 },
         { name: "Prestation", order: 2 },
@@ -79,10 +79,14 @@ export default {
 <style lang="scss">
 #main-pages {
   position: relative;
-  top: 100vh;
-  margin-top: 5vh;
-  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.3);
-  border-radius: 25px 25px 0 0;
   overflow: hidden;
+}
+@media screen and (min-width: 1024px) {
+  #main-pages {
+    top: 100vh;
+    margin-top: 5vh;
+    box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.3);
+    border-radius: 25px 25px 0 0;
+  }
 }
 </style>

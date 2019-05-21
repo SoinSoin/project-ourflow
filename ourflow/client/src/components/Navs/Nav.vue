@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar nav-navbar">
+  <nav class="navbar nav-navbar bg-nav">
     <div class="navbar-brand size-nav">
       <div
         class="navbar-item menu-item is-capitalized"
@@ -9,7 +9,6 @@
         <router-link :to="item.url">{{item.page}}</router-link>
       </div>
     </div>
-    <span class="bg-nav" :style="{'background-image':`url(${publicPath}background/bg_menu.svg )`}"></span>
   </nav>
 </template>
 
@@ -18,7 +17,6 @@ export default {
   name: "Nav",
   data() {
     return {
-      publicPath: process.env.VUE_APP_BASE_IMG,
       index: Number
     };
   }
@@ -38,15 +36,20 @@ nav {
 }
 
 .bg-nav {
+  position: fixed !important;
+  right: -1px;
+  top: 0;
+}
+.bg-nav::before {
+  content: "";
   position: absolute;
+  background-image: url("/img/background/bg_menu.svg");
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
   background-repeat: no-repeat;
   background-size: cover;
   width: 125%;
   height: 175%;
   right: 0;
-  top: 0;
-  z-index: -1;
 }
 .menu-item a {
   color: #000;

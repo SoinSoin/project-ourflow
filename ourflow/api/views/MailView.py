@@ -5,6 +5,8 @@ from rest_framework import status
 from django.core.mail import send_mail
 import re
 class SendMail(generics.views.APIView):
+    def get(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_404_NOT_FOUND )
     def post(self, request, *args, **kwargs):
         serializer = MailSerializer(data=request.data)
         data_form = {"name" : request.data['name'],"email" :request.data['email'], "phone": request.data['phone'],"content" :request.data['content']}

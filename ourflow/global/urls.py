@@ -14,29 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from django.conf.urls import url
-from api.views import SendMail, GetMedia
+from api.views import SendMail
 
 urlpatterns = [
     path('api/', include('api.urls')),
     path('mail/send/', SendMail.as_view()),
 ]
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if getattr(settings, "DEBUG", None):
-    urlpatterns += [path('admin/', admin.site.urls)]
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [path('admin/', admin.site.urls)]
     pass
 else:
     urlpatterns+=[path('our/flow/my/admin/', admin.site.urls)]
-    urlpatterns+= [url(r'^static/media/.*$', GetMedia.as_view())]
     pass
-urlpatterns += [url(r'^.*$', TemplateView.as_view(template_name='index.html'))]
 
-admin.site.site_header = "OurFlow Admin"
-admin.site.site_title = "OurFlow Admin Portal"
-admin.site.index_title = "Welcome to OurFlow Admin"
+admin.site.site_header = "OurFlow API Admin"
+admin.site.site_title = "OurFlow API Admin Portal"
+admin.site.index_title = "Welcome to OurFlow API Admin"

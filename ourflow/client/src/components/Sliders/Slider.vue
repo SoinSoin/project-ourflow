@@ -8,33 +8,21 @@
       <div class="resp-nav-slide">
         <div class="columns is-mobile">
           <div class="icon-slide column is-4 is-fullcentered">
-            <div
-              class="swiper-button-prev resp-button"
-              :style="{'background-image':`url(${publicPath}slider/left-arrow.svg)`}"
-            ></div>
+            <div class="swiper-button-prev resp-button"></div>
           </div>
           <div class="column is-4 has-text-centered is-fullcentered is-paddingless">
             <p class="title is-size-6-mobile has-text-grey-dark">Swipe</p>
           </div>
           <div class="icon-slide column is-4 is-fullcentered">
-            <div
-              class="swiper-button-next resp-button"
-              :style="{'background-image':`url(${publicPath}slider/right-arrow.svg)`}"
-            ></div>
+            <div class="swiper-button-next resp-button"></div>
           </div>
         </div>
       </div>
     </div>
 
     <div v-else class="icon-slide">
-      <div
-        class="swiper-button-next has-text-grey-dark"
-        :style="{'background-image':`url(${publicPath}slider/right-arrow.svg)`}"
-      ></div>
-      <div
-        class="swiper-button-prev has-text-grey-dark"
-        :style="{'background-image':`url(${publicPath}slider/left-arrow.svg)`}"
-      ></div>
+      <div class="swiper-button-next has-text-grey-dark"></div>
+      <div class="swiper-button-prev has-text-grey-dark"></div>
     </div>
   </div>
 </template>
@@ -45,8 +33,7 @@ export default {
   name: "Slider",
   data() {
     return {
-      publicPath: process.env.VUE_APP_BASE_IMG,
-      changeSlide: null,
+      selfSlider: null,
       virtualData: {
         slides: []
       }
@@ -67,7 +54,7 @@ export default {
     getStoreIndex(index) {
       if (this.$store.getters.getSize >= 1024) var timeAnime = 500;
       else var timeAnime = 0;
-      this.changeSlide.slideTo(index, timeAnime);
+      this.selfSlider.slideTo(index, timeAnime);
     }
   },
 
@@ -87,16 +74,16 @@ export default {
           renderExternal(data) {
             self.$store.commit("setIndex", this.realIndex);
             self.virtualData = data;
-            self.changeSlide = this;
+            self.selfSlider = this; 
             self.$router.push(self.$store.getters.getUrl[this.realIndex].url);
           }
         }
       });
     },
     updateNavSlide() {
-      this.changeSlide.navigation.destroy();
-      this.changeSlide.navigation.init();
-      this.changeSlide.navigation.update();
+      this.selfSlider.navigation.destroy();
+      this.selfSlider.navigation.init();
+      this.selfSlider.navigation.update();
     }
   }
 };
@@ -116,14 +103,28 @@ export default {
     margin-top: -20px;
     background-size: 20px 40px;
   }
+  .swiper-button-prev {
+    background-image: url("/img/slider/left-arrow.svg");
+  }
+  .swiper-button-next {
+    background-image: url("/img/slider/right-arrow.svg");
+  }
 }
 .container-swiper-nav-resp {
   position: absolute;
   height: auto;
   z-index: 5;
-  top: 85%;
+  top: 80vh;
   left: 0;
   width: 100%;
   padding: 0 30%;
 }
+
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  .container-swiper-nav-resp {
+    top: 90vh;
+  }
+}
+
+
 </style>
