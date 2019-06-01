@@ -1,6 +1,6 @@
 <template>
   <div id="body-app">
-    <div v-if="!isLoading " id="main-body" class="container is-fluid is-marginless">
+    <div v-if="!isLoading && $store.getters.getLoaded ===100 " id="main-body" class="container is-fluid is-marginless">
       <!-- header -->
       <header class="level is-mobile is-marginless level-header">
         <div class="level-left level-header-left">
@@ -30,7 +30,7 @@
       <!-- end footer -->
     </div>
     <!-- is loading -->
-    <div v-else id="main-body">
+    <div v-else id="body-app">
       <Loader>
         <p class="chargement has-text-centered full-width-content">{{$store.getters.getLoaded}}%</p>
       </Loader>
@@ -136,7 +136,7 @@ export default {
         } else {
           objUrl = {
             page: val.title_page,
-            path: `/${val.title_page.toLowerCase()}`,
+            path: `/${val.title_page.toLowerCase()}/`,
             url: {
               name: "contents",
               params: { page: val.title_page, index: index }
@@ -152,8 +152,8 @@ export default {
 </script> 
 
 <style lang="scss">
-#main-body {
-  max-width: 100vw;
+#body-app {
+  max-width: 100vw !important;
 }
 .slide-leave-active {
   -webkit-animation-name: slideOutRight;

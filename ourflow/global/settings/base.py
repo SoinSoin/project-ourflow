@@ -54,16 +54,6 @@ TEMPLATES = [
     },
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-# Conf SMTP server
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST= 'mail.ourflow.fr'
-EMAIL_HOST_USER='giph5260'
-EMAIL_HOST_PASSWORD='VEPM6qjecSjw'
-EMAIL_PORT = 26
-EMAIL_USE_TLS=True
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -100,6 +90,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public')
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [STATIC_ROOT,]
 
 WHITENOISE_AUTOREFRESH = True

@@ -34,6 +34,9 @@ export default {
   height: 100vh;
   top: 0;
 }
+.hero.is-warning .title {
+  color: #ffffff;
+}
 .menu-item-mobile {
   margin: 50px 0;
   .router-link-exact-active {

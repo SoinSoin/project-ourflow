@@ -5,32 +5,36 @@
         <div class="column is-3">
           <Coordinate/>
         </div>
-        <div class="column is-6 is-fullcentered">
-          <div class="columns is-multiline">
-            <div class="column is-12">
-              <div class="breadcrumb is-centered has-color-white">
-                <ul class="has-text-white">
-                  <li
-                    class="has-text-white"
-                    v-for="(item, index) in $store.getters.getUrl"
-                    :key="index"
-                  >
-                    <router-link class="is-capitalized" :to="item.url">{{item.page}}</router-link>
-                  </li>
-                </ul>
+        <div class="column is-6">
+          <div class="container-flex-center is-fullcentered">
+            <div class="columns is-multiline">
+              <div class="column is-12">
+                <div class="breadcrumb is-centered has-color-white">
+                  <ul class="has-text-white">
+                    <li
+                      class="has-text-white"
+                      v-for="(item, index) in $store.getters.getUrl"
+                      :key="index"
+                    >
+                      <router-link class="is-capitalized" :to="item.url">{{item.page}}</router-link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="column is-12">
-              <div class="content">
-                <p
-                  class="has-text-white"
-                >2019 - Site Designé par Jules Yebdri et développé par OurFlow®.</p>
+              <div class="column is-12">
+                <div class="content">
+                  <p
+                    class="has-text-white has-text-centered"
+                  >2019 - Site Designé par Jules Yebdri et développé par OurFlow®.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="column is-3 is-fullcentered">
-          <Rsociaux class="footer-rsociaux"/>
+          <div class="container-flex-center is-fullcentered">
+            <Rsociaux class="footer-rsociaux"/>
+          </div>
         </div>
       </div>
     </div>
@@ -93,7 +97,7 @@ export default {
 @media (max-width: 767px) {
   .breadcrumb {
     a {
-      padding: 0 0.5em !important;
+      padding: 0 0.35em !important;
     }
   }
 }

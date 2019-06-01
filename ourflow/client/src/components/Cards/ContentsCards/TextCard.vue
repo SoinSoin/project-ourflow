@@ -4,14 +4,15 @@
       <div class="top-content-card is-fullcentered">
         <div class="card-content has-text-left has-text-centered-mobile">
           <div class="media">
-            <div class="media-content">
+            <div class="media-content media-content-index">
               <h2
                 class="title is-2 is-size-3-mobile has-text-warning has-text-centered-mobile"
               >{{dataCard.title_para}}</h2>
             </div>
           </div>
           <div class="content is-size-7-mobile has-text-grey-dark">
-            <p>{{dataCard.item[0].synopsis}}</p>
+            <p v-if="dataCard.item[0].synopsis">{{dataCard.item[0].synopsis}}</p>
+            <p v-else>{{dataCard.item[0].descritpion_item}}</p>
           </div>
         </div>
       </div>
@@ -66,6 +67,12 @@ export default {
     height: 75%;
     width: 100%;
     padding: 5%;
+  }
+}
+
+.media {
+  .media-content-index {
+    z-index: 1 !important;
   }
 }
 

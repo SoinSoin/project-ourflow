@@ -36,6 +36,7 @@ export default {
     $route(to, from) {
       this.setIndexUrl(to);
       this.setMetaTitle();
+      this.goUpPage();
     }
   },
   beforeMount() {
@@ -44,6 +45,12 @@ export default {
     this.addComponentData();
   },
   methods: {
+    goUpPage() {
+      window.scrollTo({
+        top: document.documentElement.offsetTop,
+        left: 0
+      });
+    },
     setMetaTitle() {
       document.title = `OurFlow | ${
         this.$store.getters.getPage[this.$store.getters.getIndex]
@@ -58,7 +65,10 @@ export default {
       if (!isNaN(selfRoute.params.index)) this.setIndexTitle(selfRoute);
       else {
         this.$store.getters.getUrl.map((val, index) => {
-          if (val.path === selfRoute.path) {
+          if (
+            val.path === selfRoute.path ||
+            `${val.path}/` === selfRoute.path
+          ) {
             this.$store.commit("setIndex", val.url.params.index);
           }
         });

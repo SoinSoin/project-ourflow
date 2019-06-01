@@ -5,17 +5,23 @@
         :class="{'highlight-title-is-3':true, 'highlight-title-is-3-white':isArrowWhite,'highlight-title-is-3-yellow':!isArrowWhite}"
       >{{fetchData.title_para}}</span>
     </h3>
-    <ul class="fa-ul">
-      <li class="space-li" v-for="index in fetchData.item.length-1" :key="index">
-        <span class="fa-li">
-          <fa-icon
-            :class="{'has-text-white':isArrowWhite, 'has-text-warning': !isArrowWhite, 'size-style-list':true}"
-            :icon="{ prefix: 'fas', iconName: 'long-arrow-alt-right' }"
-          />
-        </span>
-        {{fetchData.item[index].descritpion_item}}
-      </li>
-    </ul>
+    <div class="columns is-multiline">
+      <div class="column is-half" v-for="index in fetchData.item.length-1" :key="index">
+        <div class="columns is-mobile">
+          <div class="column is-2">
+            <span class="container-flex-center is-fullcentered">
+              <fa-icon
+                :class="{'has-text-white':isArrowWhite, 'has-text-warning': !isArrowWhite, 'size-style-list':true}"
+                :icon="{ prefix: 'fas', iconName: 'long-arrow-alt-right' }"
+              />
+            </span>
+          </div>
+          <div class="column is-10">
+              <p class="has-text-weight-semibold">{{fetchData.item[index].descritpion_item}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>

@@ -23,5 +23,7 @@ export default {
 <style lang="scss">
 .stencil-section {
   fill: #262524;
+  width: calc(100% + 4px);
+  height: auto;
 }
 </style>

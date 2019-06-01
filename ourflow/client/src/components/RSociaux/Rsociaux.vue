@@ -1,20 +1,26 @@
 <template>
   <div class="container-icons">
     <div class="columns is-8 is-mobile">
-      <div class="column is-fullcentered">
-        <a class="icon" href="https://facebook.com/ourflowagenceweb/">
-          <fa-icon class="rs" :icon="{ prefix: 'fab', iconName: 'facebook-f' }" size="2x"/>
-        </a>
+      <div class="column">
+        <div class="container-flex-center is-fullcentered">
+          <a class="icon" href="https://facebook.com/ourflowagenceweb/">
+            <fa-icon class="rs" :icon="{ prefix: 'fab', iconName: 'facebook-f' }" size="2x"/>
+          </a>
+        </div>
       </div>
-      <div class="column is-fullcentered">
-        <a class="icon" href="https://instagram.com/ourflowagenceweb/">
-          <fa-icon class="rs" :icon="{ prefix: 'fab', iconName: 'instagram' }" size="2x"/>
-        </a>
+      <div class="column">
+        <div class="container-flex-center is-fullcentered">
+          <a class="icon" href="https://instagram.com/ourflowagenceweb/">
+            <fa-icon class="rs" :icon="{ prefix: 'fab', iconName: 'instagram' }" size="2x"/>
+          </a>
+        </div>
       </div>
-      <div class="column is-fullcentered">
-        <a class="icon" href="https://twitter.com/flow_our/">
-          <fa-icon class="rs" :icon="{ prefix: 'fab', iconName: 'twitter' }" size="2x"/>
-        </a>
+      <div class="column">
+        <div class="container-flex-center is-fullcentered">
+          <a class="icon" href="https://twitter.com/flow_our/">
+            <fa-icon class="rs" :icon="{ prefix: 'fab', iconName: 'twitter' }" size="2x"/>
+          </a>
+        </div>
       </div>
     </div>
   </div>

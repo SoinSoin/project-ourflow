@@ -34,7 +34,7 @@ export default {
 </script>
 <style lang="scss">
 #loading {
-  max-width: 100vw;
+  max-width: 100vw !important;
 }
 .cls-1 {
   fill: none;

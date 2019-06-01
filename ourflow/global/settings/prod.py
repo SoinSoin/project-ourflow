@@ -3,7 +3,26 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from .base import *
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.ourflow.fr']
+
+#cors header
+CORS_ORIGIN_WHITELIST  = [
+     "https://ourflow.fr",
+]
+CORS_ORIGIN_REGEX_WHITELIST  = [
+    r"^https://\w+\.ourflow\.fr$",
+]
+
+CORS_ALLOW_METHODS  = [
+     ' DELETE ' ,
+     ' GET ' ,
+     ' OPTIONS ' ,
+     ' PATCH ' ,
+     ' POST ' ,
+     ' PUT ' ,
+]
+
+# CORS_ORIGIN_ALLOW_ALL = True
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
@@ -28,6 +47,14 @@ DATABASES = {
         'PORT': '5432',
     }   
 }
+
+# Conf SMTP server
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST= os.environ['MAIL_HOST']
+EMAIL_HOST_USER= os.environ['MAIL_USER']
+EMAIL_HOST_PASSWORD=os.environ['MAIL_PSWD']
+EMAIL_PORT = 26
+EMAIL_USE_TLS=True
 
 MEDIA_URL = '/static/media/'
 

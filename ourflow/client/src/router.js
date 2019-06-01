@@ -21,12 +21,23 @@ const router = new Router({
         name: 'notfound',
       },
       {
-        path: ':page',
+        path: ':page/',
         name: 'contents',
         props: true,
         component: NodePage,
+        pathToRegexpOptions: {
+          strict: true
+        }
       }
     ]
   }]
+})
+router.beforeEach((to, from, next) => {
+  var splitWord = to.path.split("")
+  if (splitWord[splitWord.length - 1] !== '/')
+    next({
+      path: `${to.path}/`
+    })
+  next()
 })
 export default router

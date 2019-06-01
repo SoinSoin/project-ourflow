@@ -6,11 +6,15 @@
     <div class="hero-body hero-list">
       <div class="container">
         <div :class="{'columns':true,  'is-8':true, 'is-direction-column':true}" v-if="isToRight%2">
-          <div class="column is-3 is-fullcentered">
-            <ImageList :fetchData="fetchData.item[0]"/>
+          <div class="column is-3">
+            <div class="container-flex-center is-fullcentered">
+              <ImageList :fetchData="fetchData.item[0]"/>
+            </div>
           </div>
-          <div class="column is-9 is-fullcentered">
-            <TextList :fetchData="fetchData" :isArrowWhite="isToRight%2"/>
+          <div class="column is-9">
+            <div class="container-flex-center is-fullcentered">
+              <TextList :fetchData="fetchData" :isArrowWhite="isToRight%2"/>
+            </div>
           </div>
         </div>
 
@@ -18,11 +22,15 @@
           :class="{'columns':true,  'is-8':true, 'is-direction-column':true,'is-direction-column-resp':!(isToRight%2)}"
           v-else
         >
-          <div class="column is-9 is-fullcentered">
-            <TextList :fetchData="fetchData" :isArrowWhite="isToRight%2"/>
+          <div class="column is-9">
+            <div class="container-flex-center is-fullcentered">
+              <TextList :fetchData="fetchData" :isArrowWhite="isToRight%2"/>
+            </div>
           </div>
-          <div class="column is-3 is-fullcentered">
-            <ImageList :fetchData="fetchData.item[0]"/>
+          <div class="column is-3">
+            <div class="container-flex-center is-fullcentered">
+              <ImageList :fetchData="fetchData.item[0]"/>
+            </div>
           </div>
         </div>
       </div>

@@ -35,15 +35,22 @@
         </div>
       </article>
       <article id="main-technologies" v-if="index == 2">
-        <div class="columns is-multiline is-fullcentered">
+        <div
+          :class="{'columns':true, 'is-multiline':true, 'is-fullcentered': $store.getters.getSize>768}"
+        >
           <div
-            class="column is-2 is-fullcentered"
+            :class="{'column':true, 'is-2':true}"
             v-for="(item, indexItem) in para.item"
             :key="indexItem"
           >
-            <figure class="image" :title="item.title_item">
-              <img :src="item.media_item" :alt="item.alt_item">
-            </figure>
+            <div class="container-flex-center is-fullcentered">
+              <figure
+                class="image"
+                :title="item.title_item"
+              >
+                <img :src="item.media_item" :alt="item.alt_item">
+              </figure>
+            </div>
           </div>
         </div>
       </article>

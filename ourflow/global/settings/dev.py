@@ -3,7 +3,9 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from .base import *
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['*']
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     'default': {
@@ -15,6 +17,14 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# Conf SMTP server
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST= 'mail.ourflow.fr'
+EMAIL_HOST_USER='contact@ourflow.fr'
+EMAIL_HOST_PASSWORD='gehce7-hivhaq-peDger'
+EMAIL_PORT = 26
+EMAIL_USE_TLS=True
 
 MEDIA_URL = '/media/'
 

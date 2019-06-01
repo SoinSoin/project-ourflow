@@ -20,7 +20,11 @@
                 </div>
               </div>
               <div class="content-btn-circle">
-                <slot/>
+                <div class="container-flex-center">
+                  <div class="is-fullcentered">
+                    <slot/>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -35,7 +39,7 @@ export default {
   name: "Cercle",
   props: {
     dataCercle: {},
-    isYellow:Number,
+    isYellow: Number
   },
   beforeMount() {
     this.lessText();
@@ -77,7 +81,7 @@ export default {
   overflow: hidden;
   .container-circle-half {
     width: 100%;
-    height: 50%;
+    height: calc(50% + 5px);
     position: relative;
   }
 }

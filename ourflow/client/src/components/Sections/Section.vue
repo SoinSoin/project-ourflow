@@ -6,7 +6,7 @@
       <div class="container section-container">
         <div class="content">
           <h1
-            :class="{'subtitle':true, 'is-1':true, 'is-size-2-mobile':true, 'is-capitalized':true, 'has-text-weight-light':true,'has-text-warning':!(hasColor%2),'has-text-white':hasColor%2}"
+            :class="{'has-text-centered':true, 'subtitle':true, 'is-1':true, 'is-size-2-mobile':true, 'is-capitalized':true, 'has-text-weight-light':true,'has-text-warning':!(hasColor%2),'has-text-white':hasColor%2}"
           >
             {{titleSec}}
             <span class="higlight-title"></span>
