@@ -34,10 +34,9 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   var splitWord = to.path.split("")
-  if (splitWord[splitWord.length - 1] !== '/')
-    next({
-      path: `${to.path}/`
-    })
-  next()
+  if (splitWord[splitWord.length - 1] !== '/') next({
+    path: `${to.path}/`
+  })
+  else next()
 })
 export default router

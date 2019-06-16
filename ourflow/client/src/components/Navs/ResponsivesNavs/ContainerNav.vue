@@ -3,7 +3,7 @@
     <div class="hero-body">
       <div class="container">
         <div
-          class="menu-item-mobile has-text-white is-capitalized"
+          class="has-text-centered menu-item-mobile has-text-white is-capitalized"
           v-for="(item, index) in $store.getters.getUrl"
           :key="index"
         >

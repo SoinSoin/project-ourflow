@@ -27,9 +27,21 @@
 <script>
 export default {
   name: "Loader",
-  beforeMount() {
-          document.title = `OurFlow | loading...` 
+  beforeCreate() {
+    document.title = `OurFlow | loading...`;
   },
+  mounted() {
+    this.containerIsActive();
+  },
+  destroyed() {
+    this.containerIsActive();
+  },
+  methods: {
+    containerIsActive(bool) {
+      // pass the html to overflow hidden
+      document.documentElement.classList.toggle("is-clipped");
+    }
+  }
 };
 </script>
 <style lang="scss">

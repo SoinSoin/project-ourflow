@@ -19,7 +19,7 @@ export default {
             clearInterval(dynamicLoad);
           }
         }
-        setInterval(dynamicLoad, 60)
+        setInterval(dynamicLoad, 24)
       }
     })
   },

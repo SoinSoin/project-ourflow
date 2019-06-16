@@ -14,9 +14,11 @@ module.exports = {
   configureWebpack: {
     plugins: [new PrerenderSPAPlugin({
       staticDir: path.resolve(__dirname, '..', 'dist'), // The path to the folder where index.html is.
-      routes: ['/', '/contact/', '/prestations/'], // List of routes to prerender.
-      renderAfterTime: 60000,
-      renderer: new PuppeteerRenderer(),
+      routes: ['/', '/contact', '/prestations'], // List of routes to prerender.
+      captureAfterElementExists: '#main-skeleton',
+      renderer: new PuppeteerRenderer({
+        renderAfterElementExists: '#main-skeleton'
+      }),
     })]
   },
   chainWebpack: config => {

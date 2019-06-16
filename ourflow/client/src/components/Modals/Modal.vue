@@ -83,10 +83,11 @@ export default {
 .content-modal-image {
   height: 100%;
   overflow: auto;
+  padding-left: 15%;
   .img-modal {
     margin: 1.5em auto;
     img {
-      width: 80%;
+      width: 100%;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       border-radius: 10px;
     }
@@ -101,6 +102,12 @@ export default {
       left: 0;
       top: calc(100% - 3px);
     }
+  }
+  .content-modal-image {
+    height: 100%;
+    overflow: auto;
+    padding-left: 0;
+    padding-top: 15%;
   }
   .content-modal {
     // overflow: auto;
@@ -123,9 +130,6 @@ export default {
     }
     .img-modal {
       margin: 1.5em auto;
-      img {
-        width: 90%;
-      }
     }
   }
 }
