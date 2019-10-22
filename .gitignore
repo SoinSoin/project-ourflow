@@ -65,14 +65,14 @@ target/
 __pycache__/
 local_settings.py
 
-.env
+# .env
 db.sqlite3
 
 ### node/vue ###
 *.DS_Store
 node_modules/
 dist/
-.env.*
+*.env
 
 # Log files
 npm-debug.log*
