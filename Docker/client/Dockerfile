@@ -87,19 +87,15 @@ RUN npm install -g @vue/cli \
 
 RUN mkdir -p /usr/src/ourflow/client/
 
+COPY ourflow/client/. /usr/src/ourflow/client/
+
+
 WORKDIR /usr/src/ourflow/client/
 
-COPY ourflow/client/. .
-
-RUN npm install \
-    && npm update \
-    && npm audit fix --force  \
-    && npm cache clean --force  \
-    && npm install puppeteer@1.19.0
-    
+RUN npm install 
 
 VOLUME /usr/src/ourflow/client/
 
 EXPOSE 8080
 
-CMD ["npm", "run", "serve"]
+# CMD ["npm","run","serve"]

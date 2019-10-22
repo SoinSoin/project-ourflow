@@ -2,6 +2,16 @@
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const PuppeteerRenderer = PrerenderSPAPlugin.PuppeteerRenderer
 const path = require('path')
+
+
+const Puppeteer = new PrerenderSPAPlugin({
+  staticDir: path.resolve(__dirname, '..', 'dist'), // The path to the folder where index.html is.
+  routes: ['/', '/contact', '/prestations'], // List of routes to prerender.
+  captureAfterElementExists: '#main-skeleton',
+  renderer: new PuppeteerRenderer({
+    renderAfterElementExists: '#main-skeleton'
+  }),
+})
 module.exports = {
   publicPath: process.env.VUE_APP_BASE_URL,
   outputDir: '../dist/',
@@ -10,6 +20,9 @@ module.exports = {
     iconPaths: {
       favicon32: '/favicon.ico',
     }
+  },
+  configureWebpack: {
+    plugins: []
   },
   chainWebpack: config => {
     config.optimization
@@ -37,14 +50,8 @@ module.exports = {
   }
 };
 if (process.env.NODE_ENV === "production") {
-  module.exports.configureWebpack.plugins.push([new PrerenderSPAPlugin({
-    staticDir: path.resolve(__dirname, '..', 'dist'), // The path to the folder where index.html is.
-    routes: ['/', '/contact', '/prestations'], // List of routes to prerender.
-    captureAfterElementExists: '#main-skeleton',
-    renderer: new PuppeteerRenderer({
-      renderAfterElementExists: '#main-skeleton'
-    }),
-  })])
+  // there are a issue with chromium motor in contaiber !!! 
+  module.exports.configureWebpack.plugins.push(Puppeteer) 
 }
 // prerender withn spa-plugin and chromium motor.
 // if (process.env.NODE_ENV === 'production') {

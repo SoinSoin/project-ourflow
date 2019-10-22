@@ -29,6 +29,8 @@ services:
       dockerfile: Docker/client/Dockerfile
     ports:
       - "8080:8080"
+    tty: true
+    command: npm run serve
     volumes:
       - "../ourflow:/usr/src/ourflow/"
       - "../ourflow/client:/usr/src/ourflow/client/"
