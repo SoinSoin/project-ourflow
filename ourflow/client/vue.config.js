@@ -9,7 +9,9 @@ const Puppeteer = new PrerenderSPAPlugin({
   routes: ['/', '/contact', '/prestations'], // List of routes to prerender.
   captureAfterElementExists: '#main-skeleton',
   renderer: new PuppeteerRenderer({
-    renderAfterElementExists: '#main-skeleton'
+    renderAfterElementExists: '#main-skeleton',
+    executablePath: '/usr/bin/chromium-browser',
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
   }),
 })
 module.exports = {
@@ -51,7 +53,7 @@ module.exports = {
 };
 if (process.env.NODE_ENV === "production") {
   // there are a issue with chromium motor in contaiber !!! 
-  module.exports.configureWebpack.plugins.push(Puppeteer) 
+  module.exports.configureWebpack.plugins.push(Puppeteer)
 }
 // prerender withn spa-plugin and chromium motor.
 // if (process.env.NODE_ENV === 'production') {
