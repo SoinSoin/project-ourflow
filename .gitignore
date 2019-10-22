@@ -73,6 +73,7 @@ db.sqlite3
 node_modules/
 dist/
 *.env
+.env.*
 
 # Log files
 npm-debug.log*
