@@ -27,7 +27,6 @@ services:
     build:
       context: ../.
       dockerfile: Docker/client/Dockerfile
-    command: npm run serve --prefix /usr/src/ourflow/client/.
     ports:
       - "8080:8080"
     volumes:
